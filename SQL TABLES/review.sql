@@ -1,0 +1,21 @@
+CREATE TABLE review (
+reRno NUMBER PRIMARY KEY,
+reBno NUMBER NOT NULL ,
+reWriter VARCHAR2(30) NOT NULL ,
+reContent VARCHAR2(2000) NOT NULL ,
+reRegdate DATE DEFAULT SYSDATE ,
+reUpdatedate DATE DEFAULT SYSDATE ,
+CONSTRAINT review_fk_reBno FOREIGN KEY(reBno) REFERENCES product(prodBno)
+ON DELETE CASCADE
+)
+
+CREATE SEQUENCE review_seq
+INCREMENT BY 1
+START WITH 1
+MAXVALUE 1000000000
+NOCYCLE
+
+INSERT INTO review (reRno, reBno, reWriter, reContent)
+VALUES (3, 1, 'BahMir', '내용입니다')
+
+SELECT * FROM review
