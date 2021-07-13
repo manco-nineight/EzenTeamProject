@@ -19,15 +19,6 @@ public class HomeController {
 	@Autowired
 	private QNABoardService qService;
 
-	@RequestMapping(value = "/testInterceptor1", method = RequestMethod.GET)
-	public String testInterceptor1(Model model) {
-
-		System.out.println("Controller::::::::::::::/testInterceptor1:::::::::::::::::");
-		model.addAttribute("hello", "world");
-
-		return "home";
-	}
-
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {
 		
