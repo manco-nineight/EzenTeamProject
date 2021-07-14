@@ -81,3 +81,46 @@ a {
 .dep1{
 	text-align:center;
 }
+.prodOrder .dep3 > li {
+	display: inline-block;
+	width: 100px;
+	vertical-align : top;
+	text-align: center;
+	font-size: 13px;
+}
+.prodOrder .dep3 > li:hover > .dep4{
+	display: block;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+.prodOrder .dep3 > li > a {
+	display: block;
+	padding: 10px 0;
+}
+.prodOrder .dep4{
+	display: none;
+	padding: 10px 0;
+} 
+.prodOrder .dep4 a:hover{
+	text-decoration: initial;
+}
+.prodOrder .dep3 > li {
+	display: inline-block;
+	width: 100px;
+	vertical-align : top;
+	text-align: center;
+	font-size: 16px;
+	position:relative;
+}
+
+.dep4{
+	position: absolute;
+	left:0;
+	top:40px;
+	z-index: 10000;
+	width: 100%;
+	background : rgba(255,255,255,0.7);
+	}
+
+.dep3{
+	text-align:right;
+}
