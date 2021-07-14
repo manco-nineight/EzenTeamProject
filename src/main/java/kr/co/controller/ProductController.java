@@ -274,6 +274,32 @@ public class ProductController {
 
 		return list;
 	}
+	
+	/**
+	 *  PRODUCT LIST WITH SEARCH
+	 */
+	@RequestMapping(value = "/prodListSearch", method = RequestMethod.GET, produces = "text/plain;charset=utf-8")
+	public String prodListSeach(@RequestParam("keyword") String keyword ,@RequestParam(value = "prodCategory", required = false)  String prodCategory, @RequestParam(value = "prodOrder", required = false) String prodOrder, Model model) {
+		int curPage = 1;
+		
+		int amount = prodService.getProdAmount();
+		PageTO<ProductVO> to = new PageTO<ProductVO>(curPage);
+		to.setAmount(amount);
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("prodCategory", prodCategory);
+		map.put("prodOrder", prodOrder);
+
+		List<ProductVO> list = prodService.listProd(to.getStartNum(), map);
+		to.setList(list);
+
+		model.addAttribute("to", to);
+		model.addAttribute("prodCategory", prodCategory);
+		model.addAttribute("prodOrder", prodOrder);
+		
+		return "/product/prodList";
+	}
+	
 
 	/**
 	 *  PRODUCT READ

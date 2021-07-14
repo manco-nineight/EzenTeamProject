@@ -54,6 +54,10 @@
   			<li role="presentation"><a href="/product/prodList?prodCategory=${prodCategory}&prodOrder=prodPrice">price</a></li>
 		</ul>
 	</div>
+	
+	<div class="search">
+		<input class="search_keyword" type="text" placeholder="searchProduct"> <button class="search_btn">search</button>
+	</div>
 
 	<div class="row">
 		<c:forEach items="${to.list}" var="item">
@@ -75,6 +79,7 @@
 	});
 	
 	var curPage = 2;
+	
 	
 	window.onscroll = function(ev) {
 	    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
@@ -106,6 +111,23 @@
 		}
 			
 	};
+	
+	$(".search_btn").click(function(event) {
+		event.preventDefault;
+		
+		var keyword = $(".search_keyword").val();
+		
+		$.ajax({
+			type: "post",
+			url: "/product/prodListSearch?prodCategory=${prodCategory}&prodOrder=${prodOrder}",
+			data: {
+				"keyword" : keyword
+			},
+			dataType: "text"
+		});
+	});
+	
+	
 </script>
 
 
