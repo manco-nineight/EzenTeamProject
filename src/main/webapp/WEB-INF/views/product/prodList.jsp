@@ -11,20 +11,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="/resources/css/test.css">
-<style type="text/css">
-	.thumb_list {
-		margin: 20px;
-	}
-	.navbar .navbar-nav {
-
-  display: inline-block;
-
-  float: none;
-
-}
-</style>
-
+<link rel="stylesheet" href="/resources/css/list.css">
 </head>
 <body>
 <div class="container">
@@ -75,22 +62,29 @@
 	</div>
 	
 		<a href="/product/prodInsert">등록</a>
-	
 	<div class="prodOrder">
-		
-		<ul class="nav nav-pills">
-  			<li role="presentation"><a href="/product/prodList?prodCategory=${prodCategory}&prodOrder=prodSalesCount">판매순</a></li>
+		<ul class="dep3">
+			<li>
+				<a href="/product/prodList?prodCategory=&prodOrder=${prodOrder}">카테고리</a>
+				<ul class="dep4">
+					<li role="presentation"><a href="/product/prodList?prodCategory=${prodCategory}&prodOrder=prodSalesCount">판매순</a></li>
   			<li role="presentation"><a href="/product/prodList?prodCategory=${prodCategory}&prodOrder=prodRegdate">신상품</a></li>
-  			<li role="presentation"><a href="/product/prodList?prodCategory=${prodCategory}&prodOrder=prodPrice">가격순</a></li>
+  			<li role="presentation"><a href="/product/prodList?prodCategory=${prodCategory}&prodOrder=prodPrice">가격순</a></li>			            		
+				</ul>
+			</li>
+			</ul>
+			</div>
+	<div class="prodOrder">
+		<ul class="nav nav-pills">
+  			
 		</ul>
-		
 	</div>
 	
 	<div class="row">
 		<c:forEach items="${to.list}" var="item">
-			<div class="col-md-3 thumb_list">
+			<div class="col-md-3 thumb_list" style="margin: 1px 0;">
 				<div class="list_thumbnail">
-					<img src="${item.prodThumbnail}" style="height:200px;width:200px;">
+					<a href="/product/prodRead/${item.prodName}"><img src="${item.prodThumbnail}" style="height:200px;width:200px;"></a>
 					<p><a href="/product/prodRead/${item.prodName}">${item.prodName}</a></p>
 					<p>${item.prodTitle}</p>
 					<p>${item.prodPrice}</p>
