@@ -52,6 +52,9 @@ a {
 	top:40px;
 	z-index: 10000;
 	width: 100%;
-	background:#fff;
+	background : rgba(255,255,255,0.7);
 	}
 
+.dep1{
+	text-align:center;
+}
