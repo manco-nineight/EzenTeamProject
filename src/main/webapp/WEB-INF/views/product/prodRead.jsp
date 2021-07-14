@@ -11,37 +11,78 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-<style type="text/css">
-
-	.row {
-		margin: 20px;
-	}
-
-</style>
+<link rel="stylesheet" href="/resources/css/read.css">
 
 </head>
 <body>
 
-	<div class="contianer">
-		<div class="row">
-		
-			<p>${vo.prodName}</p>
-			<p>${vo.prodTitle}</p>
-			<p>${vo.prodPrice}</p>
-			<p>${vo.prodContent}</p>
+	<div class="container">
 	
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
+		<div class="logo">    
+		<a href="/index.html"><img src="/resources/img/3.jpg" height="16px;"/></a>
+		</div> 
+	
+		<div class="menu_wrap">
+		<ul class="dep1">
+			<li>
+				<a href="/product/prodList?prodCategory=&prodOrder=${prodOrder}">shop</a>
+				<ul class="dep2">
+					<li><a href="/product/prodList?prodCategory=top&prodOrder=${prodOrder}">top</a></li>
+					<li><a href="/product/prodList?prodCategory=bottom&prodOrder=${prodOrder}">bottom</a></li>
+					<li><a href="/product/prodList?prodCategory=outer&prodOrder=${prodOrder}">outer</a></li>
+					<li><a href="/product/prodList?prodCategory=acc&prodOrder=${prodOrder}">acc</a></li>			            		
+				</ul>
+			</li>
+			<li>
+				<a href="#">lookbook</a>
+				<ul class="dep2">
+					<li><a href="#">21ss</a></li>
+					<li><a href="#">20fw</a></li>
+					<li><a href="#">20ss</a></li>
+					<li><a href="#">19fw</a></li>			            		
+				</ul>
+			</li>
+			<li>
+				<a href="#">community</a>
+				<ul class="dep2">
+					<li><a href="#">notice</a></li>
+					<li><a href="#">Q/A</a></li>
+					<li><a href="#">review</a></li>
+					<li><a href="#">event</a></li>			            		
+				</ul>
+			</li>
+			<li>
+				<a href="#">account</a>
+				<ul class="dep2">
+					<li><a href="#">login</a></li>
+					<li><a href="#">order traking</a></li>
+					<li><a href="#">mypage</a></li>
+					<li><a href="#">cart</a></li>			            		
+				</ul>
+			</li>
+		</ul>  
+	</div>
+	
+	
+		<div class="row left" id="img">
+			<img src="${vo.prodThumbnail }">	
+		</div>
 		
+		
+		<div class="row" id="info">
+			<p style="font-size: 30px;">${vo.prodName}</p>
+			<p>${vo.prodTitle}</p>
+			<p>PRICE : &nbsp;&nbsp;&nbsp; ${vo.prodPrice}</p>
+			
 		</div> <!-- end of row -->
-		<a class="btn btn-warning update">수정</a>
-		<a class="btn btn-warning list">목록</a>
-		<a class="btn btn-warning delete">삭제</a>
+		<div class="row" id="content">
+		<p>${vo.prodContent}</p>
+		</div>
+		<div class="row" id="button">
+		<a class="update">&nbsp;&nbsp;UPDATE&nbsp;&nbsp;</a>|
+		<a class="list">&nbsp;&nbsp;LIST&nbsp;&nbsp;</a>|
+		<a class="delete">&nbsp;&nbsp;DELETE</a>
+		</div>
 		<form action="/product/prodDelete/${vo.prodName}?prodBno=${vo.prodBno}" method="post"></form>
 	</div> <!-- end of container -->
 	
