@@ -17,7 +17,6 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <!-- <script src="../resources/js/summernote-ko-KR.js"></script> -->
 <script src="/resources/js/summernote-lite.js"></script>
-<script type="text/javascript" src="/resources/js/script.js"></script>
 <link rel="stylesheet" href="/resources/css/summernote-lite.css">
 
 <style type="text/css">
@@ -42,7 +41,6 @@
 			
 			
 			<form id="thumbnail_insert" class="thumbnail_form" action="/product/prodUpdate" enctype="multipart/form-data" method="post">
-				<input type="hidden" value="${vo.prodBno}" name="prodBno">
 				<input accept="image/*" class="thumbnail_insert" type="file" name="prodThumbnailFile" onchange="setThumbnail(event)" />
 				<img id="oriThumnail" src="${vo.prodThumbnail}">
 			</form>
@@ -53,7 +51,12 @@
 		<div class="product_basic">
 			<form id="product" action="/product/prodUpdate" method="post">
 				prodName: <input type="text" name="prodName" value="${vo.prodName}" readonly> 
-				prodCategory: <input name="prodCategory" value="${vo.prodCategory}"> 
+				prodCategory: <select name="prodCategory">
+					<option value="top">TOP</option>
+					<option value="bottom">BOTTOM</option>
+					<option value="outer">OUTER</option>
+					<option value="acc">ACC</option>
+				</select>
 				prodTitle: <input type="text" name="prodTitle" value="${vo.prodTitle }"> 
 				prodPrice: <input name="prodPrice" value="${vo.prodPrice}">
 				(S)SIZE: <input name="prodStockSSize" value="${dto.prodStockSSize }">
@@ -103,8 +106,7 @@
 		}); /* end of document */
 		
 		/* after callbacks data work with controller */
-		function sendFile(file, el) {
-			var str = '';
+		function sendFile(file, el ) {
 			var formData = new FormData();
 			formData.append("file", file);
 			$.ajax({
@@ -115,16 +117,10 @@
 				contentType : false,
 				enctype: "multipart/form-data",
 				success : function(data) {
-						console.log(data);
 						$(el).summernote("insertImage", data);
-						str += fileUploadInput(data);
 						/* $("#summernote").append('<img src='+data.url+'/>'); */
-						/* console.log(str);
-						$("#thumbnail_insert").append(str); */
 				}
-				
 			});
-			
 		} /* end of sendFile function */
 		
 		$(".thumbnail").on("dragenter dragover drop", function(event) {
