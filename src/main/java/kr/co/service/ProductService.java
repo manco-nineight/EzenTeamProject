@@ -27,8 +27,8 @@ public interface ProductService {
 
 	void deleteProd(String prodName);
 
-	String prodNameDupCheck(String prodName);
+	ProductVO getContent(int bno);
 
-	ProductVO getContent(int prodBno);
+	String prodNameDupCheck(String prodName);
 
 }

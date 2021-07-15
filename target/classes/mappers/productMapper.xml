@@ -59,12 +59,12 @@
 		prodThumbnail
 		FROM
 		product
-		
-		
+
+
 		<if test=" prodCategory != null and prodCategory != '' ">
 			WHERE prodCategory = #{prodCategory}
 		</if>
-		
+
 		<if test=" prodOrder != null and prodOrder != '' ">
 			<trim prefix="ORDER BY">
 				<if test=" prodOrder == 'prodPrice' ">prodPrice</if>
@@ -72,9 +72,9 @@
 				<if test=" prodOrder == 'prodRegdate' ">prodRegdate</if>
 			</trim>
 		</if>
-		
+
 	</select>
-	
+
 
 	<select id="prodRead" resultType="ProductVO">
 		SELECT *
@@ -82,7 +82,7 @@
 		WHERE
 		prodName = #{prodName}
 	</select>
-	
+
 	<select id="getThumnail" resultType="String">
 		SELECT
 		prodThumbnail
@@ -91,11 +91,11 @@
 		WHERE
 		prodName = #{prodName}
 	</select>
-	
+
 	<update id="readcnt">
 		UPDATE product set prodReadCnt = prodReadCnt + 1
 	</update>
-	
+
 	<update id="updateProduct">
 		UPDATE product
 		SET
@@ -105,40 +105,40 @@
 		prodUpdatedate = SYSDATE,
 		prodPrice = #{prodPrice},
 		prodThumbnail = #{prodThumbnail}
-		WHERE 
+		WHERE
 		prodName = #{prodName}
-	
+
 	</update>
-	
+
 	<select id="getThumbFilePath" resultType="String">
 		SELECT
 		prodThumbnail
 		FROM product
 		WHERE prodName = #{prodName}
 	</select>
-	
+
 	<delete id="deleteProd">
 		DELETE
 		FROM product
 		WHERE prodNAme = #{prodName}
 	</delete>
-	
+
 	<select id="prodNameDupCheck" resultType="String">
 		SELECT
 		prodName
 		FROM product
 		WHERE prodName = #{prodName}
 	</select>
-	
+
 	<select id="getContent" resultType="ProductVO">
-		SELECT 
+		SELECT
 		prodContent
 		FROM
 		product
 		WHERE
 		prodBno = #{bno}
 	</select>
-	
-	
-	
+
+
+
 </mapper>

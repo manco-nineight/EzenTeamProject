@@ -29,7 +29,7 @@
   		<li role="presentation"><a href="/product/outerList">outer</a></li>
   		<li role="presentation" class="active"><a href="/product/accList">acc</a></li>
 		</ul>
-	
+
 	</div>
 
 	<div class="row">
@@ -39,7 +39,7 @@
 				<img src="${item.prodThumbnail}" style="height:200px;width:200px;">
 				<p><a href="/product/prodRead/${item.prodName}">${item.prodName}</a></p>
 				<p>${item.prodPrice}</p>
-			</div>		
+			</div>
 		</div>
 	</c:forEach>
 </div><!--row end  -->

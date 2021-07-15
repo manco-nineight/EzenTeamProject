@@ -49,7 +49,7 @@ public class ProdAttachDAOImpl implements ProdAttachDAO {
 	public List<String> getAttFilePath(int prodBno) {
 		return session.selectList(NAMESPACE + ".getAttFilePath", prodBno);
 	}
-	
+
 	@Override
 	public void deleteFileImg(String imgRealName) {
 		session.delete(NAMESPACE + ".deleteFileImg", imgRealName);

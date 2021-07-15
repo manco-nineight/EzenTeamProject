@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>Ezen_TeamProject0713v1</name>
+	<name>Ezen_TeamProject</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -26,7 +26,7 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>org.springframework.ide.eclipse.boot.validation.springbootbuilder</name>
+			<name>org.springframework.ide.eclipse.core.springbuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>

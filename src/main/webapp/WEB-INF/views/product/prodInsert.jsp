@@ -25,7 +25,7 @@
 		height: 200px;
 		border: solid 1px;
 	}
-	
+
 </style>
 
 </head>
@@ -35,29 +35,29 @@
 		<div>
 			<h1 class="jumbotron">prodINSERT</h1>
 		</div>
-	
+
 		<div id="thumbnail">
 		</div> <!-- end of thumbnial class -->
-			
-			
+
+
 			<form id="thumbnail_insert" class="thumbnail_form" action="/product/prodInsert" enctype="multipart/form-data" method="post">
 				<input accept="image/*" class="thumbnail_insert" type="file" name="prodThumbnailFile" onchange="setThumbnail(event)"/>
 			</form>
-		
+
 		<br>
 		<br>
 
 		<div class="product_basic">
 			<form id="product" action="/product/prodInsert" method="post">
-				prodName: <input id="prodName" type="text" name="prodName" oninput="duplicationCheck()"> 
-				prodCategory: 
+				prodName: <input id="prodName" type="text" name="prodName" oninput="duplicationCheck()">
+				prodCategory:
 				<select name="prodCategory">
 					<option value="top">TOP</option>
 					<option value="bottom">BOTTOM</option>
 					<option value="outer">OUTER</option>
 					<option value="acc">ACC</option>
 				</select>
-				prodTitle: <input type="text" name="prodTitle"> 
+				prodTitle: <input type="text" name="prodTitle">
 				prodPrice: <input name="prodPrice">
 				(S)SIZE: <input name="prodStockSSize">
 				(M)SIZE: <input name="prodStockMSize">
@@ -66,7 +66,7 @@
 			</form>
 		</div> <!-- end to the row class -->
 	</div> <!-- end of the container class -->
-	
+
 	<button class="prodInsert_btn">SAVE</button>
 
 	<script type="text/javascript">
@@ -76,30 +76,30 @@
 				minHeight: 500,
 				maxHeight: null,
 				focus: true,
-				
+
 				/* image upload*/
 				callbacks : {
 					onImageUpload: function(files, editor, welEditable) {
 					    sendFile(files[0], this);
 					}
-				} 
-				
+				}
+
 			}); /* end of summernote setting */
-			
-			
+
+
 			$(".prodInsert_btn").click(function(event) {
 				event.preventDefault();
-				
+
 				var $children = $("#product").children();
 				$("#thumbnail_insert").append($children);
 
 				$("#thumbnail_insert").submit();
-				
+
 			}); /* end of submit */
-			
-			
+
+
 		}); /* end of document */
-		
+
 		/* after callbacks data work with controller */
 		function sendFile(file, el) {
 			var formData = new FormData();
@@ -117,11 +117,11 @@
 				}
 			});
 		} /* end of sendFile function */
-		
+
 		$(".thumbnail").on("dragenter dragover drop", function(event) {
 			event.preventDefault();
 		});
-		
+
 		/* thumbnail preview */
 		function setThumbnail(event) {
 			var reader = new FileReader();
@@ -138,11 +138,11 @@
 		}
 
 		function duplicationCheck() {
-			
+
 			$.ajax({
 				type: "post",
-				data: { 
-					"prodName" : $("#prodName").val() 
+				data: {
+					"prodName" : $("#prodName").val()
 					},
 				url: "/product/prodNameDupCheck",
 				dataType: "text",
@@ -155,14 +155,14 @@
 						$("#pordName").css("opacity", "0.5");
 					}
 				}
-				
-				
-				
-				
+
+
+
+
 			});
 		}
-		
-		
+
+
 	</script>
 
 

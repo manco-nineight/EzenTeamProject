@@ -26,7 +26,7 @@
 		height: 200px;
 		border: solid 1px;
 	}
-	
+
 </style>
 
 </head>
@@ -36,25 +36,25 @@
 		<div>
 			<h1 class="jumbotron">prodINSERT</h1>
 		</div>
-	
+
 		<div id="thumbnail">
 		</div> <!-- end of thumbnail class -->
-			
-			
+
+
 			<form id="thumbnail_insert" class="thumbnail_form" action="/product/prodUpdate" enctype="multipart/form-data" method="post">
 				<input type="hidden" value="${vo.prodBno}" name="prodBno">
 				<input accept="image/*" class="thumbnail_insert" type="file" name="prodThumbnailFile" onchange="setThumbnail(event)" />
 				<img id="oriThumnail" src="${vo.prodThumbnail}">
 			</form>
-		
+
 		<br>
 		<br>
 
 		<div class="product_basic">
 			<form id="product" action="/product/prodUpdate" method="post">
-				prodName: <input type="text" name="prodName" value="${vo.prodName}" readonly> 
-				prodCategory: <input name="prodCategory" value="${vo.prodCategory}"> 
-				prodTitle: <input type="text" name="prodTitle" value="${vo.prodTitle }"> 
+				prodName: <input type="text" name="prodName" value="${vo.prodName}" readonly>
+				prodCategory: <input name="prodCategory" value="${vo.prodCategory}">
+				prodTitle: <input type="text" name="prodTitle" value="${vo.prodTitle }">
 				prodPrice: <input name="prodPrice" value="${vo.prodPrice}">
 				(S)SIZE: <input name="prodStockSSize" value="${dto.prodStockSSize }">
 				(M)SIZE: <input name="prodStockMSize" value="${dto.prodStockMSize }">
@@ -63,45 +63,45 @@
 			</form>
 		</div> <!-- end to the row class -->
 	</div> <!-- end of the container class -->
-	
+
 	<button class="prodInsert_btn">SAVE</button>
 
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$("#summernote").summernote({
-				
+
 				placeholder: "content",
 				minHeight: 500,
 				maxHeight: null,
 				focus: true,
-				
+
 				/* image upload*/
 				callbacks : {
-					
+
 					onImageUpload: function(files, editor, welEditable) {
 					sendFile(files[0], this );
 					}
-				} 
-				
+				}
+
 			}); /* end of summernote setting */
-			
-			
+
+
 			$(".prodInsert_btn").click(function(event) {
 				event.preventDefault();
-				
+
 				var $children = $("#product").children();
-				
+
 				$("#oriThumnail").remove();
-				
+
 				$("#thumbnail_insert").append($children);
 
 				$("#thumbnail_insert").submit();
-				
+
 			}); /* end of submit */
-			
-			
+
+
 		}); /* end of document */
-		
+
 		/* after callbacks data work with controller */
 		function sendFile(file, el) {
 			var str = '';
@@ -118,19 +118,17 @@
 						console.log(data);
 						$(el).summernote("insertImage", data);
 						str += fileUploadInput(data);
-						/* $("#summernote").append('<img src='+data.url+'/>'); */
-						/* console.log(str);
-						$("#thumbnail_insert").append(str); */
+
 				}
-				
+
 			});
-			
+
 		} /* end of sendFile function */
-		
+
 		$(".thumbnail").on("dragenter dragover drop", function(event) {
 			event.preventDefault();
 		});
-		
+
 		/* thumbnail preview */
 		function setThumbnail(event) {
 			var reader = new FileReader();

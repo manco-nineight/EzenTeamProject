@@ -31,7 +31,7 @@
 		</ul>
 	<a href="/product/prodInsert">등록</a>
 	</div>
-	
+
 	<div class="row">
 	<c:forEach items="${to.list}" var="item">
 		<div class="col-md-3 thumb_list">
@@ -39,7 +39,7 @@
 				<img src="${item.prodThumbnail}" style="height:200px;width:200px;">
 				<p><a href="/product/prodRead/${item.prodName}">${item.prodName}</a></p>
 				<p>${item.prodPrice}</p>
-			</div>		
+			</div>
 		</div>
 	</c:forEach>
 </div><!--row end  -->

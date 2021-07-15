@@ -32,24 +32,24 @@ public class ProductDAOImpl implements ProductDAO {
 	public int getProdAmount() {
 		return session.selectOne(NAMESPACE + ".getProdAmount");
 	}
-	
+
 	@Override
 	public List<ProductVO> listProd(int startNum, Map<String, Object> map) {
-		
+
 		RowBounds rb = new RowBounds(startNum - 1, 5);
-		
+
 		return session.selectList(NAMESPACE + ".listProd", map, rb);
 	}
-	
+
 	@Override
 	public ProductVO prodRead(String prodName) {
 		return session.selectOne(NAMESPACE + ".prodRead", prodName);
 	}
-	
+
 	@Override
 	public void readcnt(String prodName) {
 		session.update(NAMESPACE + ".readcnt", prodName);
-		
+
 	}
 
 	@Override
@@ -61,7 +61,7 @@ public class ProductDAOImpl implements ProductDAO {
 	@Override
 	public void updateProduct(ProductVO prodVO) {
 		session.update(NAMESPACE + ".updateProduct", prodVO);
-		
+
 	}
 
 	@Override
@@ -69,12 +69,12 @@ public class ProductDAOImpl implements ProductDAO {
 		// TODO Auto-generated method stub
 		return session.selectOne(NAMESPACE + ".getThumnail", prodName);
 	}
-	
+
 	@Override
 	public List<String> getThumbFilePath(String prodName) {
 		return session.selectList(NAMESPACE + ".getThumbFilePath", prodName);
 	}
-	
+
 	@Override
 	public void deleteProd(String prodName) {
 		session.delete(NAMESPACE + ".deleteProd", prodName);
@@ -84,12 +84,12 @@ public class ProductDAOImpl implements ProductDAO {
 	public String prodNameDupCheck(String prodName) {
 		return session.selectOne(NAMESPACE + ".prodNameDupCheck", prodName);
 	}
-	
+
 	@Override
 	public ProductVO getContent(int bno) {
 		// TODO Auto-generated method stub
 		return session.selectOne(NAMESPACE+".getContent", bno);
 	}
-	
+
 
 }

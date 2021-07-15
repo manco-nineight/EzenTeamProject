@@ -8,16 +8,16 @@
 		INSERT
 		INTO prod_attach
 		(
-		prodAttProdImg, 
+		prodAttProdImg,
 		prodAttPreBno
 		)
-		VALUES 
+		VALUES
 		(
 		#{filePath},
 		#{bno}
 		)
 	</insert>
-	
+
 	<update id="updateBno">
 		UPDATE
 		prod_attach
@@ -26,7 +26,7 @@
 		WHERE
 		prodAttPreBno = #{prodBno}
 	</update>
-	
+
 	<insert id="updateAttachInfo">
 		INSERT
 		INTO prod_attach
@@ -42,14 +42,14 @@
 		#{bno}
 		)
 	</insert>
-	
+
 	<delete id="deleteAttachFileBno">
 		DELETE
 		FROM prod_attach
 		WHERE
 		prodAttBno = #{bno}
 	</delete>
-	
+
 	<select id="getAttFilePath" resultType="String">
 		SELECT
 		prodAttProdImg
@@ -57,15 +57,15 @@
 		prod_attach
 		WHERE prodAttBno = #{prodBno}
 	</select>
-	
+
 	<delete id="deleteFileImg">
-		DELETE 
+		DELETE
 		FROM
 		prod_attach
 		WHERE
 		prodAttProdImg = #{imgRealName}
-	
+
 	</delete>
-	
-	
+
+
 </mapper>

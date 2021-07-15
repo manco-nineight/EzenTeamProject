@@ -8,7 +8,7 @@
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
-	
+
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 
@@ -20,40 +20,20 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-	
+
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<beans:property name="maxUploadSize" value="100000000"></beans:property>
+		<beans:property name="maxUploadSize" value="10485760"></beans:property>
 	</beans:bean>
-	
+
 	<beans:bean class="java.lang.String" id="uploadPath">
-		<beans:constructor-arg value="resources\\uploads"></beans:constructor-arg>
+		<beans:constructor-arg value="resources\\uploasds"></beans:constructor-arg>
 	</beans:bean>
-	
-	<annotation-driven />
-	
-	<!-- <interceptors>
-	
-		<interceptor>
-			<mapping path="/testInterceptor1"/>
-			<beans:ref bean="testInterceptor"/>
-		</interceptor>
-		
-		<interceptor>
-			<mapping path="/member/loginPost"/>
-			<beans:ref bean="loginInterceptor"/>
-		</interceptor>
-		
-		<interceptor>
-			<mapping path="/board/delete*"/>
-			<mapping path="/board/update*"/>
-			<mapping path="/board/insert"/>
-			<beans:ref bean="authInterceptor"/>
-		</interceptor>
-		
-	</interceptors> -->
-	
-	<context:component-scan base-package="kr.co.home" />
+
+
+	<context:component-scan base-package="kr.co.ezen" />
 	<context:component-scan base-package="kr.co.controller" />
-	
-	
+	<!-- 컨트롤러와 연관되어있을때  -->
+
+
+
 </beans:beans>

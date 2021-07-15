@@ -50,7 +50,7 @@ public class Utils {
 		}
 		return dateDir.getAbsolutePath();
 	}
-	
+
 	// get files extend name
 	public static String getExtendName(String oriName) {
 		int idx = oriName.lastIndexOf(".");
@@ -88,17 +88,8 @@ public class Utils {
 		File target = new File(path, newName);
 		FileCopyUtils.copy(file.getBytes(), target);
 
-		String extendName = Utils.getExtendName(oriName);
-		MediaType mType = Utils.getMediaType(extendName);
-		
-		
-		
+
 		return Utils.getPathFileName(path, newName);
-//		if (mType != null) {
-//			return Utils.makeThumbnamil(path, newName);
-//		} else {
-//			return Utils.getPathFileName(path, newName);
-//		}
 	}
 
 	//make thumbnail image

@@ -88,6 +88,14 @@ DROP TABLE prod_attach
 
 DELETE FROM prod_attach
 
+SELECT * FROM prod_attach ORDER BY prodAttRegdate ASC
+
+UPDATE prod_attach SET prodAttBno = 1 WHERE prodAttPreBno = 1
+
+DROP TABLE prod_attach
+
+DELETE FROM prod_attach WHERE prodAttPreBno = 3
+
 /**
  * THUMBNAIL VIEW
  */
@@ -95,4 +103,3 @@ CREATE OR REPLACE VIEW
 
 
 DROP VIEW v_prod_thumbnail
-

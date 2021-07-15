@@ -21,22 +21,22 @@
 		#{prodStockLSize}
 		)
 	</insert>
-	
+
 	<select id="prodStockRead" resultType="ProdStockDTO">
 		SELECT *
 		FROM prod_stock
 		WHERE prodName = #{prodName}
 	</select>
-	
+
 	<update id="updateProdStock">
 		UPDATE prod_stock
 		SET
 		prodStockSSize = #{prodStockSSize},
 		prodStockMSize = #{prodStockMSize},
 		prodStockLSize = #{prodStockLSize}
-		WHERE 
+		WHERE
 		prodName = #{prodName}
 	</update>
-	
-	
+
+
 </mapper>

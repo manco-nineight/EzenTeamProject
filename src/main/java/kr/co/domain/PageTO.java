@@ -7,15 +7,15 @@ public class PageTO<T> {
 	private int curPage = 1;
 	   private int perPage = 5;
 	   private int perLine = 10;
-	   
-	   private int amount; 
-	   private int totalPage; 
-	   private int startNum; 
-	   private int endNum; 
+
+	   private int amount;
+	   private int totalPage;
+	   private int startNum;
+	   private int endNum;
 	   private List<T> list;  
 	   private int beginPageNum;
 	   private int finishPageNum;
-	   
+
 	   public PageTO() {
 	      executeChangeValue();
 	   }
@@ -122,10 +122,10 @@ public class PageTO<T> {
 	      if (finishPageNum > totalPage) {
 	         finishPageNum = totalPage;
 	      }
-	      
+
 	   }
-	   
-	      
-	   
+
+
+
 
 	}

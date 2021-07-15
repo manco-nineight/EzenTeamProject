@@ -32,7 +32,7 @@ public class ProdAttachServiceImpl implements ProdAttachService {
 	public List<String> getAttFilePath(int prodBno) {
 		return prodAttachDAO.getAttFilePath(prodBno);
 	}
-	
+
 	@Override
 	public void deleteFileImg(String imgRealName) {
 		prodAttachDAO.deleteFileImg(imgRealName);
