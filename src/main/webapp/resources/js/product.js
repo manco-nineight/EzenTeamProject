@@ -109,9 +109,7 @@ function review(obj, parentTag){
          <div class="panel-heading">
          <span>reRno: ${reRno}</span>
            <span class="glyphicon glyphicon-user" aria-hidden="true"></span><span>${reWriter}</span>
-           <span class="pull-right"><span class="glyphicon glyphicon-time" aria-hidden="true"></span>${reUpdatedate}</span> &nbsp
-          
-          &nbsp
+           <span class="pull-right"><span class="glyphicon glyphicon-time" aria-hidden="true"></span>${reUpdatedate}</span> 
           
             <span class="pull-right starList"> 
            <span data-idx="0" class="glyphicon glyphicon-star  ${arrReStar[0]}" aria-hidden="true"></span>
@@ -139,10 +137,8 @@ function review(obj, parentTag){
 
 	if(index < reStar){
 	
-	
 		$(this).addClass("bright");
 	}else{
-	
 		$(this).removeClass("bright");
 	
 	}

@@ -94,10 +94,10 @@
 	
 	
 	<script type="text/javascript">
-	var reBno = "${vo.prodBno}";
-	var page = 1;
+	var reBno = "${vo.prodBno}";	//상품게시판에서 게시판 번호 가져오기
+	var page = 1;	//페이지 값은 1로 정의
 		$(document).ready(function(){
-			
+			//리뷰 댓글의 수정
 			$("#review_update_btn").click(function(event) {
 				event.preventDefault();
 				var reRno = $("#modal_reRno").text();
@@ -128,7 +128,7 @@
 					}
 				});
 			});
-			
+			//수정 창에 값 불러오기(모달)
 			$("#reviewList").on("click", ".review_btn_update_form", function(event) {
 				event.preventDefault();
 				var that = $(this);
@@ -140,7 +140,7 @@
 				$("#reWriter_update").val(reWriter);
 				$("#reContent_update").val(reContent);
 			});
-			
+			//삭제
 			$("#reviewList").on("click", ".review_btn_delete", function(event) {
 				event.preventDefault();
 				var that = $(this)
@@ -170,13 +170,13 @@
 				});
 			});
 			
-			
+			//리뷰 생성 태그 숨기기 및 보이기
 			$(".review").click(function() {
 				$("#review_reply").toggle();  
 			});
 			star(".stars");
 			
-			
+			//
 			$(".review_insert_btn").click(function(event) {
 				event.preventDefault();
 				
@@ -212,14 +212,14 @@
 		var finishPageNum;
 		var totalPage;
 		
-		
-	$("#reviewList_page").on("click", ".pageNum", function() {
+		//페이지 값 가져오기
+		$("#reviewList_page").on("click", ".pageNum", function() {
 
 			var page = $(this).text();
 			getReviewList(reBno,page);			
 			
 		});
-	
+		//이전 페이지 기능
 		$("#reviewList_page").on("click", ".prev", function() {
 
 	         if(curPage != beginPageNum)
@@ -234,7 +234,7 @@
 	         }
 	         
 	      });
-		
+		//다음 페이지 기능
 		$("#reviewList_page").on("click", ".next", function() {
 
 	      if(curPage != finishPageNum)
@@ -250,7 +250,7 @@
 	         
 	      });
 		
-		
+		//리뷰 목록 리스트에 별점기능은 리스트가 여러가지이며 동적으로 기능되어 클래스 값으로 배열을 이용
 		function getReviewList(reBno,page) {
 			$("#reviewList").empty();
 			
@@ -264,7 +264,7 @@
 				finishPageNum = data.finishPageNum;
 				totalPage = data.totalPage;
 				
-			
+				//페이지 목록 이전/숫자/다음	조건식으로는 첫 페이지일 경우 이전을 숨기고 마지막 페이지일 경우 다음을 숨긴다.
 				var rePage = makeReviewPage(data.beginPageNum, data.finishPageNum, data.curPage);				
 				$("#reviewList_page").html(rePage);	
 				if(curPage ==1){ 
