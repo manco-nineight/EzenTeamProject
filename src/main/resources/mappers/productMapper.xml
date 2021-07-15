@@ -59,12 +59,25 @@
 		prodThumbnail
 		FROM
 		product
+		
+		<choose>
+			<when test="prodCategory != null and prodCategory != ''">
+				WHERE prodCategory = #{prodCategory}
+			</when>
 
-
-		<if test=" prodCategory != null and prodCategory != '' ">
+			<when test="keyword != null and keyword != ''">
+				WHERE prodName LIKE '%'||#{keyword}||'%'
+			</when>
+			
+			<when test="prodCategory != null and prodCategory != '' and keyword != null and keyword != '' ">
+				WHERE prodCategory = #{prodCategory} and prodName LIKE '%'||#{keyword}||'%'
+			</when>
+		</choose>
+		
+		<!-- <if test=" prodCategory != null and prodCategory != '' ">
 			WHERE prodCategory = #{prodCategory}
-		</if>
-
+		</if> -->
+		
 		<if test=" prodOrder != null and prodOrder != '' ">
 			<trim prefix="ORDER BY">
 				<if test=" prodOrder == 'prodPrice' ">prodPrice</if>
@@ -72,7 +85,7 @@
 				<if test=" prodOrder == 'prodRegdate' ">prodRegdate</if>
 			</trim>
 		</if>
-
+		
 	</select>
 
 

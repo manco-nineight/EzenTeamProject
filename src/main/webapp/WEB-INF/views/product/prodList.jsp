@@ -83,7 +83,10 @@
 		</ul>
 	</div>
 	<div class="search">
-		<input class="search_keyword" type="text" placeholder="searchProduct"> <button class="search_btn">search</button>
+		<form action="/product/prodList?prodCategory=${prodCategory}?prodOrder=${prodOrder}">
+			<input type="text" name="keyword" placeholder="productSearch">
+			<input type="submit" value="search">
+		</form>
 	</div>
 
 	<div class="row">
@@ -115,56 +118,44 @@
 
 		return false;
 	});
-
-	var curPage = 2;
+	
 		$(".loading").hide();
 	});
 
 	window.onscroll = function(ev) {
+		var curPage = 2;
 	    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
 	    	$(".loading").show();
 			$.ajax({
 				type: "post",
-				url: "/product/prodListScroll?prodCategory=${prodCategory}&prodOrder=${prodOrder}",
-				data: {
+				url: "/product/prodListScroll",
+				data: JSON.stringify({
 					"curPage" : curPage,
-				},
+					"prodCategory" : "${prodCategory}",
+					"prodOrder" : "${prodOrder}",
+					"keyword" : "${keyword}"
+				}),
 				dataType: "json",
+				contentType: "application/json;charset=utf-8",
 				success: function(result) {
-					for (var i = 0; i < result.length; i++) {
-						var str =
-						'<div class="col-md-3 thumb_list">'+
-							'<div class="list_thumbnail">'+
-								'<img src="' +(result[i].prodThumbnail) +  '"style="height:250px;width:250px;">'+
-								'<p><a href="/product/prodRead/' + (result[i].prodName) + '">' + (result[i].prodName) + '</a></p>'+
-								'<p>' + (result[i].prodPrice) + '</p>'+
-							'</div>'+
-						'</div>'
-						console.log(str);
-						$(".scroll_paging").append(str);
+						for (var i = 0; i < result.length; i++) {
+							var str = 
+							'<div class="col-md-3 thumb_list">'+
+								'<div class="list_thumbnail">'+
+									'<img src="' +(result[i].prodThumbnail) +  '"style="height:250px;width:250px;">'+
+									'<p><a href="/product/prodRead/' + (result[i].prodName) + '">' + (result[i].prodName) + '</a></p>'+
+									'<p>' + (result[i].prodPrice) + '</p>'+
+								'</div>'+
+							'</div>'
+							$(".scroll_paging").append(str);
 					}
 				}
 			});
 			$(".loading").hide();
 			curPage += 1;
 		}
-
+			
 	};
-
-	$(".search_btn").click(function(event) {
-		event.preventDefault;
-
-		var keyword = $(".search_keyword").val();
-
-		$.ajax({
-			type: "post",
-			url: "/product/prodListSearch?prodCategory=${prodCategory}&prodOrder=${prodOrder}",
-			data: {
-				"keyword" : keyword
-			},
-			dataType: "text"
-		});
-	});
 </script>
 
 

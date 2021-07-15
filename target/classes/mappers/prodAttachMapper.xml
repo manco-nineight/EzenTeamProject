@@ -8,7 +8,7 @@
 		INSERT
 		INTO prod_attach
 		(
-		prodAttProdImg, 
+		prodAttProdImg,
 		prodAttPreBno
 		)
 		VALUES

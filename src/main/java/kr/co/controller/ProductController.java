@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -242,12 +243,15 @@ public class ProductController {
 	}
 
 	/**
-	 *  PRODUCT LIST BY CATEGORY AND ORDERED LIST
+	 *  PRODUCT LIST BY CATEGORY AND ORDERED LIST ++ added search function
 	 */
 	@RequestMapping(value = "/prodList", method = RequestMethod.GET, produces = "text/plain;charset=utf-8")
-	public void prodList(@RequestParam(value = "prodCategory", required = false)  String prodCategory, @RequestParam(value = "prodOrder", required = false) String prodOrder, Model model) {
+	public void prodList(@RequestParam(value = "prodCategory", required = false)  String prodCategory, 
+			@RequestParam(value = "prodOrder", required = false) String prodOrder,
+			String keyword,
+			Model model) {
 		int curPage = 1;
-
+		
 		int amount = prodService.getProdAmount();
 		PageTO<ProductVO> to = new PageTO<ProductVO>(curPage);
 		to.setAmount(amount);
@@ -255,56 +259,40 @@ public class ProductController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("prodCategory", prodCategory);
 		map.put("prodOrder", prodOrder);
-
+		map.put("keyword", keyword);
+		
 		List<ProductVO> list = prodService.listProd(to.getStartNum(), map);
 		to.setList(list);
 
 		model.addAttribute("to", to);
 		model.addAttribute("prodCategory", prodCategory);
 		model.addAttribute("prodOrder", prodOrder);
+		model.addAttribute("keyword", keyword);
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "/prodListScroll", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
-	public List<ProductVO> prodList(@RequestParam("curPage") int curPage, @RequestParam(value = "prodCategory", required = false)  String prodCategory, @RequestParam(value = "prodOrder", required = false) String prodOrder, Model model) {
+	public List<ProductVO> prodList(@RequestBody Map<String, Object> param, Model model) {
 
+		int curPage = (int) param.get("curPage");
+		
 		int amount = prodService.getProdAmount();
 		PageTO<ProductVO> to = new PageTO<ProductVO>(curPage);
 		to.setAmount(amount);
-
+		
+		
+		String prodCategory = (String) param.get("prodCategory");
+		String prodOrder = (String) param.get("prodOrder");
+		String keyword = (String) param.get("keyword");
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("prodCategory", prodCategory);
 		map.put("prodOrder", prodOrder);
-
+		map.put("keyword", keyword);
+		
 		List<ProductVO> list = prodService.listProd(to.getStartNum(), map);
 		to.setList(list);
 
 		return list;
-	}
-
-	/**
-	 *  PRODUCT LIST WITH SEARCH
-	 */
-	@RequestMapping(value = "/prodListSearch", method = RequestMethod.GET, produces = "text/plain;charset=utf-8")
-	public String prodListSeach(@RequestParam("keyword") String keyword ,@RequestParam(value = "prodCategory", required = false)  String prodCategory, @RequestParam(value = "prodOrder", required = false) String prodOrder, Model model) {
-		int curPage = 1;
-
-		int amount = prodService.getProdAmount();
-		PageTO<ProductVO> to = new PageTO<ProductVO>(curPage);
-		to.setAmount(amount);
-
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("prodCategory", prodCategory);
-		map.put("prodOrder", prodOrder);
-
-		List<ProductVO> list = prodService.listProd(to.getStartNum(), map);
-		to.setList(list);
-
-		model.addAttribute("to", to);
-		model.addAttribute("prodCategory", prodCategory);
-		model.addAttribute("prodOrder", prodOrder);
-
-		return "/product/prodList";
 	}
 
 
