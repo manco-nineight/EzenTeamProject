@@ -36,7 +36,7 @@ public class ProductDAOImpl implements ProductDAO {
 	@Override
 	public List<ProductVO> listProd(int startNum, Map<String, Object> map) {
 		
-		RowBounds rb = new RowBounds(startNum - 1, 30);
+		RowBounds rb = new RowBounds(startNum - 1, 5);
 		
 		return session.selectList(NAMESPACE + ".listProd", map, rb);
 	}
@@ -84,6 +84,12 @@ public class ProductDAOImpl implements ProductDAO {
 	public ProductVO getContent(int bno) {
 		// TODO Auto-generated method stub
 		return session.selectOne(NAMESPACE+".getContent", bno);
+	}
+
+	@Override
+	public String prodNameDupCheck(String prodName) {
+		// TODO Auto-generated method stub
+		return session.selectOne(NAMESPACE + ".prodNameDupCheck", prodName);
 	}
 	
 

@@ -64,7 +64,7 @@ public class ProductController {
 		String filename = Utils.uploadFile(oriName, uploadPath, file);
 		String filePath = File.separator + "resources" + File.separator + "uploads" + filename;
 		prodVO.setProdThumbnail(filePath);
-
+		
 		prodService.insertProduct(prodVO);
 		prodStockService.insertProdStock(prodStockDTO);
 		prodAttachService.updateBno(prodVO.getProdBno());
@@ -112,7 +112,22 @@ public class ProductController {
 
 		return "redirect:/product/prodList/";
 	}
-	
+	@ResponseBody
+	@RequestMapping(value = "/prodNameDupCheck", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+	public int prodNameDupCheck(@RequestParam("prodName")String prodName) {
+		
+		int result = 0;
+		
+	 	String prodNameCheck = prodService.prodNameDupCheck(prodName);
+	 	
+	 	if (prodNameCheck != null) {
+	 		result = 1;
+	 	} else {
+	 		result = 0;
+	 	}
+		
+		return result;
+	}
 	/**
 	 *  ATTACH IMG WHEN INSERT IN TO SUMMERNOTE
 	 */
@@ -253,6 +268,50 @@ public class ProductController {
 		model.addAttribute("prodCategory", prodCategory);
 		model.addAttribute("prodOrder", prodOrder);
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/prodListScroll", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+	public List<ProductVO> prodList(@RequestParam("curPage") int curPage, @RequestParam(value = "prodCategory", required = false)  String prodCategory, @RequestParam(value = "prodOrder", required = false) String prodOrder, Model model) {
+
+		int amount = prodService.getProdAmount();
+		PageTO<ProductVO> to = new PageTO<ProductVO>(curPage);
+		to.setAmount(amount);
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("prodCategory", prodCategory);
+		map.put("prodOrder", prodOrder);
+
+		List<ProductVO> list = prodService.listProd(to.getStartNum(), map);
+		to.setList(list);
+
+		return list;
+	}
+	
+	/**
+	 *  PRODUCT LIST WITH SEARCH
+	 */
+	@RequestMapping(value = "/prodListSearch", method = RequestMethod.GET, produces = "text/plain;charset=utf-8")
+	public String prodListSeach(@RequestParam("keyword") String keyword ,@RequestParam(value = "prodCategory", required = false)  String prodCategory, @RequestParam(value = "prodOrder", required = false) String prodOrder, Model model) {
+		int curPage = 1;
+		
+		int amount = prodService.getProdAmount();
+		PageTO<ProductVO> to = new PageTO<ProductVO>(curPage);
+		to.setAmount(amount);
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("prodCategory", prodCategory);
+		map.put("prodOrder", prodOrder);
+
+		List<ProductVO> list = prodService.listProd(to.getStartNum(), map);
+		to.setList(list);
+
+		model.addAttribute("to", to);
+		model.addAttribute("prodCategory", prodCategory);
+		model.addAttribute("prodOrder", prodOrder);
+		
+		return "/product/prodList";
+	}
+	
 
 	/**
 	 *  PRODUCT READ

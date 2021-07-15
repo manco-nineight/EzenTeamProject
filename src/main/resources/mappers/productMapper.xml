@@ -134,6 +134,13 @@
 		WHERE prodNAme = #{prodName}
 	</delete>
 	
+	<select id="prodNameDupCheck" resultType="String">
+		SELECT
+		prodName
+		FROM product
+		WHERE prodName = #{prodName}
+	</select>
+	
 	
 	
 </mapper>

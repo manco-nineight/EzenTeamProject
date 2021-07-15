@@ -31,4 +31,6 @@ public interface ProductDAO {
 
 	ProductVO getContent(int bno);
 
+	String prodNameDupCheck(String prodName);
+
 }

@@ -29,4 +29,6 @@ public interface ProductService {
 
 	ProductVO getContent(int bno);
 
+	String prodNameDupCheck(String prodName);
+
 }

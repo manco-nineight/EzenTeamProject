@@ -103,4 +103,10 @@ public class ProductServiceImpl implements ProductService {
 		return prodDAO.getContent(bno);
 	}
 
+	@Override
+	public String prodNameDupCheck(String prodName) {
+		// TODO Auto-generated method stub
+		return prodDAO.prodNameDupCheck(prodName);
+	}
+
 }
