@@ -26,10 +26,10 @@
 <body>
 	<div class="container">
 		<div class="row">
-			<h1 class="jumbotron text-center ">REVIEW</h1>		
+			<h1 class="jumbotron text-center">REVIEW</h1>		
 		</div>
-	
-	<a class="btn btn-primary review">리뷰 작성</a>
+		
+	<a class="btn btn-info review">글작성</a>
 
 	<div class="row">
 		<div class="collapse" id="review_reply">
@@ -44,33 +44,12 @@
 	    			<textarea  rows="10" name="reContent" id="reContent" class="form-control"></textarea>
 	    		</div>
 	    		
-	    		<!-- <div class="form-group">
-	    			<label for="reviewRank">등급</label> 
-		    			<div id="reviewRank" class="btn-group " data-toggle="buttons" style=" margin: 10px 0px;">
-						  <label class="btn btn-danger active">
-						    <input type="radio" name="reviewRank" id="rank1" checked > 매우나쁨
-						  </label>
-						  <label class="btn btn-warning">
-						    <input type="radio" name="reviewRank" id="rank2" checked> 나쁨
-						  </label>
-						  <label class="btn btn-success">
-						    <input type="radio" name="reviewRank" id="rank3" checked> 보통
-						  </label>
-						  <label class="btn btn-info">
-						    <input type="radio" name="reviewRank" id="rank4" checked> 좋음
-						  </label>
-						  <label class="btn btn-primary">
-						    <input type="radio" name="reviewRank" id="rank5" checked> 매우좋음
-						  </label>
-						</div>
-	    		</div> -->
-	    		
-	    		<div class="form-group stars" id="reStar">
-	    		
+	    		<div class="form-group stars" id="reStar"> 
+	    		   		
 	    		</div>
 	    		
-	    		<div class="form-group">
-	    			<button class="btn btn-primary review_insert_btn ">리뷰 등록</button>
+	    		<div class="form-group" style="text-align: right;">
+	    			<button  class="btn btn-info review_insert_btn ">글등록</button>
 	    		</div>
 	  		</div>
 		</div>
@@ -118,8 +97,6 @@
 	var reBno = "${vo.prodBno}";
 	var page = 1;
 		$(document).ready(function(){
-			
-			console.log("${to.curPage}");
 			
 			$("#review_update_btn").click(function(event) {
 				event.preventDefault();
@@ -192,6 +169,8 @@
 					}
 				});
 			});
+			
+			
 			$(".review").click(function() {
 				$("#review_reply").toggle();  
 			});
@@ -219,11 +198,10 @@
 					alert(result);
 					$("#reviewList").html("");
 					getReviewList(reBno,page);
+					
 					}
 				});
 			});
-			
-			
 			
 			getReviewList(reBno,page);
 			
@@ -276,9 +254,6 @@
 		function getReviewList(reBno,page) {
 			$("#reviewList").empty();
 			
-		//	console.log(page+"=====page");
-		//	console.log(reBno+"=====reBno");
-			
 			
 			var url = "/review/reply/"+reBno+"/"+page;
 			$.getJSON(url, function(data) {
@@ -291,7 +266,7 @@
 				
 			
 				var rePage = makeReviewPage(data.beginPageNum, data.finishPageNum, data.curPage);				
-				$("#reviewList_page").html(rePage);	//이전 /페이징숫자/ 다음
+				$("#reviewList_page").html(rePage);	
 				if(curPage ==1){ 
 					$("#prev").hide();
 				}else{
@@ -302,39 +277,14 @@
 				}else{
 					$("#next").show();
 				}
-			
-			
 				
 				var dummyData = data.list;
-				for(var i=0; i<dummyData.length; i++){
-					var obj = dummyData[i];
-					var msg = reveiwList(obj['reRno'], obj['reWriter'],obj['reStar'], obj['reUpdatedate'], obj['reContent']);
-					
-				    var reStar = parseInt(obj['reStar']);
-				    console.log(reStar+"====reStar");
-				    
-				    var idx = $(".star").attr("data-idx");
-				    console.log(idx+"====idx");
-				    console.log(i+"=========================i");
-				    
-				    $(".star").each(function(index) {
-				    	console.log(index+"====index");
-					for(var j=index; j<=reStar; j++){
-						console.log(j+"=============j");
-				        $(".star").addClass("bright");
-				        }
-					});
-					
-					$("#reviewList").append(msg);	//	리스트
-					
-				}
-				console.log(dummyData);
+				reviewList(dummyData);
+
 
 			});
 		}
 	
-
-		
 	</script>
 </body>
 </html>

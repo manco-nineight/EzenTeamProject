@@ -61,7 +61,7 @@ public class ReviewReplyRestController {
 		to.setList(list);
 		
 		return to;
-	}//주소가 아니라 데이터로 변환해야한다.
+	}
 	
 	@RequestMapping(value = "/reply/{reBno}", method = RequestMethod.GET)
 	public ReviewPageTO<ReviewReplyVO> list(@PathVariable("reBno") int reBno, Integer page){
@@ -88,8 +88,6 @@ public class ReviewReplyRestController {
 		String reWriter = map.get("reWriter").toString();
 		String reContent = map.get("reContent").toString();
 		int reStar = Integer.parseInt(map.get("reStar").toString());
-		
-		System.out.println(reStar+"____별점");
 		
 		ReviewReplyVO vo =new ReviewReplyVO(-1, reBno, reWriter, reContent, null, null,reStar);
 		

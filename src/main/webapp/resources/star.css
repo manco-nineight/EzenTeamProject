@@ -10,20 +10,21 @@ cursor: pointer;
 }
 
 
+.starList{
+	
+color: rgb(192, 192, 192) ;  
+
+cursor: pointer;
+
+margin: 0px 10px;
+
+}
+
 .bright{
 
 color: yellow;
 
 }
-
-.starList{
-	
-color: #E4E4E4;     
-
-cursor: pointer;
-
-}
-
 
 
 .pagination a.active:hover{
