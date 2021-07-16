@@ -87,8 +87,6 @@ function reviewList(list){
          var parentTag = $("#reviewList > div:last-child");
          review(list[i], parentTag);
       }
-	
-
 }
 
 function review(obj, parentTag){

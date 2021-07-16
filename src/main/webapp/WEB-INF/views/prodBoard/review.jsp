@@ -15,12 +15,7 @@
 
 <script src="/resources/js/product.js" type="text/javascript"></script>
 <link href="/resources/star.css" type="text/css"  rel="stylesheet">
-<style type="text/css" >
-	
-	 /*@import url("star.css");*/ 
 
-	
-</style>
  <!-- !important 우선권으로 적용 -->
 </head>
 <body>
@@ -29,7 +24,7 @@
 			<h1 class="jumbotron text-center">REVIEW</h1>		
 		</div>
 		
-	<a class="btn btn-info review">글작성</a>
+	<a class="btn btn-info review">작성</a>
 
 	<div class="row">
 		<div class="collapse" id="review_reply">
@@ -40,16 +35,19 @@
 	    		</div>
 	    		
 	    		<div class="form-group">
-	    			<label for="reContent">내용</label>
-	    			<textarea  rows="10" name="reContent" id="reContent" class="form-control"></textarea>
+	    			<label for="reContent">내용</label> <br>
+	    			<textarea  style="resize:horizontal; width:710px; height:200px; " rows="10" name="reContent" id="reContent" class="form-control reContent" placeholder="1000자 이내로 입력해주세요."></textarea>
+	    			<p style="text-align: right;">
+	    			<span  class="badge reContentLength">0</span><span>/1000</span>
+	    			</p>
 	    		</div>
 	    		
 	    		<div class="form-group stars" id="reStar"> 
-	    		   		
+	    		
 	    		</div>
 	    		
 	    		<div class="form-group" style="text-align: right;">
-	    			<button  class="btn btn-info review_insert_btn ">글등록</button>
+	    			<button  class="btn btn-info review_insert_btn ">등록</button>
 	    		</div>
 	  		</div>
 		</div>
@@ -80,7 +78,7 @@
 						</div>
 		        <div class="form-group">
 							<label for="reContent_update">reContent</label>
-							<textarea id="reContent_update" name="reContent" class="form-cotrol"></textarea>
+							<textarea id="reContent_update" name="reContent" class="form-cotrol"></textarea><br>
 						</div>
 		      </div>
 		      <div class="modal-footer">
@@ -120,7 +118,7 @@
 					success : function(result) {
 						if(result == "1"){
 							alert("수정되었습니다.");
-							$("#reviewList").html("");
+							$("#reviewList").text("");
 							getReviewList(reBno,page);
 						}else{
 							alert("수정되지 않았습니다.");
@@ -174,11 +172,37 @@
 			$(".review").click(function() {
 				$("#review_reply").toggle();  
 			});
+			
+			//별점
 			star(".stars");
 			
-			//
+			//현재 글내의 글자 수 만큼 값이 나온다. 
+			$("#reContent") .keyup(function(event){
+				   event.preventDefault();
+				   var reContent = $(this);
+				   var reContentLength = reContent.val().length;
+				   $(".reContentLength").text(reContentLength);
+						 console.log(reContent.length); 
+						 
+				   if(reContentLength > 1000){					
+						reContent.attr("class","alert-danger");
+						$(".review_insert_btn").attr("disabled","disabled");
+					}else{
+						reContent.removeClass("alert-danger");
+						$(".review_insert_btn").removeAttr("disabled");
+						
+					}
+				});
+			
+			//리뷰 생성
 			$(".review_insert_btn").click(function(event) {
 				event.preventDefault();
+				
+				var reWriter = $('#reWriter').val();
+				var reContent = $('#reContent').val();
+				var reStar = $(".stars").attr("data-val");
+			
+			
 				
 				$.ajax({
 				type : 'post',
@@ -189,9 +213,9 @@
 				},
 				data: JSON.stringify({
 					reBno : reBno,
-					reWriter : $('#reWriter').val(),
-					reContent : $('#reContent').val(),
-					reStar : $(".stars").attr("data-val")
+					reWriter : reWriter,
+					reContent : reContent,
+					reStar : reStar
 				}),
 				dataType : 'text',
 				success : function(result) {
