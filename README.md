@@ -1,12 +1,12 @@
 # [QNABoard_IncludeParts] Include용 Q&A 게시판 소스
 
-관리자 화면&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-회원 화원&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+관리자 화면&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+회원 화원&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 비회원 화면
 <br>
-<img src="https://user-images.githubusercontent.com/20694370/125551222-949dd0a9-4eee-475c-91de-39ef43c7705c.png" width="300" height="300">
-<img src="https://user-images.githubusercontent.com/20694370/125551397-7c685e80-c6e3-41bf-999c-0f112af8c984.png" width="300" height="300">
-<img src="https://user-images.githubusercontent.com/20694370/125551275-3be4a2ef-5132-41f8-93e5-5a2f38e2b542.png" width="300" height="300">
+<img src="https://user-images.githubusercontent.com/20694370/125551222-949dd0a9-4eee-475c-91de-39ef43c7705c.png" width="250" height="250">
+<img src="https://user-images.githubusercontent.com/20694370/125551397-7c685e80-c6e3-41bf-999c-0f112af8c984.png" width="250" height="250">
+<img src="https://user-images.githubusercontent.com/20694370/125551275-3be4a2ef-5132-41f8-93e5-5a2f38e2b542.png" width="250" height="250">
 <br>
 <br>
 관리자 화면 : 모두 열람, 모든 게시글 바로 열람, 답변 및 삭제<br>
