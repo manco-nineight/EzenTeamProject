@@ -50,7 +50,6 @@ public class QNABoardController {
 		QNABoardVO vo = new QNABoardVO();
 		
 		vo.setqQno(qQno);
-		vo.setqWriter(map.get("qWriter").toString());
 		vo.setqTitle(map.get("qTitle").toString());
 		vo.setqContent(map.get("qContent").toString());
 

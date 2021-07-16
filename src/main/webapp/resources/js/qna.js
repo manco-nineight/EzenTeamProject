@@ -10,7 +10,7 @@
 	}
       
 	var msg =`
-				<nav aria-label="Page navigation">
+				<nav aria-label="Page navigation" style="margin-bottom: -23px;">
   					<ul class="pagination">
     					<li style="float: left;">
       						<a href="#" aria-label="Previous" class="prev" id="prev">
@@ -35,7 +35,7 @@
  	var msg = `
  				<div class="row" style="margin-top: 0px;">
  					<div class="userId" style="display: none;" id="qUserId">${qUserId}</div>
-					<a style="float: left; margin-bottom: 0px;" class="toggleText">
+					<a style="float: left; margin-bottom: 0px; margin-left: 30px;" class="toggleText">
 					${qTitle}
 					</a>
 					&nbsp;<img class="included" src="/resources/img/private.png">
@@ -77,7 +77,7 @@
  	var msg = `
  				<div class="row" style="margin-top: 0px;">
  					<div class="userId" style="display: none;" id="qUserId">${qUserId}</div>
-					<a style="float: left; margin-bottom: 0px;" class="toggleText">
+					<a style="float: left; margin-bottom: 0px; margin-left: 30px;" class="toggleText">
 					&nbsp;&nbsp;&nbsp;↪&nbsp;${qTitle}
 					</a>
 					&nbsp;<img class="included" src="/resources/img/private.png">

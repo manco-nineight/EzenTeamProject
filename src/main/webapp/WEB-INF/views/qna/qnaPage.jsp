@@ -230,10 +230,6 @@ a:active {
 	//< 관리자 답변 시 아이디 인식용
 	var questionId;
 	
-	//< 답변 작성 시 제목 자동 완성 기능용
-	var questionTitle;
-	var questionContent;
-	
 	$(document).ready(function() {
 		
 		//< 관리자 권한 체크
@@ -273,10 +269,6 @@ a:active {
 			//< 작성자 정보와 로그인 정보 비교 및 반환값(논리자료형, true/false)
 			isWriter = checkId(userId, qWriterId);
 			
-			//< 확장 된 본문의 제목, 내용 복사
-			questionTitle = $(this).text().trim();
-			questionContent = contentBox.children('div.contentText').text();
-			
 			//< 본문 작성자의 ID 정보 저장
 			questionId = qWriterId;
 			
@@ -295,9 +287,7 @@ a:active {
 				}
 				else{
 					//< 축소된 본문내용 확장
-					setTimeout(function() { 
-						contentBox.slideDown();	
-					}, 130);
+					contentBox.slideDown();
 				}
 			}
 			//< 일반회원 및 비회원일 때
@@ -313,9 +303,7 @@ a:active {
 					}
 					else
 					{
-						setTimeout(function() { 
-							passwordBox.slideDown();	
-						}, 130);
+						passwordBox.slideDown();
 					}				
 				}
 			}
@@ -323,11 +311,8 @@ a:active {
 			optionBtns.empty();
 			
 			if( hr.is(":visible") ){
-				
-				setTimeout(function() { 
-					hr.slideUp();	
-				}, 150);
-				
+
+				hr.slideUp();
 			}
 			else{
 				hr.slideDown();	
@@ -550,11 +535,20 @@ a:active {
 			//< 관리자 권한 체크
 			checkGrade(userGrade);
 			
+			var questionTitle = $(this).parent().parent().prev().prev().prev().children('a.toggleText').text().trim();
+
 			if(isAdministrator)
 			{
 				$("#answerModal").modal("show");
 				
-				$("#answertitle").val("[답변] " + questionTitle);
+				if(questionTitle.length > 40)
+				{
+					$("#answertitle").val("[답변] " + questionTitle.substring(0, 25) + "...");
+				}
+				else
+				{
+					$("#answertitle").val("[답변] " + questionTitle);
+				}
 				
 				qQno = $(this).parent().next().text();
 			}
@@ -563,16 +557,24 @@ a:active {
 		//< (답글) 수정
 		$("#qnaList").on("click", ".modify", function() {
 			
+			$("#answerName").val("");
+			$("#answertitle").val("");
+			$("#answercontentText").val("");
+			
 			//< 관리자 권한 체크
 			checkGrade(userGrade);
+			
+			var answerTitle = $(this).parent().parent().prev().prev().prev().children('a.toggleText').text().trim();
+			
+			answerTitle = answerTitle.replace("↪", "").trim();
 			
 			if(isAdministrator)
 			{
 				$("#answerModal").modal("show");
 				
 				$("#answerName").val(userId);
-				$("#answertitle").val($(this).parent().parent().prev().prev().children('a.toggleText').text());
-				$("#answercontentText").val($(this).parent().prev().text());
+				$("#answertitle").val(answerTitle);
+				$("#answercontentText").val($(this).parent().prev().prev().text());
 				
 				qQno = $(this).parent().next().text();
 				isUpdate = true;
@@ -617,7 +619,6 @@ a:active {
 						data : JSON.stringify({
 							qQno: qQno,
 							qTitle : title,
-							qWriter : name,
 							qContent : content,
 						}),
 						dataType : 'text',

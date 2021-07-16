@@ -22,7 +22,7 @@
 	
 	<update id="update">
 		UPDATE qna SET qTitle = #{qTitle}, qContent = #{qContent}, qUpdatedate = SYSDATE
-		WHERE qQno = #{qQno} AND qWriter =	#{qWriter}
+		WHERE qQno = #{qQno}
 	</update>
 	
 	<select id="list" resultType="kr.co.domain.QNABoardVO">

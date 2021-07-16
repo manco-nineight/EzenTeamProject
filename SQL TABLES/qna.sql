@@ -32,6 +32,9 @@ ALTER TABLE qna ADD qUserId VARCHAR2(30);
 INSERT INTO qna (qQno, qBno, qTitle, qWriter, qContent, qPassword, qReproot, qRepstep, qRepindent)
 VALUES (1, 1, 'asdfasdf', 'BahMir', '내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.', 'asdf1asdf', 0, 0, 0)
 
+UPDATE qna SET qTitle = '[답변] 수정테스트', qContent = '수정 했습니다.', qUpdatedate = SYSDATE
+WHERE qQno = 68 AND qWriter = 'admin'
+
 DELETE FROM qna
 
 DROP TABLE qna
