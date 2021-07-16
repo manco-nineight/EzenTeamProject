@@ -38,7 +38,7 @@ public class QNABoardDAOImpl implements QNABoardDAO {
 	@Override
 	public void deleteqReproot(Integer qQno) {
 		// TODO Auto-generated method stub
-		session.delete(NAMESPACE+".deleteBoth", qQno);
+		session.delete(NAMESPACE+".deleteqReproot", qQno);
 	}
 	
 	@Override

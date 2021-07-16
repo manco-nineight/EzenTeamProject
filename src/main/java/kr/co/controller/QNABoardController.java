@@ -107,7 +107,7 @@ public class QNABoardController {
 		String qContent = map.get("qContent").toString();
 		String qPassword = map.get("qPassword").toString();
 		String qUserId = map.get("qUserId").toString();
-
+		
 		QNABoardVO vo = new QNABoardVO(0, qBno, qTitle, qWriter, qContent, qPassword, null, null, 0, 0, 0, qUserId);
 
 		bService.insert(vo);

@@ -19,9 +19,24 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <style type="text/css">
+div.questionContent {
+	min-height: 150px;
+}
+
+.answerContent {
+	min-height: 150px;
+}
+
 hr {
 	margin-top: 15px;
     margin-bottom: 15px;
+}
+
+hr.mainHorizental {
+	background-color: DimGray;
+	width: 680px;
+	height: 3px;
+	margin-left: -15px;
 }
 
 .pagination {
@@ -68,13 +83,6 @@ a:active {
 	color: red;
 	text-decoration: none;
 }
-
-hr.mainHorizental {
-	background-color: DimGray;
-	width: 680px;
-	height: 3px;
-	margin-left: -15px;
-}
 </style>
 <body>
 	<br>
@@ -113,26 +121,34 @@ hr.mainHorizental {
 					</div>
 					<div class="modal-body">
 						<div class="form-group">
-							<label for="id" style="margin-left: 3px;">작성자</label> <input
-								class="form-control" type="text" id="name" name="name"
-								style="width: 200px;"> <label for="password"
+							<label for="id" style="margin-left: 3px;">작성자</label>
+							<input class="form-control" type="text" id="name" name="name"
+								style="width: 200px;"> 
+							<label for="password"
 								style="float: right; margin-right: 140px; margin-top: -59px;">비밀번호</label>
+							<p style="text-align: right;  margin-top: -59px;">
+								<span style="color: RoyalBlue;" class="passwordTotalLength">0</span><span>/50</span>
+							</p>
 							<input type="password" class="form-control" id="password"
 								name="password"
 								style="float: right; width: 200px; margin-top: -33px;" />
 						</div>
+						<br><br>
 						<div class="form-group">
 							<label for="title">제목</label> <input type="text"
 								class="form-control" id="title" name="title" />
 						</div>
 						<div class="form-group">
 							<label for="contentText">본문</label>
-							<textarea style="height: 150px;" class="form-control"
-								id="contentText" name="contentText"></textarea>
+							<textarea style="resize: horizontal; height: 150px;" class="form-control" rows="10"
+								id="contentText" name="contentText" placeholder="300자 이내로 입력해주세요."></textarea>
+							<p style="text-align: right;">
+								<span style="color: RoyalBlue;" class="contentTotalLength">0</span><span> / 300</span>
+							</p>
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+						<button type="button" class="btn btn-default cancelInsert" data-dismiss="modal">취소</button>
 						<button id="question_insert_btn" type="button"
 							class="btn btn-primary">작성 완료</button>
 					</div>
@@ -174,12 +190,15 @@ hr.mainHorizental {
 						</div>
 						<div class="form-group">
 							<label for="answercontentText">본문</label>
-							<textarea style="height: 150px;" class="form-control"
-								id="answercontentText" name="answercontentText"></textarea>
+							<textarea style="resize: horizontal; height: 150px;" class="form-control" rows="10"
+								id="answercontentText" name="answercontentText" placeholder="300자 이내로 입력해주세요."></textarea>
+							<p style="text-align: right;">
+								<span style="color: RoyalBlue;" class="answercontentTotalLength">0</span><span> / 300</span>
+							</p>
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+						<button type="button" class="btn btn-default answercancelInsert" data-dismiss="modal">취소</button>
 						<button id="answer_insert_btn" type="button"
 							class="btn btn-primary">작성 완료</button>
 					</div>
@@ -187,7 +206,7 @@ hr.mainHorizental {
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="/resources/js/qna.js"></script>
+	<script type="text/javascript" src="/resources/js/qna.js?ver=123"></script>
 	<script type="text/javascript">
 	//< 로그인 정보
 	var userId = "${login.userId}";
@@ -222,78 +241,6 @@ hr.mainHorizental {
 		
 		//< 첫 화면 리스트 출력
 		getPageList(qBno, curPage);
-		
-		//< 문의하기 버튼
-		$(".insertBtn").click(function(event){
-			
-			if(userId.length > 1)
-			{
-				//< 읽기 전용 설정
-				$("#name").attr('readonly', 'readonly');
-				
-				$("#name").val(userId);
-			}
-			else
-			{
-				//< 읽기 전용 해제
-				$("#name").removeAttr('readonly');
-			}
-		});
-		
-		//< (본문) 입력 기능
-		$("#question_insert_btn").click(function(event){
-			event.preventDefault();
-			
-			var name = $("#name").val();
-			var title = $("#title").val();
-			var content = $("#contentText").val();
-			var password = $("#password").val();
-			
-			if(stringLength($("#contentText").val()) > 300)
-			{
-				alert("본문은 300자 까지만 가능합니다.");
-			}
-			else if(stringLength($("#title").val()) > 50)
-			{
-				alert("제목은 50자 까지만 가능합니다.");
-			}
-			else if(stringLength($("#password").val()) > 60)
-			{
-				alert("비밀번호는 60자 까지만 가능합니다.");
-			}
-			else
-			{
-				$.ajax({
-					type : "post",
-					url : "/qna/insert",
-					headers : {
-						'Content-Type' : 'application/json',
-						'X-HTTP-Method-Override' : 'post'
-					},
-					data : JSON.stringify({
-						qBno : qBno,
-						qTitle : title,
-						qWriter : name,
-						qContent : content,
-						qPassword : password,
-						qUserId : userId
-					}),
-					dataType : 'text',
-					success : function(result) {
-						
-						$("#name").val("");
-						$("#title").val("");
-						$("#contentText").val("");
-						$("#password").val("");
-						
-						getPageList(qBno, 1);
-					}
-				});
-
-				$("#questionModal .close").click();
-				$("#questionModal .close").trigger("click");
-			}
-		});
 		
 		//< (전체) 확장 기능
 		$("#qnaList").on("click", ".toggleText", function() {
@@ -486,8 +433,119 @@ hr.mainHorizental {
 			});
 		});
 		
+		//< 문의하기 버튼
+		$(".insertBtn").click(function(event){
+			
+			//< 내부 입력 상태 초기화
+			$("#title").val("");
+			$("#contentText").val("");
+			$("#password").val("");
+			
+			if(userId.length > 1)
+			{
+				//< 읽기 전용 설정
+				$("#name").attr('readonly', 'readonly');
+				
+				$("#name").val(userId);
+			}
+			else
+			{
+				//< 읽기 전용 해제
+				$("#name").removeAttr('readonly');
+			}
+		});
+
+		//< 최대 글자 수 입력 제한, 확인하기 힘든 비밀번호, 본문만 체크
+		$("#password").keyup(function(event){
+			event.preventDefault();
+			var contentText = $(this);
+			var contentTextLength = stringLength(contentText.val());
+			
+			$(".passwordTotalLength").text(contentTextLength);
+		});
+
+		$("#contentText").keyup(function(event){
+			event.preventDefault();
+			var contentText = $(this);
+			var contentTextLength = stringLength(contentText.val());
+			
+			$(".contentTotalLength").text(contentTextLength);
+		});
+		
+		$("#answercontentText").keyup(function(event){
+			event.preventDefault();
+			var contentText = $(this);
+			var contentTextLength = stringLength(contentText.val());
+			
+			$(".answercontentTotalLength").text(contentTextLength);
+		});
+		
+		//< (본문) 입력 기능
+		$("#question_insert_btn").click(function(event){
+			event.preventDefault();
+			
+			console.log($("#contentText").val());
+			
+			var name = $("#name").val();
+			var title = $("#title").val();
+			var content = $("#contentText").val();
+			var password = $("#password").val();
+			
+			if(stringLength($("#name").val()) > 30)
+			{
+				alert("닉네임은 30자 까지만 가능합니다.");
+			}
+			else if(stringLength($("#contentText").val()) > 300)
+			{
+				alert("본문은 300자 까지만 가능합니다.");
+			}
+			else if(stringLength($("#title").val()) > 50)
+			{
+				alert("제목은 50자 까지만 가능합니다.");
+			}
+			else if(stringLength($("#password").val()) > 50)
+			{
+				alert("비밀번호는 50자 까지만 가능합니다.");
+			}
+			else
+			{
+				$.ajax({
+					type : "post",
+					url : "/qna/insert",
+					headers : {
+						'Content-Type' : 'application/json',
+						'X-HTTP-Method-Override' : 'post'
+					},
+					data : JSON.stringify({
+						qBno : qBno,
+						qTitle : title,
+						qWriter : name,
+						qContent : content,
+						qPassword : password,
+						qUserId : userId
+					}),
+					dataType : 'text',
+					success : function(result) {
+						
+						$("#name").val("");
+						$("#title").val("");
+						$("#contentText").val("");
+						$("#password").val("");
+						
+						getPageList(qBno, 1);
+					}
+				});
+
+				$("#questionModal .close").click();
+				$("#questionModal .close").trigger("click");
+			}
+		});
+		
 		//< (본문) 답글 작성
 		$("#qnaList").on("click", ".answer", function() {
+			
+			$("#answertitle").val("");
+			$("#answercontentText").val("");
 			
 			//< 관리자 권한 체크
 			checkGrade(userGrade);
@@ -530,13 +588,17 @@ hr.mainHorizental {
 			var content = $("#answercontentText").val(); 
 			var password;
 			
-			if(stringLength($("#answercontentText").val()) > 300)
+			if(stringLength($("#answerName").val()) > 30)
 			{
-				alert("본문은 230자 까지만 가능합니다.");
+				alert("닉네임은 30자 까지만 가능합니다.");
 			}
 			else if(stringLength($("#answertitle").val()) > 50)
 			{
 				alert("제목은 50자 까지만 가능합니다.");
+			}
+			else if(stringLength($("#answercontentText").val()) > 300)
+			{
+				alert("본문은 300자 까지만 가능합니다.");
 			}
 			else
 			{
@@ -630,7 +692,7 @@ hr.mainHorizental {
 			
 			$.ajax({
 				type : "delete",
-				url : "/qna/deleteAll",
+				url : "/qna/deleteqReproot",
 				headers : {
 					'Content-Type' : 'application/json',
 					'X-HTTP-Method-Override' : 'delete'
@@ -672,7 +734,7 @@ hr.mainHorizental {
 			});
 		});
 		
-		//< 처음 화면으로 이동
+		//< 첫 페이지으로 이동
 		$(".goFirst").click(function(event){
 			if(curPage != 1)
 			{
@@ -761,6 +823,8 @@ hr.mainHorizental {
 				{
 					var list = getList(obj['qTitle'], obj['qWriter'], obj['qUpdatedate'], obj['qContent'], obj['qQno'], obj['qRepindent'], obj['qUserId']);
 				}
+				
+				list.replace(/\n/gi, "<br>");
 				
 				$("#qnaList").append(list);
 			}
