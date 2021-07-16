@@ -44,7 +44,7 @@ NOCYCLE<br>
 
 # FILES
 <br>
-[QNA.zip](https://github.com/manco-nineight/EzenTeamProject/files/6813200/QNA.zip)<br>
+[QNA.zip](https://github.com/manco-nineight/EzenTeamProject/files/6828620/QNA.zip)<br>
 <br>
 <br>
 java files - controller, domain, persistence, service 패키지에 각각 추가<br>
