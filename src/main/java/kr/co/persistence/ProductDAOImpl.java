@@ -36,7 +36,7 @@ public class ProductDAOImpl implements ProductDAO {
 	@Override
 	public List<ProductVO> listProd(int startNum, Map<String, Object> map) {
 
-		RowBounds rb = new RowBounds(startNum - 1, 5);
+		RowBounds rb = new RowBounds(startNum - 1, 12);
 
 		return session.selectList(NAMESPACE + ".listProd", map, rb);
 	}

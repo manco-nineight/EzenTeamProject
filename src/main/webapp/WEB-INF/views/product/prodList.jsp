@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="/resources/css/list.css">
 </head>
 <body>
-<div class="container">
+<div class="container" style="padding:0px;">
 
 <div class="logo">
 <a href="/index.html"><img src="/resources/img/3.jpg" height="16px;"/></a>
@@ -89,9 +89,8 @@
 		</form>
 	</div>
 
-	<div class="row">
 		<c:forEach items="${to.list}" var="item">
-			<div class="col-md-3 thumb_list" style="margin: 1px 0;">
+			<div class="col-md-3 thumb_list" style="margin: 1px 0; padding;">
 				<div class="list_thumbnail">
 					<a href="/product/prodRead/${item.prodName}"><img src="${item.prodThumbnail}" style="height:200px;width:200px;" id="scrollImg"></a>
 					<p><a href="/product/prodRead/${item.prodName}">${item.prodName}</a></p>
@@ -100,7 +99,6 @@
 				</div>
 			</div>
 		</c:forEach>
-	</div><!--row end  -->
 	<br>
     <div class="scroll_paging"></div>
     <a href="#" class="scrollToTop"><img src="/resources/img/images.png"></a>
@@ -140,9 +138,9 @@
 				success: function(result) {
 						for (var i = 0; i < result.length; i++) {
 							var str = 
-							'<div class="col-md-3 thumb_list">'+
+							'<div class="col-md-3 thumb_list" style="margin:0px;">'+
 								'<div class="list_thumbnail">'+
-									'<img src="' +(result[i].prodThumbnail) +  '"style="height:250px;width:250px;">'+
+									'<a href="/product/prodRead/'+ (result[i].prodName) +'"> <img src="' +(result[i].prodThumbnail) +  '"style="height:200px;width:200px;"></a>'+
 									'<p><a href="/product/prodRead/' + (result[i].prodName) + '">' + (result[i].prodName) + '</a></p>'+
 									'<p>' + (result[i].prodPrice) + '</p>'+
 								'</div>'+
