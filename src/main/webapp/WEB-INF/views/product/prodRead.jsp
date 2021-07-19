@@ -86,11 +86,8 @@
 		<form action="/product/prodDelete/${vo.prodName}?prodBno=${vo.prodBno}" method="post"></form>
 	</div> <!-- end of container -->
 
-<<<<<<< HEAD
 	<jsp:include page="/WEB-INF/views/qna/qnaPage.jsp" />
 	
-=======
->>>>>>> parent of 429e7ee (Update prodRead.jsp)
 <script type="text/javascript">
 	$(document).ready(function() {
 		
