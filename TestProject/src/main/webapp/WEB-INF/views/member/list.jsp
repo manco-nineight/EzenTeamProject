@@ -21,6 +21,7 @@
 			<c:choose>
 				<c:when test="${empty login}">
 					<a href="/member/loginGet">로그인</a>
+					<a href="/member/insert">회원 가입</a>
 				</c:when>
 				<c:otherwise>
 					(${login.userName})님 반갑습니다. <a href="/member/logout">로그아웃</a>
@@ -30,7 +31,6 @@
 		
 		<div class="row">
 			<h1 class="jumbotron text-center">회원 목록</h1>
-			<a href="/member/insert">회원 가입</a>
 		</div>
 		
 		<div class="row">
@@ -46,8 +46,7 @@
 				</thead>
 				<tbody>
 					<c:forEach items="${to.list}" var="vo">
-							<tr class="${vo.userId != login.userId?'disabled':''}"
-								style="cursor:pointer;" 
+							<tr style="cursor:pointer;" 
 								onmouseOver="this.style.background='#50bcdf'" 
 								onMouseOut="this.style.backgroundColor=''"
 								onclick="location.href='/member/read/${vo.userId}?curPage=${to.curPage}'">

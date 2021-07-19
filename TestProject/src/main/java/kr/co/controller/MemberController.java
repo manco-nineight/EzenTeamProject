@@ -88,7 +88,6 @@ public class MemberController {
 		List<ProductVO> test = mService.test();
 		
 		model.addAttribute("list", test);
-
 	}
 	
 	
@@ -128,14 +127,14 @@ public class MemberController {
 	        	sb.append(charSet[idx]); 
 	        }
 
-	        System.out.println("인증번호 : " + sb.toString());
+	        System.out.println("인증번호 : " + sb.toString()); // 테스트 용
 
 			String setFrom = "korean3359@gmail.com";
 	        String toEmail = userEmail;
 	        String title = "회원 임시 비밀번호 이메일";
 	        String content = "임시 비밀번호는 " + sb.toString() + " 입니다.";
 	        
-	        // 메일 전송 부분 임시 주석처리 (google에 제 임시 아이디에서 입력된 메일주소로 전송합니다)
+	        // 원할한 테스트를 위한 메일 전송 부분 임시 주석처리 (google에 임시 아이디에서 입력된 메일주소로 전송)
 //			try {
 //				MimeMessage msg = mailSender.createMimeMessage();
 //				MimeMessageHelper helper = new MimeMessageHelper(msg, true, "UTF-8");
@@ -151,6 +150,7 @@ public class MemberController {
 	        
 	        String userPw = sb.toString();
 	        
+	        // 비밀번호 암호화
 	        String secureUserPw = userPwEncoder.encode(userPw);
 
 	        map.put("userPw", secureUserPw);
@@ -214,6 +214,8 @@ public class MemberController {
 	@RequestMapping(value = "/loginPost", method = RequestMethod.POST)
 	public void login(LoginDTO login, Model model) {
 		MemberDTO dto = mService.login(login);
+		
+		// 비밀번호 입력값과 DB에 암호화된 비밀번호 비교
 		boolean isUserPw = userPwEncoder.matches(login.getUserPw(), dto.getUserPw());
 
 		if (isUserPw) {
@@ -254,6 +256,7 @@ public class MemberController {
 	public String update(@PathVariable("userId") String userId, MemberDTO vo, int curPage) {
 		vo.setUserId(userId);
 		
+		// 비밀번호 암호화
 		String secureUserPw = userPwEncoder.encode(vo.getUserPw());
 		vo.setUserPw(secureUserPw);
 		
@@ -269,7 +272,7 @@ public class MemberController {
 		HttpSession session = request.getSession();
 		MemberDTO loginSession = (MemberDTO) session.getAttribute("login");
 		
-		// 세션이 없거나 다른 상태에서 주소창에 입력하여 비정상 접근 시 접근 제한
+		// 세션이 없거나 세션이 다른 상태에서 주소창에 입력하여 비정상 접근 시 접근 제한
 		if (!loginSession.getUserId().equals(userId)) {
 			System.out.println("잘못된 접근입니다.");
 
@@ -361,14 +364,14 @@ public class MemberController {
         random.setSeed(new Date().getTime()); // 현재 시간을 기반으로 매번 변경되는 시드값을 사용
 
         int checkNum = random.nextInt(888888) + 111111;
-        System.out.println("인증번호 " + checkNum);
+        System.out.println("인증번호 " + checkNum);	// 테스트용
         
         String setFrom = "korean3359@gmail.com";
         String toEmail = userEmail;
         String title = "회원가입 인증 이메일입니다.";
         String content = "인증 번호는 " + checkNum + " 입니다.";
         
-        // 메일 전송 임시 주석
+        // 원할한 테스트를 위한 메일 전송 임시 주석
 //		try {
 //			MimeMessage msg = mailSender.createMimeMessage();
 //			MimeMessageHelper helper = new MimeMessageHelper(msg, true, "UTF-8");
@@ -382,7 +385,6 @@ public class MemberController {
 //			e.printStackTrace();
 //		}
 
-        
         String num = Integer.toString(checkNum);
         
         return num;
@@ -401,7 +403,7 @@ public class MemberController {
 	// 회원 가입
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
 	public String insert(MemberDTO vo) {
-		
+		// 비밀번호 암호화
 		String secureUserPw = userPwEncoder.encode(vo.getUserPw());
 		
 		vo.setUserPw(secureUserPw);

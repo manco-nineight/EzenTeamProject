@@ -220,7 +220,7 @@
 				event.preventDefault();
 
 			} else if ($("#userPw").val() != $("#userPw2").val()) {
-				alert('비밀번호 혹은 재확인 부분이 같지 않습니다');
+				alert('비밀번호 혹은 재확인 부분이 서로 같지 않습니다');
 				event.preventDefault();
 
 			} else if ($("#userName").val() == '' || !nameRegExp.test($("#userName").val())) {

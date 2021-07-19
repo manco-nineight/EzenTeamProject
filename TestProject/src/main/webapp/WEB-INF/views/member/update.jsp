@@ -24,8 +24,13 @@
 		<div class="row">
 			<form id="form_update" action="/member/update/${vo.userId}?curPage=${curPage}" method="post">
 				<div class="form-group">
-					<label for="userPw">비밀번호</label>
-					<input type="password" class="form-control" id="userPw" name="userPw" maxlength="50">
+					<label for="userPw">새 비밀번호</label>
+					<input type="password" class="form-control" id="userPw" name="userPw" maxlength="60">
+				</div>
+				
+				<div class="form-group">
+					<label for="userPw2">비밀번호 재확인</label>
+					<input type="password" class="form-control" id="userPw2" name="userPw2" maxlength="60">
 				</div>
 			
 				<div class="form-group">
@@ -202,6 +207,10 @@
 		var checkInfo = function() {
 			if ($("#userPw").val() == '' || !pwRegExp.test($("#userPw").val())) {
 				alert('비밀번호는 최소 4자 이상 입력하세요.');
+				event.preventDefault();
+
+			} else if ($("#userPw").val() != $("#userPw2").val()) {
+				alert('비밀번호 혹은 재확인 부분이 서로 같지 않습니다');
 				event.preventDefault();
 
 			} else if ($("#userName").val() == '' || !nameRegExp.test($("#userName").val())) {
