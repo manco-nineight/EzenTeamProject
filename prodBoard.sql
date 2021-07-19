@@ -48,6 +48,9 @@ prodSalesCount NUMBER DEFAULT 0
 insert into product(prodName,prodBno, prodCategory , prodTitle,prodContent, prodPrice)
 values('aaa',1,1,'asad','asafsddsfsd',1)
 
+
+
+
 INSERT INTO product
 (prodName, prodBno,prodCategory, prodTitle, prodPrice)
 VALUES
@@ -63,7 +66,9 @@ SELECT * FROM product prod, prodStock prodS
 WHERE prod.prodName = prodS.prodStockName
 WITH READ ONLY
 
-(SELECT ONLY)	-	읽기 용 가상 테이블 
+(SELECT ONLY)	
+
+-	읽기 용 가상 테이블 
 
 
 
@@ -125,6 +130,14 @@ qRepindent NUMBER,
 CONSTRAINT fk_qna_qBno FOREIGN KEY(qBno) REFERENCES product(prodBno)
 ON DELETE CASCADE
 )
+
+07-19 추가
+CREATE SEQUENCE qna_seq
+INCREMENT BY 1
+START WITH 1
+MAXVALUE 1000000000
+NOCYCLE
+
 
 파일 업로드	-	현재 외래키 등록이 안돼어 있어서 될까?
 .

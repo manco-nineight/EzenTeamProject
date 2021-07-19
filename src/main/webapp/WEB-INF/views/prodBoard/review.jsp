@@ -36,9 +36,9 @@
 	    		
 	    		<div class="form-group">
 	    			<label for="reContent">내용</label> <br>
-	    			<textarea  style="resize:horizontal; width:710px; height:200px; " rows="10" name="reContent" id="reContent" class="form-control reContent" placeholder="1000자 이내로 입력해주세요."></textarea>
+	    			<textarea  style="resize:horizontal; width:710px; height:200px; " rows="10" name="reContent" id="reContent" class="form-control reContent" placeholder="500자 이내로 입력해주세요."></textarea>
 	    			<p style="text-align: right;">
-	    			<span  class="badge reContentLength">0</span><span>/1000</span>
+	    			<span  class="badge reContentLength">0</span><span>/500</span>
 	    			</p>
 	    		</div>
 	    		
@@ -184,7 +184,7 @@
 				   $(".reContentLength").text(reContentLength);
 						 console.log(reContent.length); 
 						 
-				   if(reContentLength > 1000){					
+				   if(reContentLength > 500){					
 						reContent.attr("class","alert-danger");
 						$(".review_insert_btn").attr("disabled","disabled");
 					}else{
@@ -253,7 +253,7 @@
 	         }
 	         else
 	         {
-	        	 var page = beginPageNum-5;
+	        	 var page = beginPageNum-10;
 	        	 getReviewList(reBno, page);
 	         }
 	         
@@ -268,7 +268,7 @@
 				}
 				else
 				{
-					curPage = beginPageNum+5;
+					curPage = beginPageNum+10;
 					getReviewList(reBno, curPage);
 				}
 	         

@@ -11,7 +11,7 @@ public class ReviewPageTO<T> implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int curPage = 1;
 	private int perPage = 5;	
-	private int perLine = 5;	
+	private int perLine = 10;	
 
 	private int amount;	
 	private int totalPage;	
