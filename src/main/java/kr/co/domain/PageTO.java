@@ -4,128 +4,128 @@ import java.util.List;
 
 public class PageTO<T> {
 
-   private int curPage = 1;
-      private int perPage = 10;
-      private int perLine = 10;
-      
-      private int amount; 
-      private int totalPage; 
-      private int startNum; 
-      private int endNum; 
-      private List<T> list;  
-      private int beginPageNum;
-      private int finishPageNum;
-      
-      public PageTO() {
-         executeChangeValue();
-      }
+	private int curPage = 1;
+	   private int perPage = 12;
+	   private int perLine = 10;
 
-      public PageTO(int curPage) {
-         super();
-         this.curPage = curPage;
-         executeChangeValue();
-      }
+	   private int amount;
+	   private int totalPage;
+	   private int startNum;
+	   private int endNum;
+	   private List<T> list;  
+	   private int beginPageNum;
+	   private int finishPageNum;
 
-      public int getCurPage() {
-         return curPage;
-      }
+	   public PageTO() {
+	      executeChangeValue();
+	   }
 
-      public void setCurPage(int curPage) {
-         this.curPage = curPage;
-         executeChangeValue();
-      }
+	   public PageTO(int curPage) {
+	      super();
+	      this.curPage = curPage;
+	      executeChangeValue();
+	   }
 
-      public int getPerPage() {
-         return perPage;
-      }
+	   public int getCurPage() {
+	      return curPage;
+	   }
 
-      public void setPerPage(int perPage) {
-         this.perPage = perPage;
-         executeChangeValue();
-      }
+	   public void setCurPage(int curPage) {
+	      this.curPage = curPage;
+	      executeChangeValue();
+	   }
 
-      public int getPerLine() {
-         return perLine;
-      }
+	   public int getPerPage() {
+	      return perPage;
+	   }
 
-      public void setPerLine(int perLine) {
-         this.perLine = perLine;
-         executeChangeValue();
-      }
+	   public void setPerPage(int perPage) {
+	      this.perPage = perPage;
+	      executeChangeValue();
+	   }
 
-      public int getAmount() {
-         return amount;
-      }
+	   public int getPerLine() {
+	      return perLine;
+	   }
 
-      public void setAmount(int amount) {
-         this.amount = amount;
-         executeChangeValue();
-      }
+	   public void setPerLine(int perLine) {
+	      this.perLine = perLine;
+	      executeChangeValue();
+	   }
 
-      public int getTotalPage() {
-         return totalPage;
-      }
+	   public int getAmount() {
+	      return amount;
+	   }
 
-      public void setTotalPage(int totalPage) {
-         this.totalPage = totalPage;
-      }
+	   public void setAmount(int amount) {
+	      this.amount = amount;
+	      executeChangeValue();
+	   }
 
-      public int getStartNum() {
-         return startNum;
-      }
+	   public int getTotalPage() {
+	      return totalPage;
+	   }
 
-      public void setStartNum(int starNum) {
-         this.startNum = starNum;
-      }
+	   public void setTotalPage(int totalPage) {
+	      this.totalPage = totalPage;
+	   }
 
-      public int getEndNum() {
-         return endNum;
-      }
+	   public int getStartNum() {
+	      return startNum;
+	   }
 
-      public void setEndNum(int endNum) {
-         this.endNum = endNum;
-      }
+	   public void setStartNum(int starNum) {
+	      this.startNum = starNum;
+	   }
 
-      public List<T> getList() {
-         return list;
-      }
+	   public int getEndNum() {
+	      return endNum;
+	   }
 
-      public void setList(List<T> list) {
-         this.list = list;
-      }
+	   public void setEndNum(int endNum) {
+	      this.endNum = endNum;
+	   }
 
-      public int getBeginPageNum() {
-         return beginPageNum;
-      }
+	   public List<T> getList() {
+	      return list;
+	   }
 
-      public void setBeginPageNum(int beginPageNum) {
-         this.beginPageNum = beginPageNum;
-      }
+	   public void setList(List<T> list) {
+	      this.list = list;
+	   }
 
-      public int getFinishPageNum() {
-         return finishPageNum;
-      }
+	   public int getBeginPageNum() {
+	      return beginPageNum;
+	   }
 
-      public void setFinishPageNum(int finishPageNum) {
-         this.finishPageNum = finishPageNum;
-      }
+	   public void setBeginPageNum(int beginPageNum) {
+	      this.beginPageNum = beginPageNum;
+	   }
 
-      private void executeChangeValue() {
-         totalPage = (amount -1) / perPage +1;
-         startNum = (curPage -1) * perPage +1;
-         endNum = curPage * perPage;
-         if(endNum>amount) {
-            endNum = amount;
-         }
-         beginPageNum = ((curPage-1)/perLine)*perLine+1;
-         finishPageNum = beginPageNum + perLine - 1;
-         if (finishPageNum > totalPage) {
-            finishPageNum = totalPage;
-         }
-         
-      }
-      
-         
-      
+	   public int getFinishPageNum() {
+	      return finishPageNum;
+	   }
 
-   }
+	   public void setFinishPageNum(int finishPageNum) {
+	      this.finishPageNum = finishPageNum;
+	   }
+
+	   private void executeChangeValue() {
+	      totalPage = (amount -1) / perPage +1;
+	      startNum = (curPage -1) * perPage +1;
+	      endNum = curPage * perPage;
+	      if(endNum>amount) {
+	         endNum = amount;
+	      }
+	      beginPageNum = ((curPage-1)/perLine)*perLine+1;
+	      finishPageNum = beginPageNum + perLine - 1;
+	      if (finishPageNum > totalPage) {
+	         finishPageNum = totalPage;
+	      }
+
+	   }
+
+
+
+
+	}

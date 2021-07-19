@@ -1,0 +1,129 @@
+package kr.co.controller;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import kr.co.domain.QNABoardVO;
+import kr.co.domain.QNAPageTO;
+import kr.co.service.QNABoardService;
+
+@RestController
+@RequestMapping("/qna")
+public class QNABoardController {
+
+	@Autowired
+	private QNABoardService bService;
+
+	@RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+	public void delete(@RequestBody Map<String, Object> map) {
+		int qQno = Integer.parseInt(map.get("qQno").toString());
+		
+		bService.delete(qQno);
+	}
+	
+	@RequestMapping(value = "/deleteqReproot", method = RequestMethod.DELETE)
+	public void deleteqReproot(@RequestBody Map<String, Object> map) {
+		int qQno = Integer.parseInt(map.get("qQno").toString());
+		
+		bService.deleteqReproot(qQno);
+	}
+	
+	@RequestMapping(value = "/deleteAll", method = RequestMethod.DELETE)
+	public void deleteAll(@RequestBody Map<String, Object> map) {
+		int qBno = Integer.parseInt(map.get("qBno").toString());
+		
+		bService.deleteAll(qBno);
+	}
+
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public void update(@RequestBody Map<String, Object> map) {
+		
+		int qQno = Integer.parseInt(map.get("qQno").toString());
+		
+		QNABoardVO vo = new QNABoardVO();
+		
+		vo.setqQno(qQno);
+		vo.setqTitle(map.get("qTitle").toString());
+		vo.setqContent(map.get("qContent").toString());
+
+		bService.update(vo);
+	}
+
+	@RequestMapping(value = "/list/{qBno}/{curPage}", method = RequestMethod.GET)
+	public QNAPageTO<QNABoardVO> list(@PathVariable("qBno") Integer qBno, 
+									@PathVariable("curPage") int curPage) {
+		int amount = bService.getAmount(qBno);
+
+		QNAPageTO<QNABoardVO> to = new QNAPageTO<QNABoardVO>(curPage);
+		to.setAmount(amount);
+
+		List<QNABoardVO> list = bService.list(to.getStartNum(), qBno);
+		to.setList(list);
+		
+		return to;
+	}
+
+	@RequestMapping(value = "/list/{qBno}", method = RequestMethod.GET)
+	public QNAPageTO<QNABoardVO> list(@PathVariable("qBno") Integer qBno) {
+		int curPage = 1;
+		int amount = bService.getAmount(qBno);
+
+		QNAPageTO<QNABoardVO> to = new QNAPageTO<QNABoardVO>(curPage);
+		to.setAmount(amount);
+
+		List<QNABoardVO> list = bService.list(to.getStartNum(), qBno);
+		to.setList(list);
+		
+		System.out.println("list 진입");
+		
+		return to;
+	}
+	
+	@RequestMapping(value = "/getPw", method = RequestMethod.POST)
+	public String getPw(@RequestBody Map<String, Object> map) {
+
+		int qQno = Integer.parseInt(map.get("qQno").toString());
+		
+		String password = bService.getPw(qQno);
+		
+		System.out.println("Password : " + password);
+
+		return password.trim();
+	}
+	
+	@RequestMapping(value = "/insert", method = RequestMethod.POST)
+	public void insert(@RequestBody Map<String, Object> map) {
+		int qBno = Integer.parseInt(map.get("qBno").toString());
+		String qTitle = map.get("qTitle").toString();
+		String qWriter = map.get("qWriter").toString();
+		String qContent = map.get("qContent").toString();
+		String qPassword = map.get("qPassword").toString();
+		String qUserId = map.get("qUserId").toString();
+		
+		QNABoardVO vo = new QNABoardVO(0, qBno, qTitle, qWriter, qContent, qPassword, null, null, 0, 0, 0, qUserId);
+
+		bService.insert(vo);
+	}
+	
+	@RequestMapping(value = "/answer", method = RequestMethod.POST)
+	public void answer(@RequestBody Map<String, Object> map) {
+		int qQno = Integer.parseInt(map.get("qQno").toString());
+		int qBno = Integer.parseInt(map.get("qBno").toString());
+		String qTitle = map.get("qTitle").toString();
+		String qWriter = map.get("qWriter").toString();
+		String qContent = map.get("qContent").toString();
+		String qPassword = map.get("qPassword").toString();
+		String qUserId = map.get("qUserId").toString();
+		
+		QNABoardVO vo = new QNABoardVO(0, qBno, qTitle, qWriter, qContent, qPassword, null, null, qQno, 1, 1, qUserId);
+
+		bService.answer(vo);
+	}
+}

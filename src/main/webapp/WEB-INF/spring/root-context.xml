@@ -42,8 +42,8 @@
 	
 <!-- 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl"> 
  <property name="host" value="stmp naver.com"/> 
-</bean>
-	 -->
+</bean> -->
+
 
 
 

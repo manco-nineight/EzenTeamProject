@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.co.domain.BoardVO;
+
 import kr.co.domain.LoginDTO;
 import kr.co.domain.MemberDTO;
 import kr.co.domain.OrderVO;
@@ -107,13 +107,13 @@ public class MemberController {
 			String userEmail = mService.selectEmail(orderUserId);
 			
 			System.out.println(userEmail);	
-			System.out.println("배송시작 메세지 전송 성공");
-			System.out.println("이용자 아이디 : " + orderTrackingNum);
+			System.out.println("諛곗넚�떆�옉 硫붿꽭吏� �쟾�넚 �꽦怨�");
+			System.out.println("�씠�슜�옄 �븘�씠�뵒 : " + orderTrackingNum);
 			
 			String setFrom = "msn6903@naver.com";
 			String toMail = userEmail;
-			String title = "Ezen TestSHOP에서 주문한 상품의 배송이 시작되었습니다..";
-			String content = "고객님께서 주문하신 상품의 운송장번호는" + orderTrackingNum + "입니다.";
+			String title = "Ezen TestSHOP�뿉�꽌 二쇰Ц�븳 �긽�뭹�쓽 諛곗넚�씠 �떆�옉�릺�뿀�뒿�땲�떎..";
+			String content = "怨좉컼�떂猿섏꽌 二쇰Ц�븯�떊 �긽�뭹�쓽 �슫�넚�옣踰덊샇�뒗" + orderTrackingNum + "�엯�땲�떎.";
 			try {
 
 				MimeMessage message = mailSender.createMimeMessage();
@@ -359,25 +359,25 @@ public class MemberController {
 		return "redirect:/member/loginGet";
 	}
 
-	/* �씠硫붿씪 �씤利� */
+	/* 占쎌뵠筌롫뗄�뵬 占쎌뵥筌앾옙 */
 	@RequestMapping(value = "/mailCheck", method = RequestMethod.GET)
 	@ResponseBody
 	public String mailCheckGET(String email) throws Exception {
 
-		/* 酉�(View)濡쒕��꽣 �꽆�뼱�삩 �뜲�씠�꽣 �솗�씤 */
-		System.out.println("이메일 전송 성공");
-		System.out.println("이용자 아이디 : " + email);
+		/* �뀎占�(View)嚥≪뮆占쏙옙苑� 占쎄퐜占쎈선占쎌궔 占쎈쑓占쎌뵠占쎄숲 占쎌넇占쎌뵥 */
+		System.out.println("�씠硫붿씪 �쟾�넚 �꽦怨�");
+		System.out.println("�씠�슜�옄 �븘�씠�뵒 : " + email);
 		Random random = new Random();
 		int checkNum = random.nextInt(888888) + 111111;
 
-		System.out.println("인증번호" + checkNum);
+		System.out.println("�씤利앸쾲�샇" + checkNum);
 
-		/* �씠硫붿씪 蹂대궡湲� */
+		/* 占쎌뵠筌롫뗄�뵬 癰귣�沅→묾占� */
 		String setFrom = "msn6903@naver.com";
 		String toMail = email;
-		String title = "Ezen TestSHOP 회원가입 인증메일입니다..";
-		String content = "저희 사이트를 방문해 주셔서 감사합니다." + "<br><br>" + "인증번호는 " + checkNum + "입니다." + "<br>"
-				+ "회원가입 창에서 인증번호를 입력해 인증을 완료해주세요.";
+		String title = "Ezen TestSHOP �쉶�썝媛��엯 �씤利앸찓�씪�엯�땲�떎..";
+		String content = "���씗 �궗�씠�듃瑜� 諛⑸Ц�빐 二쇱뀛�꽌 媛먯궗�빀�땲�떎." + "<br><br>" + "�씤利앸쾲�샇�뒗 " + checkNum + "�엯�땲�떎." + "<br>"
+				+ "�쉶�썝媛��엯 李쎌뿉�꽌 �씤利앸쾲�샇瑜� �엯�젰�빐 �씤利앹쓣 �셿猷뚰빐二쇱꽭�슂.";
 		try {
 
 			MimeMessage message = mailSender.createMimeMessage();
@@ -400,32 +400,32 @@ public class MemberController {
 	@RequestMapping(value = "/sendMail", method = RequestMethod.GET)
 	public void sendMailTest() throws Exception {
 
-		String subject = "test 硫붿씪";
-		String content = "硫붿씪 �뀒�뒪�듃 �궡�슜";
+		String subject = "test 筌롫뗄�뵬";
+		String content = "筌롫뗄�뵬 占쎈�믭옙�뮞占쎈뱜 占쎄땀占쎌뒠";
 		String from = "msn6903@naver.com";
 		String to = "msn6903@gmail.com";
 
 		try {
 			MimeMessage mail = mailSender.createMimeMessage();
 			MimeMessageHelper mailHelper = new MimeMessageHelper(mail, true, "UTF-8");
-			// true�뒗 硫��떚�뙆�듃 硫붿꽭吏�瑜� �궗�슜�븯寃좊떎�뒗 �쓽誘�
+			// true占쎈뮉 筌롳옙占쎈뼒占쎈솁占쎈뱜 筌롫뗄苑�筌욑옙�몴占� 占쎄텢占쎌뒠占쎈릭野껋쥓�뼄占쎈뮉 占쎌벥沃섓옙
 
 			/*
-			 * �떒�닚�븳 �뀓�뒪�듃 硫붿꽭吏�留� �궗�슜�떆�뿏 �븘�옒�쓽 肄붾뱶�룄 �궗�슜 媛��뒫 MimeMessageHelper mailHelper = new
+			 * 占쎈뼊占쎈떄占쎈립 占쎈�볩옙�뮞占쎈뱜 筌롫뗄苑�筌욑옙筌랃옙 占쎄텢占쎌뒠占쎈뻻占쎈퓦 占쎈툡占쎌삋占쎌벥 �굜遺얜굡占쎈즲 占쎄텢占쎌뒠 揶쏉옙占쎈뮟 MimeMessageHelper mailHelper = new
 			 * MimeMessageHelper(mail,"UTF-8");
 			 */
 
 			mailHelper.setFrom(from);
-			// 鍮덉뿉 �븘�씠�뵒 �꽕�젙�븳 寃껋� �떒�닚�엳 smtp �씤利앹쓣 諛쏄린 �쐞�빐 �궗�슜 �뵲�씪�꽌 蹂대궡�뒗�씠(setFrom())諛섎뱶�떆 �븘�슂
-			// 蹂대궡�뒗�씠�� 硫붿씪二쇱냼瑜� �닔�떊�븯�뒗�씠媛� 蹂쇰븣 紐⑤몢 �몴湲� �릺寃� �썝�븯�떊�떎硫� �븘�옒�쓽 肄붾뱶瑜� �궗�슜�븯�떆硫� �맗�땲�떎.
-			// mailHelper.setFrom("蹂대궡�뒗�씠 �씠由� <蹂대궡�뒗�씠 �븘�씠�뵒@�룄硫붿씤二쇱냼>");
+			// �뜮�뜆肉� 占쎈툡占쎌뵠占쎈탵 占쎄퐬占쎌젟占쎈립 野껉퍔占� 占쎈뼊占쎈떄占쎌뿳 smtp 占쎌뵥筌앹빘�뱽 獄쏆룄由� 占쎌맄占쎈퉸 占쎄텢占쎌뒠 占쎈뎡占쎌뵬占쎄퐣 癰귣�沅∽옙�뮉占쎌뵠(setFrom())獄쏆꼶諭띰옙�뻻 占쎈툡占쎌뒄
+			// 癰귣�沅∽옙�뮉占쎌뵠占쏙옙 筌롫뗄�뵬雅뚯눘�꺖�몴占� 占쎈땾占쎈뻿占쎈릭占쎈뮉占쎌뵠揶쏉옙 癰귥눖釉� 筌뤴뫀紐� 占쎈ご疫뀐옙 占쎈┷野껓옙 占쎌뜚占쎈릭占쎈뻿占쎈뼄筌롳옙 占쎈툡占쎌삋占쎌벥 �굜遺얜굡�몴占� 占쎄텢占쎌뒠占쎈릭占쎈뻻筌롳옙 占쎈쭢占쎈빍占쎈뼄.
+			// mailHelper.setFrom("癰귣�沅∽옙�뮉占쎌뵠 占쎌뵠�뵳占� <癰귣�沅∽옙�뮉占쎌뵠 占쎈툡占쎌뵠占쎈탵@占쎈즲筌롫뗄�뵥雅뚯눘�꺖>");
 			mailHelper.setTo(to);
 			mailHelper.setSubject(subject);
 			mailHelper.setText(content, true);
-			// true�뒗 html�쓣 �궗�슜�븯寃좊떎�뒗 �쓽誘몄엯�땲�떎.
+			// true占쎈뮉 html占쎌뱽 占쎄텢占쎌뒠占쎈릭野껋쥓�뼄占쎈뮉 占쎌벥沃섎챷�뿯占쎈빍占쎈뼄.
 
 			/*
-			 * �떒�닚�븳 �뀓�뒪�듃留� �궗�슜�븯�떊�떎硫� �떎�쓬�쓽 肄붾뱶瑜� �궗�슜�븯�뀛�룄 �맗�땲�떎. mailHelper.setText(content);
+			 * 占쎈뼊占쎈떄占쎈립 占쎈�볩옙�뮞占쎈뱜筌랃옙 占쎄텢占쎌뒠占쎈릭占쎈뻿占쎈뼄筌롳옙 占쎈뼄占쎌벉占쎌벥 �굜遺얜굡�몴占� 占쎄텢占쎌뒠占쎈릭占쎈�쏉옙猷� 占쎈쭢占쎈빍占쎈뼄. mailHelper.setText(content);
 			 */
 
 			mailSender.send(mail);
@@ -453,7 +453,7 @@ public class MemberController {
 
 	}
 
-	// �씤�꽣�뀎�꽣瑜� 援ы쁽�븷 �븣 ui�� 湲곕뒫�쓽 留듯븨 二쇱냼瑜� �떎瑜닿쾶 �꽕�젙�빐�빞�븳�떎.
+	// 占쎌뵥占쎄숲占쎈�롳옙苑ｇ몴占� �뤃�뗭겱占쎈막 占쎈르 ui占쏙옙 疫꿸퀡�뮟占쎌벥 筌띾벏釉� 雅뚯눘�꺖�몴占� 占쎈뼄�몴�떯苡� 占쎄퐬占쎌젟占쎈퉸占쎈튊占쎈립占쎈뼄.
 	@RequestMapping(value = "/loginGet", method = RequestMethod.GET)
 	public void login() {
 	
