@@ -86,6 +86,8 @@
 		<form action="/product/prodDelete/${vo.prodName}?prodBno=${vo.prodBno}" method="post"></form>
 	</div> <!-- end of container -->
 
+	<jsp:include page="\qna/qnaPage.jsp" />
+	
 <script type="text/javascript">
 	$(document).ready(function() {
 		
