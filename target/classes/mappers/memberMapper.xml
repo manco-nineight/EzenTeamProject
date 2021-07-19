@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.member">
+
+
+
+
+
+<select id="selectEmail" resultType="String">
+
+SELECT userEmail FROM member WHERE userId = #{orderUserId}
+</select>
+
+<update id="updateOrderProdStatus">
+UPDATE prod_order SET orderProdStatus = #{orderProdStatus}, orderTrackingNum = #{orderTrackingNum} WHERE orderNum = #{orderNum}
+
+</update>
+
+<delete id="deleteOrder">
+DELETE FROM prod_order WHERE orderNum = #{orderNum}
+</delete>
+
+
+<update id="updateOrderAddress">
+UPDATE prod_order SET orderUserAddress = #{orderUserAddress} WHERE orderNum = #{orderNum}
+
+</update>
+
+
+
+
+<select id="readOrder" resultType="kr.co.domain.OrderVO">
+
+SELECT *  FROM prod_order WHERE  orderNum = #{orderNum}
+</select>
+
+
+<select id="orderAmount" resultType="Integer">
+      SELECT COUNT(orderNum)  FROM prod_order WHERE  orderUserId = #{userId}
+   
+   </select>
+   <select id="managementlistAmount" resultType="Integer">
+      SELECT COUNT(orderNum)  FROM prod_order 
+   
+   </select>
+
+
+<select id="managementList" resultType="kr.co.domain.OrderVO">
+      SELECT *  FROM prod_order  ORDER BY orderNum DESC
+   
+   </select>
+<select id="orderList" resultType="kr.co.domain.OrderVO">
+      SELECT *  FROM prod_order WHERE  orderUserId = #{userId} ORDER BY orderNum DESC
+   
+   </select>
+
+
+
+   <select id="list" resultType="kr.co.domain.MemberDTO">
+      SELECT *  FROM member 
+   
+   </select>
+
+
+
+
+<update id="updateGrade">
+      UPDATE member SET userGrade = #{userGrade}
+      WHERE userId=#{userId}
+   </update>
+
+
+
+ <update id="updateMyself">
+      UPDATE member SET userPw = #{userPw}, userName = #{userName}, userUpdatedate = SYSDATE,
+       userEmail = #{userEmail} , userBirthday = #{userBirthday} , userAddress = #{userAddress} 
+      WHERE userId=#{userId}
+   </update>
+
+   
+   <delete id="deleteMyself">
+   
+   DELETE FROM member WHERE userId =#{userId}
+   </delete>
+
+
+   <select id="readInfo" resultType="kr.co.domain.MemberDTO">
+      SELECT * FROM member WHERE userId = #{userId}
+   
+   </select>
+
+   
+   <select id="userIdCheck" resultType="string">
+      SELECT userId FROM member WHERE userId = #{userId}
+   
+   </select>
+
+   <insert id="sign">
+      INSERT INTO member (userId, userPw, userName, userEmail, userBirthday, userAddress, userRegdate, userUpdatedate, userGrade) 
+      VALUES (#{userId}, #{userPw}, #{userName}, #{userEmail},#{userBirthday}, #{userAddress}, SYSDATE, SYSDATE, #{userGrade})
+   </insert>
+
+
+   
+     <select id="login" resultType="kr.co.domain.MemberDTO">
+      SELECT userId, userName, userGrade  FROM member WHERE userId = #{userId} AND userPw = #{userPw}
+   
+   </select>
+
+
+
+
+   
+ <update id="update">
+      UPDATE member SET userName = #{userName}, email = #{email}, updateDate = SYSDATE 
+      WHERE userId=#{userId} AND userPw = #{userPw} 
+   </update>
+   
+   
+  
+  
+</mapper>
