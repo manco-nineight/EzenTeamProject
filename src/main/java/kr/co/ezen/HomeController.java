@@ -22,9 +22,9 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {
 		
+		//LoginDTO login = qService.getNowLogin("member001");
+		LoginDTO login = qService.getNowLogin("redic123");
 		//LoginDTO login = qService.getNowLogin("admin");
-		//LoginDTO login = qService.getNowLogin("redic123");
-		LoginDTO login = qService.getNowLogin("admin");
 		model.addAttribute("login", login);
 		
 		//ProductVO vo = qService.getBno(prodName);

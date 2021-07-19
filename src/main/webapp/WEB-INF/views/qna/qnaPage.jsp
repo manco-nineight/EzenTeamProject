@@ -20,11 +20,11 @@
 </head>
 <style type="text/css">
 div.questionContent {
-	min-height: 150px;
+	min-height: 120px;
 }
 
 .answerContent {
-	min-height: 150px;
+	min-height: 120px;
 }
 
 hr {
@@ -206,7 +206,7 @@ a:active {
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="/resources/js/qna.js?ver=123"></script>
+	<script type="text/javascript" src="/resources/js/qna.js"></script>
 	<script type="text/javascript">
 	//< 로그인 정보
 	var userId = "${login.userId}";
@@ -248,7 +248,7 @@ a:active {
 			qQno = $(this).parent().next().next().next().children('div.qQno').text();
 			
 			//< 제목~본문 구분선
-			var hr = $(this).parent().next("div");
+			var hr = $(this).parent().next().next().next().next("div");
 			
 			//< 작성자와 로그인 정보가 동일한지 id 체크용 논리자료형 / default: false;
 			var isWriter = false;
@@ -272,51 +272,8 @@ a:active {
 			//< 본문 작성자의 ID 정보 저장
 			questionId = qWriterId;
 			
-			//< 관리자거나 작성자 본인일 경우
-			if(isAdministrator || isWriter)
-			{
-				//< 비밀번호 입력창이 확장되어 있을 경우
-				if( passwordBox.is(":visible") ){
-					//< 축소
-					passwordBox.slideUp();
-				}
-				//< 본문내용이 확장 되어있을 경우
-				else if( contentBox.is(":visible") ){
-					//< 축소
-					contentBox.slideUp();
-				}
-				else{
-					//< 축소된 본문내용 확장
-					contentBox.slideDown();
-				}
-			}
-			//< 일반회원 및 비회원일 때
-			else
-			{
-				if( passwordBox.is(":visible") ){
-					passwordBox.slideUp();
-				}
-				else{
-					if(contentBox.is(":visible"))
-					{
-						contentBox.slideUp();
-					}
-					else
-					{
-						passwordBox.slideDown();
-					}				
-				}
-			}
-			
+			//< 버튼 저장용 div 태그 초기화
 			optionBtns.empty();
-			
-			if( hr.is(":visible") ){
-
-				hr.slideUp();
-			}
-			else{
-				hr.slideDown();	
-			}
 			
 			//< 본문
 			if(parseInt(checkRepRoot) != 1)
@@ -378,6 +335,59 @@ a:active {
 					optionBtns.html(answerMsg);
 				}
 			}
+			
+			//< 관리자거나 작성자 본인일 경우
+			if(isAdministrator || isWriter)
+			{
+				//< 비밀번호 입력창이 확장되어 있을 경우
+				if( passwordBox.is(":visible") ){
+					//< 축소
+					passwordBox.slideUp();
+				}
+				//< 본문내용이 확장 되어있을 경우
+				else if( contentBox.is(":visible") ){
+					//< 축소
+					contentBox.slideUp();
+				}
+				else{
+					//< 축소된 본문내용 확장
+					contentBox.slideDown();
+				}
+			}
+			//< 일반회원 및 비회원일 때
+			else
+			{
+				if( passwordBox.is(":visible") ){
+					passwordBox.slideUp();
+				}
+				else{
+					if(contentBox.is(":visible"))
+					{
+						contentBox.slideUp();
+					}
+					else
+					{
+						passwordBox.slideDown();
+					}				
+				}
+			}
+			
+			//< 버튼 저장용 div 및 확장 오브젝트 구분선 접기/펼치기 설정
+			if( optionBtns.is(":visible") ){
+				//< 축소
+				optionBtns.slideUp();
+			}
+			else{
+				//< 축소된 본문내용 확장
+				optionBtns.slideDown();
+			}
+
+			if( hr.is(":visible") ){
+				hr.slideUp();
+			}
+			else{
+				hr.slideDown();
+			}
 		});
 		
 		//< (본문) 비밀번호 입력
@@ -425,6 +435,8 @@ a:active {
 			$("#title").val("");
 			$("#contentText").val("");
 			$("#password").val("");
+			$(".contentTotalLength").text(0);
+			$(".passwordTotalLength").text(0);
 			
 			if(userId.length > 1)
 			{
@@ -531,6 +543,7 @@ a:active {
 			
 			$("#answertitle").val("");
 			$("#answercontentText").val("");
+			$(".answercontentTotalLength").text(0);
 			
 			//< 관리자 권한 체크
 			checkGrade(userGrade);
@@ -560,6 +573,7 @@ a:active {
 			$("#answerName").val("");
 			$("#answertitle").val("");
 			$("#answercontentText").val("");
+			$(".answercontentTotalLength").text(0);
 			
 			//< 관리자 권한 체크
 			checkGrade(userGrade);

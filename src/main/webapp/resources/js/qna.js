@@ -44,14 +44,13 @@
 						${qUpdatedate}
 					</div>
 				</div>
-				<div class="collapse"><hr></div>
-				<div class="collapse passwordBox" style="word-break: break-all; margin: auto; width:550px; height: 190px;">
+				<hr>
+				<div class="collapse passwordBox" style="word-break: break-all; margin: auto; width:550px; height: 160px;">
 					<br>
 					<br>
+					<div style="text-align: center; margin-left: -10px;">비밀번호를 입력해 주세요</div>
 					<br>
-					<div style="text-align: center">비밀번호를 입력해 주세요</div>
-					<br>
-					<div class="inputSet" style="text-align: center; margin-left: 55px; margin-top: 0px;">
+					<div class="inputSet" style="text-align: center; margin-left: 45px; margin-top: 0px;">
 						<input type="password" class="insertPw"/>
 						<button type="button" class="btn btn-secondary enter" style="margin-left: 10px;  margin-top: -2.5px;">
 							<span class="glyphicon glyphicon-ok"></span>
@@ -60,13 +59,14 @@
 				</div>
 				<div class="collapse contentBox" style="display: none; word-break: break-all; margin: auto; width:550px; position: relative;">
 					<div style="white-space: pre-line;" class="questionContent">${qContent}</div>
-					<br><br>
-					<div class="buttonDiv" style="position: absolute; right:0px; bottom: 0px; margin-top: -20px;">
+					<br>
+					<br>
+					<div class="collapse buttonDiv" style="position: absolute; right:0px; bottom: 0px; margin-top: -20px;">
 					</div>
 					<div class="qQno" style="display: none" id="qQno">${qQno}</div>
 					<div class="qRepindent" style="display: none" id="qRepindent">${qRepindent}</div>
 				</div>
-				<hr>
+				<div class="collapse"><hr></div>
 			`;
 			
 	return msg;
@@ -86,14 +86,13 @@
 						${qUpdatedate}
 					</div>
 				</div>
-				<div class="collapse"><hr></div>
-				<div class="collapse passwordBox" style="word-break: break-all; margin: auto; width:550px; height: 190px;">
+				<hr>
+				<div class="collapse passwordBox" style="word-break: break-all; margin: auto; width:550px; height: 160px;">
 					<br>
 					<br>
+					<div style="text-align: center; margin-left: -10px;">비밀번호를 입력해 주세요</div>
 					<br>
-					<div style="text-align: center">비밀번호를 입력해 주세요</div>
-					<br>
-					<div class="inputSet" style="text-align: center; margin-left: 55px; margin-top: 0px;">
+					<div class="inputSet" style="text-align: center; margin-left: 45px; margin-top: 0px;">
 						<input type="password" class="insertPw"/>
 						<button type="button" class="btn btn-secondary enter" style="margin-left: 10px;  margin-top: -2.5px;">
 							<span class="glyphicon glyphicon-ok"></span>
@@ -103,12 +102,13 @@
 				<div class="collapse contentBox" style="display: none;word-break: break-all; margin: auto; width:550px; position: relative;">
 					<div style="white-space: pre-line;" class="questionContent">${qContent}</div>
 					<br>
-					<div class="buttonDiv" style="position: absolute; right:0px; bottom: 0px; margin-top: -20px;">
+					<br>
+					<div class="collapse buttonDiv" style="position: absolute; right:0px; bottom: 0px; margin-top: -20px;">
 					</div>
 					<div class="qQno" style="display: none" id="qQno">${qQno}</div>
 					<div class="qRepindent" style="display: none" id="qRepindent">${qRepindent}</div>
 				</div>
-				<hr>
+				<div class="collapse"><hr></div>
 			`;
 			
 	return msg;
