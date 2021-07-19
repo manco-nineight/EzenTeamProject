@@ -1,5 +1,6 @@
 package kr.co.ezen;
 
+<<<<<<< HEAD
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -14,13 +15,24 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+=======
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+>>>>>>> Nsangwon
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.utils.Utils;
+=======
+>>>>>>> Nsangwon
 
 /**
  * Handles requests for the application home page.
@@ -28,6 +40,7 @@ import kr.co.utils.Utils;
 @Controller
 public class HomeController {
 	
+<<<<<<< HEAD
 	@Autowired
 	private ServletContext sc;
 	
@@ -74,17 +87,33 @@ public class HomeController {
 		
 		return entity;
 	}
+=======
+	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+>>>>>>> Nsangwon
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
+<<<<<<< HEAD
 		
 		//System.out.println(sc.getRealPath(uploadPath)+"::::::::::::::::::::::");
 		
 		
 		return "Test";
+=======
+		logger.info("Welcome home! The client locale is {}.", locale);
+		
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		
+		String formattedDate = dateFormat.format(date);
+		
+		model.addAttribute("serverTime", formattedDate );
+		
+		return "home"; 
+>>>>>>> Nsangwon
 	}
 	
 }

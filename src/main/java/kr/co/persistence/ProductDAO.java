@@ -1,5 +1,6 @@
 package kr.co.persistence;
 
+<<<<<<< HEAD
 import java.util.List;
 import java.util.Map;
 
@@ -32,5 +33,11 @@ public interface ProductDAO {
 	String prodNameDupCheck(String prodName);
 
 	ProductVO getContent(int prodBno);
+=======
+import kr.co.domain.ProductVO;
+
+public interface ProductDAO {
+	public ProductVO review(Integer prodBno);
+>>>>>>> Nsangwon
 
 }

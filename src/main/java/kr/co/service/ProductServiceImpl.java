@@ -1,5 +1,6 @@
 package kr.co.service;
 
+<<<<<<< HEAD
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -107,4 +108,23 @@ public class ProductServiceImpl implements ProductService {
 		return prodDAO.getContent(prodBno);
 	}
 
+=======
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import kr.co.domain.ProductVO;
+import kr.co.persistence.ProductDAO;
+
+@Service
+public class ProductServiceImpl implements ProductService{
+	
+	@Autowired
+	private ProductDAO pDao;
+	
+	@Override
+	public ProductVO review(Integer prodBno) {
+		
+		return pDao.review(prodBno);
+	}
+>>>>>>> Nsangwon
 }

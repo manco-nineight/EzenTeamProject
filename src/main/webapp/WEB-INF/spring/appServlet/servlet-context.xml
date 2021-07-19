@@ -8,7 +8,11 @@
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> Nsangwon
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 
@@ -20,6 +24,7 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
+<<<<<<< HEAD
 
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<beans:property name="maxUploadSize" value="10485760"></beans:property>
@@ -36,4 +41,46 @@
 
 
 
+=======
+	
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="10485760"></beans:property>
+	</beans:bean>
+	
+	<beans:bean class="java.lang.String" id="uploadPath">
+		<beans:constructor-arg value="resources\\uploads"></beans:constructor-arg>
+	</beans:bean>
+   		
+   <beans:bean id="loginInterceptor" class="kr.co.interceptor.LoginInterceptor"></beans:bean>
+   	
+   <interceptors>
+   		<interceptor>
+   			<mapping path="/member/loginPost"/>
+   			<beans:ref bean="loginInterceptor"/>
+   		</interceptor>
+   </interceptors>
+   
+  <beans:bean id="authInterceptor" class="kr.co.interceptor.AuthInterceptor"></beans:bean>
+   	
+   <interceptors>
+   		<interceptor>
+   			<mapping path="/board/delete/*"/>
+   			<mapping path="/board/update/*"/>
+   			<mapping path="/board/insert"/>
+   			<beans:ref bean="authInterceptor"/>
+   		</interceptor>
+   </interceptors>
+   
+	
+	
+	<context:component-scan base-package="kr.co.ezen" />
+	<context:component-scan base-package="kr.co.controller" />
+	<context:component-scan base-package="kr.co.ajax.controller" />
+	
+
+	
+	
+	
+	
+>>>>>>> Nsangwon
 </beans:beans>

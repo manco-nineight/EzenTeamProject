@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
+<<<<<<< HEAD
 	<name>Ezen_TeamProject</name>
+=======
+	<name>ezen_teamProject</name>
+>>>>>>> Nsangwon
 	<comment></comment>
 	<projects>
 	</projects>
@@ -26,7 +30,11 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
+<<<<<<< HEAD
 			<name>org.springframework.ide.eclipse.core.springbuilder</name>
+=======
+			<name>org.springframework.ide.eclipse.boot.validation.springbootbuilder</name>
+>>>>>>> Nsangwon
 			<arguments>
 			</arguments>
 		</buildCommand>

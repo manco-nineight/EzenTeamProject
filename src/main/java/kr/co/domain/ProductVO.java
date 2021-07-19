@@ -2,15 +2,26 @@ package kr.co.domain;
 
 import java.io.Serializable;
 
+<<<<<<< HEAD
 public class ProductVO implements Serializable {
 
 	/**
 	 *
+=======
+public class ProductVO implements Serializable{
+
+	/**
+	 * 
+>>>>>>> Nsangwon
 	 */
 	private static final long serialVersionUID = 1L;
 	private String prodName;
 	private int prodBno;
+<<<<<<< HEAD
 	private String prodCategory;
+=======
+	private int prodCategory;
+>>>>>>> Nsangwon
 	private String prodTitle;
 	private String prodContent;
 	private int prodReadCnt;
@@ -18,15 +29,23 @@ public class ProductVO implements Serializable {
 	private String prodUpdatedate;
 	private int prodPrice;
 	private int prodSalesCount;
+<<<<<<< HEAD
 	private String prodThumbnail;
+=======
+>>>>>>> Nsangwon
 
 	public ProductVO() {
 		// TODO Auto-generated constructor stub
 	}
 
+<<<<<<< HEAD
 	public ProductVO(String prodName, int prodBno, String prodCategory, String prodTitle, String prodContent,
 			int prodReadCnt, String prodRegdate, String prodUpdatedate, int prodPrice, int prodSalesCount,
 			String prodThumbnail) {
+=======
+	public ProductVO(String prodName, int prodBno, int prodCategory, String prodTitle, String prodContent,
+			int prodReadCnt, String prodRegdate, String prodUpdatedate, int prodPrice, int prodSalesCount) {
+>>>>>>> Nsangwon
 		super();
 		this.prodName = prodName;
 		this.prodBno = prodBno;
@@ -38,7 +57,10 @@ public class ProductVO implements Serializable {
 		this.prodUpdatedate = prodUpdatedate;
 		this.prodPrice = prodPrice;
 		this.prodSalesCount = prodSalesCount;
+<<<<<<< HEAD
 		this.prodThumbnail = prodThumbnail;
+=======
+>>>>>>> Nsangwon
 	}
 
 	public String getProdName() {
@@ -57,11 +79,19 @@ public class ProductVO implements Serializable {
 		this.prodBno = prodBno;
 	}
 
+<<<<<<< HEAD
 	public String getProdCategory() {
 		return prodCategory;
 	}
 
 	public void setProdCategory(String prodCategory) {
+=======
+	public int getProdCategory() {
+		return prodCategory;
+	}
+
+	public void setProdCategory(int prodCategory) {
+>>>>>>> Nsangwon
 		this.prodCategory = prodCategory;
 	}
 
@@ -125,6 +155,7 @@ public class ProductVO implements Serializable {
 		return serialVersionUID;
 	}
 
+<<<<<<< HEAD
 	public String getProdThumbnail() {
 		return prodThumbnail;
 	}
@@ -133,12 +164,17 @@ public class ProductVO implements Serializable {
 		this.prodThumbnail = prodThumbnail;
 	}
 
+=======
+>>>>>>> Nsangwon
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + prodBno;
+<<<<<<< HEAD
 		result = prime * result + ((prodName == null) ? 0 : prodName.hashCode());
+=======
+>>>>>>> Nsangwon
 		return result;
 	}
 
@@ -153,6 +189,7 @@ public class ProductVO implements Serializable {
 		ProductVO other = (ProductVO) obj;
 		if (prodBno != other.prodBno)
 			return false;
+<<<<<<< HEAD
 		if (prodName == null) {
 			if (other.prodName != null)
 				return false;
@@ -161,4 +198,15 @@ public class ProductVO implements Serializable {
 		return true;
 	}
 
+=======
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "ProductVO [prodName=" + prodName + ", prodBno=" + prodBno + "]";
+	}
+	
+	
+>>>>>>> Nsangwon
 }

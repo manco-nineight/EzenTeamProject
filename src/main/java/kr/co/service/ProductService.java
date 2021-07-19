@@ -1,5 +1,6 @@
 package kr.co.service;
 
+<<<<<<< HEAD
 import java.util.List;
 import java.util.Map;
 
@@ -31,4 +32,10 @@ public interface ProductService {
 
 	String prodNameDupCheck(String prodName);
 
+=======
+import kr.co.domain.ProductVO;
+
+public interface ProductService {
+	public ProductVO review(Integer prodBno);
+>>>>>>> Nsangwon
 }
