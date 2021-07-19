@@ -10,7 +10,7 @@
 	}
       
 	var msg =`
-				<nav aria-label="Page navigation" style="margin-bottom: -23px;">
+				<nav aria-label="Page navigation">
   					<ul class="pagination">
     					<li style="float: left;">
       						<a href="#" aria-label="Previous" class="prev" id="prev">

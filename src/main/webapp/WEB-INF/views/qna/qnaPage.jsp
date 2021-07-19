@@ -19,6 +19,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <style type="text/css">
+
 div.questionContent {
 	min-height: 120px;
 }
@@ -86,22 +87,23 @@ a:active {
 </style>
 <body>
 	<br>
-	<div class="container" style="border: 2px solid grey; width: 750px;">
+	<div class="container qnaBoard" style="border: 2px solid grey; width: 750px; margin: auto">
 		<br>
 		<div class="row" style="width: 650px; margin: auto;">
 			<h1
-				style="float: left; margin-top: 10px; margin-left: 30px; font-size: 22px; font-weight: bold;">상품문의</h1>
+				style="float: left; margin-top: 15px; margin-left: 30px; font-size: 30px; font-weight: bold;">상품문의</h1>
 			<a class="btn btn-primary insertBtn" data-toggle="modal"
 				data-target="#questionModal"
-				style="float: right; margin-top: 3px; margin-right: 30px; font-size: 15px; color: white;">문의하기</a>
+				style="float: right; margin-top: 10px; margin-right: 30px; font-size: 15px; color: white;">문의하기</a>
 			<br> <br> <br>
 			<hr class="mainHorizental">
 			<div class="qnaList" id="qnaList"></div>
-			<div class="page" id="page" style="text-align: center;"></div>
-			<button type="button" class="btn btn-primary btn-xs goFirst"
-				style="height: 30px; margin-top: -50px;">처음으로</button>
 			<br>
+			<div class="page" id="page" style="text-align: center; margin-bottom: 0px;"></div>
+			<button type="button" class="btn btn-primary btn-xs goFirst"
+				style="height: 30px; margin-top: -52px;">처음으로</button>
 		</div>
+		<br>
 	</div>
 	<br>
 	<!-- 팝업창 -->

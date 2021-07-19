@@ -8,6 +8,10 @@
 img{
   width: 500px;
 }
+.included {
+	width: 10px;
+}
+
 .row {
   margin: 20px;
 	}

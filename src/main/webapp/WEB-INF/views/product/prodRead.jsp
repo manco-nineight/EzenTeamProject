@@ -86,6 +86,7 @@
 		<form action="/product/prodDelete/${vo.prodName}?prodBno=${vo.prodBno}" method="post"></form>
 	</div> <!-- end of container -->
 
+	<!-- review 들어올 자리 -->
 	<jsp:include page="/WEB-INF/views/qna/qnaPage.jsp" />
 	
 <script type="text/javascript">

@@ -84,7 +84,7 @@ public class HomeController {
 		//System.out.println(sc.getRealPath(uploadPath)+"::::::::::::::::::::::");
 		
 		
-		return "Test";
+		return "home";
 	}
 	
 }
