@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-<<<<<<< HEAD
-	<name>Ezen_TeamProject</name>
-=======
-	<name>Ezen_TeamProject0714</name>
->>>>>>> imwonbin
+	<name>ezen_teamProject</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -30,25 +26,17 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-<<<<<<< HEAD
-			<name>org.springframework.ide.eclipse.core.springbuilder</name>
-=======
-			<name>org.eclipse.m2e.core.maven2Builder</name>
->>>>>>> imwonbin
-			<arguments>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
-			<name>org.springframework.ide.eclipse.core.springbuilder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
-<<<<<<< HEAD
-			<name>org.eclipse.m2e.core.maven2Builder</name>
-=======
 			<name>org.springframework.ide.eclipse.boot.validation.springbootbuilder</name>
->>>>>>> imwonbin
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.springframework.ide.eclipse.core.springbuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.m2e.core.maven2Builder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>

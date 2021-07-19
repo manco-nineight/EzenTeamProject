@@ -13,108 +13,113 @@ public class MemberDTO implements Serializable {
    private String userId;
    private String userPw;
    private String userName;
-   private String userEmail;
-   private String userBirthday;
-   private String userAddress;
-   private String userRegdate;
-   private String userUpdatedate;
-   private int userGrade;
+   private String email;
+   private String regDate;
+   private String updateDate;
    
    public MemberDTO() {
       // TODO Auto-generated constructor stub
    }
 
-public MemberDTO(String userId, String userPw, String userName, String userEmail, String userBirthday,
-		String userAddress, String userRegdate, String userUpdatedate, int userGrade) {
-	super();
-	this.userId = userId;
-	this.userPw = userPw;
-	this.userName = userName;
-	this.userEmail = userEmail;
-	this.userBirthday = userBirthday;
-	this.userAddress = userAddress;
-	this.userRegdate = userRegdate;
-	this.userUpdatedate = userUpdatedate;
-	this.userGrade = userGrade;
-}
+   public MemberDTO(String userId, String userPw, String userName, String email, String regDate, String updateDate) {
+      super();
+      this.userId = userId;
+      this.userPw = userPw;
+      this.userName = userName;
+      this.email = email;
+      this.regDate = regDate;
+      this.updateDate = updateDate;
+   }
 
-public String getUserId() {
-	return userId;
-}
+   public String getUserId() {
+      return userId;
+   }
 
-public void setUserId(String userId) {
-	this.userId = userId;
-}
+   public void setUserId(String userId) {
+      this.userId = userId;
+   }
 
-public String getUserPw() {
-	return userPw;
-}
+   public String getUserPw() {
+      return userPw;
+   }
 
-public void setUserPw(String userPw) {
-	this.userPw = userPw;
-}
+   public void setUserPw(String userPw) {
+      this.userPw = userPw;
+   }
 
-public String getUserName() {
-	return userName;
-}
+   public String getUserName() {
+      return userName;
+   }
 
-public void setUserName(String userName) {
-	this.userName = userName;
-}
+   public void setUserName(String userName) {
+      this.userName = userName;
+   }
 
-public String getUserEmail() {
-	return userEmail;
-}
+   public String getEmail() {
+      return email;
+   }
 
-public void setUserEmail(String userEmail) {
-	this.userEmail = userEmail;
-}
+   public void setEmail(String email) {
+      this.email = email;
+   }
 
-public String getUserBirthday() {
-	return userBirthday;
-}
+   public String getRegDate() {
+      return regDate;
+   }
 
-public void setUserBirthday(String userBirthday) {
-	this.userBirthday = userBirthday;
-}
+   public void setRegDate(String regDate) {
+      this.regDate = regDate;
+   }
 
-public String getUserAddress() {
-	return userAddress;
-}
+   public String getUpdateDate() {
+      return updateDate;
+   }
 
-public void setUserAddress(String userAddress) {
-	this.userAddress = userAddress;
-}
+   public void setUpdateDate(String updateDate) {
+      this.updateDate = updateDate;
+   }
 
-public String getUserRegdate() {
-	return userRegdate;
-}
+   public static long getSerialversionuid() {
+      return serialVersionUID;
+   }
 
-public void setUserRegdate(String userRegdate) {
-	this.userRegdate = userRegdate;
-}
+   @Override
+   public int hashCode() {
+      final int prime = 31;
+      int result = 1;
+      result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+      result = prime * result + ((userPw == null) ? 0 : userPw.hashCode());
+      return result;
+   }
 
-public String getUserUpdatedate() {
-	return userUpdatedate;
-}
+   @Override
+   public boolean equals(Object obj) {
+      if (this == obj)
+         return true;
+      if (obj == null)
+         return false;
+      if (getClass() != obj.getClass())
+         return false;
+      MemberDTO other = (MemberDTO) obj;
+      if (userId == null) {
+         if (other.userId != null)
+            return false;
+      } else if (!userId.equals(other.userId))
+         return false;
+      if (userPw == null) {
+         if (other.userPw != null)
+            return false;
+      } else if (!userPw.equals(other.userPw))
+         return false;
+      return true;
+   }
 
-public void setUserUpdatedate(String userUpdatedate) {
-	this.userUpdatedate = userUpdatedate;
-}
-
-public int getUserGrade() {
-	return userGrade;
-}
-
-public void setUserGrade(int userGrade) {
-	this.userGrade = userGrade;
-}
-
-public static long getSerialversionuid() {
-	return serialVersionUID;
-}
-
+   @Override
+   public String toString() {
+      return userId + " : " + userName;
+   }
+   
+   
    
 
-   
 }
