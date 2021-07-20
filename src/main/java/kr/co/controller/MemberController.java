@@ -28,10 +28,8 @@ import java.util.Random;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.swing.JOptionPane;
 
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Controller
 @RequestMapping("/member")
@@ -127,8 +125,7 @@ public class MemberController {
 			String setFrom = "msn6903@naver.com";
 			String toMail = userEmail;
 			String title = "Ezen TestSHOP 임시비밀번호.";
-			String content = userId+"님을 위한 인증번호." + "<br><br>"  + sb + "입니다." + "<br>"
-					+ "인증번호를 입력해 회원가입을 완료해주세요.";
+			String content = userId+"님을 위한 임시비밀번호." + "<br><br>"  + sb + "입니다." + "<br>";
 			try {
 				
 				MimeMessage message = mailSender.createMimeMessage();
@@ -147,12 +144,7 @@ public class MemberController {
 	        
 
 
-//			String setFrom = "msn6903@naver.com";
-//	        String toEmail = userEmail;
-//	        String title = "임시비밀번호";
-//	        String content = "회원님의 비밀번호 임시는 " + sb.toString() + " 입니다.";
-//	        
-	     
+
 	        
 	        String userPw = sb.toString();
 	        
@@ -189,15 +181,16 @@ public class MemberController {
 		String userId = vo.getUserId();
 		
 	
-		String findUserId = userId.substring(0, userId.length()-2) + "**";
 		
-		System.out.println(findUserId);
+	
 		if (vo != null) {
+			String findUserId = userId.substring(0, userId.length()-2) + "**";
 			return findUserId;
 
-		} else {
+		}else {
 			return "X";
 		}
+			
 	}
 	
 	
