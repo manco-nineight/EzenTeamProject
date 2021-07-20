@@ -2,12 +2,13 @@ package kr.co.domain;
 
 import java.io.Serializable;
 
-public class ProductVO implements Serializable {
+public class ProductVO implements Serializable{
 
 	/**
-	 *
+	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	private String prodName;
 	private int prodBno;
 	private String prodCategory;
@@ -17,16 +18,14 @@ public class ProductVO implements Serializable {
 	private String prodRegdate;
 	private String prodUpdatedate;
 	private int prodPrice;
-	private int prodSalesCount;
 	private String prodThumbnail;
-
+	
 	public ProductVO() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public ProductVO(String prodName, int prodBno, String prodCategory, String prodTitle, String prodContent,
-			int prodReadCnt, String prodRegdate, String prodUpdatedate, int prodPrice, int prodSalesCount,
-			String prodThumbnail) {
+			int prodReadCnt, String prodRegdate, String prodUpdatedate, int prodPrice, String prodThumbnail) {
 		super();
 		this.prodName = prodName;
 		this.prodBno = prodBno;
@@ -37,7 +36,6 @@ public class ProductVO implements Serializable {
 		this.prodRegdate = prodRegdate;
 		this.prodUpdatedate = prodUpdatedate;
 		this.prodPrice = prodPrice;
-		this.prodSalesCount = prodSalesCount;
 		this.prodThumbnail = prodThumbnail;
 	}
 
@@ -57,11 +55,11 @@ public class ProductVO implements Serializable {
 		this.prodBno = prodBno;
 	}
 
-	public String getProdCategory() {
+	public String getprodCategory() {
 		return prodCategory;
 	}
 
-	public void setProdCategory(String prodCategory) {
+	public void setprodCategory(String prodCategory) {
 		this.prodCategory = prodCategory;
 	}
 
@@ -113,18 +111,6 @@ public class ProductVO implements Serializable {
 		this.prodPrice = prodPrice;
 	}
 
-	public int getProdSalesCount() {
-		return prodSalesCount;
-	}
-
-	public void setProdSalesCount(int prodSalesCount) {
-		this.prodSalesCount = prodSalesCount;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 	public String getProdThumbnail() {
 		return prodThumbnail;
 	}
@@ -133,12 +119,17 @@ public class ProductVO implements Serializable {
 		this.prodThumbnail = prodThumbnail;
 	}
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + prodBno;
 		result = prime * result + ((prodName == null) ? 0 : prodName.hashCode());
+		result = prime * result + ((prodThumbnail == null) ? 0 : prodThumbnail.hashCode());
 		return result;
 	}
 
@@ -158,7 +149,21 @@ public class ProductVO implements Serializable {
 				return false;
 		} else if (!prodName.equals(other.prodName))
 			return false;
+		if (prodThumbnail == null) {
+			if (other.prodThumbnail != null)
+				return false;
+		} else if (!prodThumbnail.equals(other.prodThumbnail))
+			return false;
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "ProductVO [prodName=" + prodName + ", prodBno=" + prodBno + ", prodCategory=" + prodCategory
+				+ ", prodTitle=" + prodTitle + ", prodContent=" + prodContent + ", prodReadCnt=" + prodReadCnt
+				+ ", prodRegdate=" + prodRegdate + ", prodUpdatedate=" + prodUpdatedate + ", prodPrice=" + prodPrice
+				+ ", prodThumbnail=" + prodThumbnail + "]";
+	}
+	
+	
 }

@@ -15,10 +15,28 @@ public class PageTO<T> {
 	   private List<T> list;  
 	   private int beginPageNum;
 	   private int finishPageNum;
+	   private int previousPageNum;
+		private int nextPageNum;
 
 	   public PageTO() {
 	      executeChangeValue();
 	   }
+	   
+	   public int getPreviousPageNum() {
+			return previousPageNum;
+		}
+
+		public void setPreviousPageNum(int previousPageNum) {
+			this.previousPageNum = previousPageNum;
+		}
+
+		public int getNextPageNum() {
+			return nextPageNum;
+		}
+
+		public void setNextPageNum(int nextPageNum) {
+			this.nextPageNum = nextPageNum;
+		}
 
 	   public PageTO(int curPage) {
 	      super();

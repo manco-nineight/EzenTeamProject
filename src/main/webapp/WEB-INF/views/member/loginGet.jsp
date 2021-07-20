@@ -61,7 +61,7 @@ input {
             <input type="password"  id="userPw" name="userPw"  placeholder="PASSWORD">
           </div>
         </div>
-      <a href="/member/sign">JOIN</a> <a>FORGET ID</a> <a>FORGET PW</a> 
+      <a href="/member/sign">JOIN</a> <a href="/member/findId">FORGET ID</a> <a href="/member/findPw">FORGET PW</a> 
       <input type="submit" value="LOGIN" style="width: 60px; border: none; margin-left: 20px;">
       </form>
       

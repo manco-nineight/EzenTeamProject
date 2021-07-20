@@ -36,7 +36,7 @@ DROP TABLE product
 
 DELETE FROM product
 
-SELECT * FROM product
+SELECT * FROM member
 
 /**
  *  PRODUCT STOCK TABLE

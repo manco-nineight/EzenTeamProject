@@ -9,20 +9,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
+import kr.co.domain.CartDTO;
 import kr.co.domain.LoginDTO;
 import kr.co.domain.MemberDTO;
 import kr.co.domain.OrderVO;
 import kr.co.domain.PageTO;
+import kr.co.domain.ProductStockVO;
+import kr.co.domain.ProductVO;
 import kr.co.service.MemberService;
 
+import java.security.SecureRandom;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Controller
 @RequestMapping("/member")
@@ -34,6 +43,183 @@ public class MemberController {
 	@Autowired
 	private JavaMailSender mailSender;
 	
+//	@Autowired
+//	private BCryptPasswordEncoder userPwEncoder;
+	
+	
+	
+	
+	@RequestMapping(value = "/cartlist/{userId}", method = RequestMethod.GET)
+	public String cartlist(Model model, @PathVariable("userId") String userId, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		MemberDTO loginSession = (MemberDTO) session.getAttribute("login");
+		
+		if (!loginSession.getUserId().equals(userId)) {
+			System.out.println("로그인이 필요한 작업입니다.");
+
+			return "/member/errMsg";
+			
+		} else {
+			List<CartDTO> list = mService.cartlist(userId);
+			
+			model.addAttribute("list", list);
+			
+			return "/member/cartlist";
+		}
+	}
+	
+	
+	@RequestMapping(value = "/testread/{prodName}", method = RequestMethod.GET)
+	public String testread(@PathVariable("prodName") String prodName, Model model) {
+		
+		ProductVO vo = mService.testread(prodName);
+		
+		ProductStockVO stock = mService.stock(prodName);
+		
+		model.addAttribute("vo", vo);
+		model.addAttribute("stock", stock);
+		
+		return "/member/testread";
+	}
+	
+	
+	
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public void test(Model model) {
+		
+		List<ProductVO> test = mService.test();
+		
+		model.addAttribute("list", test);
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/findPwResult", method = RequestMethod.POST)
+	public String findPw(String userId, String userEmail, Model model) {
+		char[] charSet = new char[] { 
+        		'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 
+        		'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 
+        		'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 
+        		'!', '@', '#', '$', '%', '^', '&' };
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userId", userId);
+		map.put("userEmail", userEmail);
+		
+		MemberDTO vo = mService.findPw(map);
+
+		model.addAttribute("vo", vo);
+
+        StringBuffer sb = new StringBuffer(); 
+        SecureRandom sRandom = new SecureRandom();
+        
+        sRandom.setSeed(new Date().getTime()); 
+        int idx = 0;
+		if (vo != null) {
+			for (int i=0; i<8; i++) { 
+				idx = sRandom.nextInt(charSet.length); 
+				sb.append(charSet[idx]); 
+			}
+			System.out.println("이메일 전송 완료");
+			System.out.println("이메일 주소 : " + userEmail);
+			System.out.println("임시비밀번호 : " + sb.toString()); 
+			//---------
+			String setFrom = "msn6903@naver.com";
+			String toMail = userEmail;
+			String title = "Ezen TestSHOP 임시비밀번호.";
+			String content = userId+"님을 위한 인증번호." + "<br><br>"  + sb + "입니다." + "<br>"
+					+ "인증번호를 입력해 회원가입을 완료해주세요.";
+			try {
+				
+				MimeMessage message = mailSender.createMimeMessage();
+				MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+				helper.setFrom(setFrom);
+				helper.setTo(toMail);
+				helper.setSubject(title);
+				helper.setText(content, true);
+				mailSender.send(message);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			//---------
+	        
+
+
+//			String setFrom = "msn6903@naver.com";
+//	        String toEmail = userEmail;
+//	        String title = "임시비밀번호";
+//	        String content = "회원님의 비밀번호 임시는 " + sb.toString() + " 입니다.";
+//	        
+	     
+	        
+	        String userPw = sb.toString();
+	        
+//	        String secureUserPw = userPwEncoder.encode(userPw);
+	        //패스워드 빈 문제가 해결되면 수정 요망
+//	        String secureUserPw = userPw.toString();
+
+	        map.put("userPw", userPw);
+	        
+	        mService.updateFindPw(map);
+	        
+	        return userPw;
+	        
+		} else {
+			return "X";
+		}
+	}
+
+
+	@RequestMapping(value = "/findPw", method = RequestMethod.GET)
+	public void findPw() {
+		
+	}
+	
+	
+
+	@ResponseBody
+	@RequestMapping(value = "/findIdResult", method = RequestMethod.POST)
+	public String findId(String userEmail, Model model) {
+		MemberDTO vo = mService.findId(userEmail);
+
+		model.addAttribute("vo", vo);
+		
+		String userId = vo.getUserId();
+		
+	
+		String findUserId = userId.substring(0, userId.length()-2) + "**";
+		
+		System.out.println(findUserId);
+		if (vo != null) {
+			return findUserId;
+
+		} else {
+			return "X";
+		}
+	}
+	
+	
+	
+	@RequestMapping(value = "/findId", method = RequestMethod.GET)
+	public void findId() {
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//---------------------------------------------------------------
 	@RequestMapping(value = "/managementlist/{curPage}", method = RequestMethod.GET)
 	public String managementlist(@PathVariable("curPage") int curPage,Model model) {
 		
@@ -107,13 +293,13 @@ public class MemberController {
 			String userEmail = mService.selectEmail(orderUserId);
 			
 			System.out.println(userEmail);	
-			System.out.println("諛곗넚�떆�옉 硫붿꽭吏� �쟾�넚 �꽦怨�");
-			System.out.println("�씠�슜�옄 �븘�씠�뵒 : " + orderTrackingNum);
+			System.out.println("이메일 전송 완료");
+			System.out.println("운송장 번호 : " + orderTrackingNum);
 			
 			String setFrom = "msn6903@naver.com";
 			String toMail = userEmail;
-			String title = "Ezen TestSHOP�뿉�꽌 二쇰Ц�븳 �긽�뭹�쓽 諛곗넚�씠 �떆�옉�릺�뿀�뒿�땲�떎..";
-			String content = "怨좉컼�떂猿섏꽌 二쇰Ц�븯�떊 �긽�뭹�쓽 �슫�넚�옣踰덊샇�뒗" + orderTrackingNum + "�엯�땲�떎.";
+			String title = "Ezen TestSHOP에서 주문하신 상품의 배송이 시작되었습니다.";
+			String content = "주문하신 상품의 운송장 번호는 " + orderTrackingNum + "입니다.";
 			try {
 
 				MimeMessage message = mailSender.createMimeMessage();
@@ -359,25 +545,25 @@ public class MemberController {
 		return "redirect:/member/loginGet";
 	}
 
-	/* 占쎌뵠筌롫뗄�뵬 占쎌뵥筌앾옙 */
+	
 	@RequestMapping(value = "/mailCheck", method = RequestMethod.GET)
 	@ResponseBody
 	public String mailCheckGET(String email) throws Exception {
 
-		/* �뀎占�(View)嚥≪뮆占쏙옙苑� 占쎄퐜占쎈선占쎌궔 占쎈쑓占쎌뵠占쎄숲 占쎌넇占쎌뵥 */
-		System.out.println("�씠硫붿씪 �쟾�넚 �꽦怨�");
-		System.out.println("�씠�슜�옄 �븘�씠�뵒 : " + email);
+	
+		System.out.println("이메일 전송 완료");
+		System.out.println("이메일 주소 : " + email);
 		Random random = new Random();
 		int checkNum = random.nextInt(888888) + 111111;
 
-		System.out.println("�씤利앸쾲�샇" + checkNum);
+		System.out.println("인증번호" + checkNum);
 
-		/* 占쎌뵠筌롫뗄�뵬 癰귣�沅→묾占� */
+	
 		String setFrom = "msn6903@naver.com";
 		String toMail = email;
-		String title = "Ezen TestSHOP �쉶�썝媛��엯 �씤利앸찓�씪�엯�땲�떎..";
-		String content = "���씗 �궗�씠�듃瑜� 諛⑸Ц�빐 二쇱뀛�꽌 媛먯궗�빀�땲�떎." + "<br><br>" + "�씤利앸쾲�샇�뒗 " + checkNum + "�엯�땲�떎." + "<br>"
-				+ "�쉶�썝媛��엯 李쎌뿉�꽌 �씤利앸쾲�샇瑜� �엯�젰�빐 �씤利앹쓣 �셿猷뚰빐二쇱꽭�슂.";
+		String title = "Ezen TestSHOP 회원가입 인증메일입니다..";
+		String content = "회원가입을 위한 인증번호." + "<br><br>" + "6자리 숫자 " + checkNum + "입니다." + "<br>"
+				+ "인증번호를 입력해 회원가입을 완료해주세요.";
 		try {
 
 			MimeMessage message = mailSender.createMimeMessage();
@@ -396,45 +582,6 @@ public class MemberController {
 		return num;
 	}
 	
-    //mail test
-	@RequestMapping(value = "/sendMail", method = RequestMethod.GET)
-	public void sendMailTest() throws Exception {
-
-		String subject = "test 筌롫뗄�뵬";
-		String content = "筌롫뗄�뵬 占쎈�믭옙�뮞占쎈뱜 占쎄땀占쎌뒠";
-		String from = "msn6903@naver.com";
-		String to = "msn6903@gmail.com";
-
-		try {
-			MimeMessage mail = mailSender.createMimeMessage();
-			MimeMessageHelper mailHelper = new MimeMessageHelper(mail, true, "UTF-8");
-			// true占쎈뮉 筌롳옙占쎈뼒占쎈솁占쎈뱜 筌롫뗄苑�筌욑옙�몴占� 占쎄텢占쎌뒠占쎈릭野껋쥓�뼄占쎈뮉 占쎌벥沃섓옙
-
-			/*
-			 * 占쎈뼊占쎈떄占쎈립 占쎈�볩옙�뮞占쎈뱜 筌롫뗄苑�筌욑옙筌랃옙 占쎄텢占쎌뒠占쎈뻻占쎈퓦 占쎈툡占쎌삋占쎌벥 �굜遺얜굡占쎈즲 占쎄텢占쎌뒠 揶쏉옙占쎈뮟 MimeMessageHelper mailHelper = new
-			 * MimeMessageHelper(mail,"UTF-8");
-			 */
-
-			mailHelper.setFrom(from);
-			// �뜮�뜆肉� 占쎈툡占쎌뵠占쎈탵 占쎄퐬占쎌젟占쎈립 野껉퍔占� 占쎈뼊占쎈떄占쎌뿳 smtp 占쎌뵥筌앹빘�뱽 獄쏆룄由� 占쎌맄占쎈퉸 占쎄텢占쎌뒠 占쎈뎡占쎌뵬占쎄퐣 癰귣�沅∽옙�뮉占쎌뵠(setFrom())獄쏆꼶諭띰옙�뻻 占쎈툡占쎌뒄
-			// 癰귣�沅∽옙�뮉占쎌뵠占쏙옙 筌롫뗄�뵬雅뚯눘�꺖�몴占� 占쎈땾占쎈뻿占쎈릭占쎈뮉占쎌뵠揶쏉옙 癰귥눖釉� 筌뤴뫀紐� 占쎈ご疫뀐옙 占쎈┷野껓옙 占쎌뜚占쎈릭占쎈뻿占쎈뼄筌롳옙 占쎈툡占쎌삋占쎌벥 �굜遺얜굡�몴占� 占쎄텢占쎌뒠占쎈릭占쎈뻻筌롳옙 占쎈쭢占쎈빍占쎈뼄.
-			// mailHelper.setFrom("癰귣�沅∽옙�뮉占쎌뵠 占쎌뵠�뵳占� <癰귣�沅∽옙�뮉占쎌뵠 占쎈툡占쎌뵠占쎈탵@占쎈즲筌롫뗄�뵥雅뚯눘�꺖>");
-			mailHelper.setTo(to);
-			mailHelper.setSubject(subject);
-			mailHelper.setText(content, true);
-			// true占쎈뮉 html占쎌뱽 占쎄텢占쎌뒠占쎈릭野껋쥓�뼄占쎈뮉 占쎌벥沃섎챷�뿯占쎈빍占쎈뼄.
-
-			/*
-			 * 占쎈뼊占쎈떄占쎈립 占쎈�볩옙�뮞占쎈뱜筌랃옙 占쎄텢占쎌뒠占쎈릭占쎈뻿占쎈뼄筌롳옙 占쎈뼄占쎌벉占쎌벥 �굜遺얜굡�몴占� 占쎄텢占쎌뒠占쎈릭占쎈�쏉옙猷� 占쎈쭢占쎈빍占쎈뼄. mailHelper.setText(content);
-			 */
-
-			mailSender.send(mail);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
 
 	@RequestMapping(value = "/adress", method = RequestMethod.GET)
 	public void adress() {
