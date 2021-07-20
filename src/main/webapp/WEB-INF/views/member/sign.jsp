@@ -47,66 +47,56 @@
 		SIGN
 		</h5>
 		<br><br><br>
-
-
-       <div class="container">
-
-			<div id="content" >
-				<div>
-
-		<form action="/member/sign" method="post" style="text-align: left; margin:auto; padding-left: 200px;">
-					
-					
+		
+		
+		
+	
+	<div class="container">
+		
+		
+		<div class="row">
+			<form id="form_insert" action="/member/sign" method="post" style="text-align: left; margin:auto; padding-left: 200px;">
+				<div class="form-group">
 					<span style="font-weight: bold;">아이디</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
 						type="text" id="userId" class="underline" maxlength="20" name="userId"
 						style="width: 400px;border-left-width:0; border-right-width:0; border-top-width:0;border-bottom-width:1;" required placeholder="사용할 ID를 입력해 주세요">
 
-					
-					<button  type="button" class="btn btn-default" id="idCheckButton">아이디 중복확인</button>
-					
-					아이디 중복체크 여부 <input type="checkbox" required onclick="return false;"  id="idCheckBox"><br>
-                        <!--  -->
-					<br><br>
-					
-					
-					
+					<span class="userId_check" style="color: red;">아이디를 입력해 주세요.</span>
+				</div>
+				
+				<div class="form-group">
 					비밀번호&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
 						type="password" class="underline" maxlength="20" name="userPw" id="userPw"
 						style="width: 400px;border-left-width:0; border-right-width:0; border-top-width:0;border-bottom-width:1;" required placeholder="비밀번호를 입력해 주세요"> <br> 
 						
 						<br>
+				</div>
+				
+				<div class="form-group">
 					비밀번호 확인&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="password" class="underline" maxlength="20" name="pwcheck" id="pwcheck" style="width: 400px;border-left-width:0; border-right-width:0; border-top-width:0;border-bottom-width:1;" required placeholder="비밀번호 확인을 위해 같은 내용을 다시 입력해 주세요"> 
-						
-						
-						
-						
-						
-					
-                      <a id="pw_check_result" class="btn btn-default"  >비밀번호확인</a>
-                   
-                     비밀번호 일치 체크  <input type="checkbox" required onclick="return false;"  id="pwCheckBox">
-                      
-                      <div class="clearfix"></div>
-                      <span id="pw_check_input_box_warn"></span>	
-						
-						<br><br>
-						
-						<!--  -->
-					
+					<input type="password" class="underline" maxlength="20" name="userPw2" id="userPw2"
+					style="width: 400px;border-left-width:0; border-right-width:0; border-top-width:0;border-bottom-width:1;" required placeholder="비밀번호 확인을 위해 같은 내용을 다시 입력해 주세요"> 
+				</div>
+			
+				<div class="form-group">
 					이름&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<input
 						type="text" class="underline" maxlength="20" name="userName" id="userName"
 						style="width: 400px;border-left-width:0; border-right-width:0; border-top-width:0;border-bottom-width:1;" required placeholder="회원님의 이름을 입력해 주세요."> <br>
 					<br><br>
-					   <!--  -->
-					
-					생년월일&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<span class="hide userName_bytes">0</span>
+				</div>
+				
+				
+				<div class="form-group">
+						생년월일&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<input
 						type="date" class="underline" maxlength="20" name="userBirthday" id="userBirthday"
 						style="width: 400px;border-left-width:0; border-right-width:0; border-top-width:0;border-bottom-width:1;" required> <br>
 			<br><br>
-					    <!--  -->
+				</div>
+				
+				<div class="form-group">
 					<!--  --> 
 					주소&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<input style="border-left-width:0; border-right-width:0; border-top-width:0;border-bottom-width:1;" type="text" id="sample4_postcode"  name="sample4_postcode" placeholder="우편번호" readonly required>
@@ -120,14 +110,10 @@
               
                  <br>
                  <br>
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
+				</div>
+				
+
+				   
                  <div class="mail_wrap">
                   
                    <div class="mail_input_box">
@@ -172,252 +158,297 @@
 					
 					
 					
-					
-					
-					
-					
-					
-					<input style="width: 400px;" class="btn btn-default" type="submit" value="회원 등록"><br>
-					
-		</form>
+				
+			</form>
+		</div>	<!-- class = row end tag -->
 		
-				</div>
-			</div>
+		<button type="submit" class="btn btn-success member_insert_btn">가입하기</button>
+	</div>
+	
+	<script type="text/javascript">	
+		$(document).ready(function() {			
+			// 인증번호 버튼 클릭 시 이메일 인증번호 전송
+			var code = "";
 
-</div>
-		
-		<br>
-		
-		
-
-		<script type="text/javascript">
-			$(document).ready(function() {
-				
-				
-				
-				
-				var code ="";
-				
-				$("form").submit(function() {
-					
-					alert("회원가입 완료");
-					
-				});
-				
-				
-				$("#pw_check_result").click(function(){
-					
-					var inputCode = $("#userPw").val();        // 입력코드    
-				    var checkResult = $("#pwcheck").val();    // 비교 결과
-				    
-				    if(inputCode == checkResult){                            // 일치할 경우
-				        alert("성공");     
-				        $('input:checkbox[id="pwCheckBox"]').is(":checked") == true;
-				        $('input:checkbox[id="pwCheckBox"]').attr("checked", true);
-				    } else {                                            // 일치하지 않을 경우
-				    	alert("실패");
-				    }   
-				    
-				    
-				});
-				
-				
-				
-				$("#email_check_result").click(function(){
-					var inputCode = $(".mail_check_input").val();        // 입력코드    
-				    var checkResult = $("#mail_check_input_box_warn");    // 비교 결과
-				    
-				    
-				    if(inputCode == code){                            // 일치할 경우
-				        checkResult.html("인증번호가 일치합니다.");
-				        checkResult.attr("class", "correct");        
-				    } else {                                            // 일치하지 않을 경우
-				        checkResult.html("인증번호를 다시 확인해주세요.");
-				        checkResult.attr("class", "incorrect");
-				    }   
-				    
-				    
-				});
-				
-				
-				 $(".mail_check_input").blur(function(){
-					var inputCode = $(".mail_check_input").val();        // 입력코드    
-				    var checkResult = $("#mail_check_input_box_warn");    // 비교 결과
-				    
-				    
-				    if(inputCode == code){                            // 일치할 경우
-				        checkResult.html("인증번호가 일치합니다.");
-				        checkResult.attr("class", "correct"); 
-				        $('input:checkbox[id="emailCheckBox"]').is(":checked") == true;
-				        $('input:checkbox[id="emailCheckBox"]').attr("checked", true);
-
-				       
-
-				       
-				    } else {                                            // 일치하지 않을 경우
-				        checkResult.html("인증번호를 다시 확인해주세요.");
-				        checkResult.attr("class", "incorrect");
-				    }   
-				    
-				    
-				}); 
-				
-				
-				$(".mail_check_button").click(function(event){
-					
-					event.preventDefault
-				    
-				    var email = $(".mail_input").val();        // 입력한 이메일
-				    var cehckBox = $(".mail_check_input");        // 인증번호 입력란
-				    var boxWrap = $(".mail_check_input_box");    // 인증번호 입력란 박스
-				    
-				   
-				    
-				    
-				    $.ajax({
-				        
-				        type:"GET",
-				        url:"mailCheck?email=" + email,
-				        async: false,
-				        success:function(num){
-				        	alert("인증 번호가 전송되었습니다.")
-				        	
-				        	cehckBox.attr("disabled",false); //입력불가창 해제
-				        	boxWrap.attr("id", "mail_check_input_box_true");
-				        	$('#email_check_result').attr('class','btn btn-info'); //입력불가창 해제
-				       
-
-
-				        	
-				        	
-				            code = num;
-				        }
-				        		
-				        
-				                
-				    });
-				    
-				});
-				
-				
-				$("button#idCheckButton").click(function(event) {
-					
-					event.preventDefault();
-
-					var userId = $("input[name='userId']").val();
-
-					$.ajax({
-						type : "get",
-						url : "userIdCheck?userId=" + userId,
-						async: false,
-						
-						success : function(ckrs) {
-							/* $("#idCheckButton").val(result); */
-							console.log(ckrs);
-							if ($.trim(ckrs) == null || $.trim(ckrs) == ""){
-								alert("가용한 아이디입니다");
-							 $('input:checkbox[id="idCheckBox"]').is(":checked") == true;
-						        $('input:checkbox[id="idCheckBox"]').attr("checked", true);
-							
-							
-
-							}else{
-								alert("중복된 아이디입니다");
-							}
-						}
-					});
-				});
+			$("#email_check_result").click(function(){
+				var inputCode = $(".mail_check_input").val();        // 입력코드    
+			    var checkResult = $("#mail_check_input_box_warn");    // 비교 결과
+			    
+			    
+			    if(inputCode == code){                            // 일치할 경우
+			        checkResult.html("인증번호가 일치합니다.");
+			        checkResult.attr("class", "correct");        
+			    } else {                                            // 일치하지 않을 경우
+			        checkResult.html("인증번호를 다시 확인해주세요.");
+			        checkResult.attr("class", "incorrect");
+			    }   
+			    
+			    
 			});
-		</script>
-		
-		
-		
-		
-		
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
-    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
-    
-    //주소 adress값은 DB에 varckar 200의 문자 값으로 해당
-    //주소값은 도로명 +상패주소 str()임시
-    
-    
-    function sample4_execDaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+			
+			
+			 $(".mail_check_input").blur(function(){
+				var inputCode = $(".mail_check_input").val();        // 입력코드    
+			    var checkResult = $("#mail_check_input_box_warn");    // 비교 결과
+			    
+			    
+			    if(inputCode == code){                            // 일치할 경우
+			        checkResult.html("인증번호가 일치합니다.");
+			        checkResult.attr("class", "correct"); 
+			        $('input:checkbox[id="emailCheckBox"]').is(":checked") == true;
+			        $('input:checkbox[id="emailCheckBox"]').attr("checked", true);
 
-                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var roadAddr = data.roadAddress; // 도로명 주소 변수
-                var extraRoadAddr = ''; // 참고 항목 변수
+			       
 
-                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                    extraRoadAddr += data.bname;
-                }
-                // 건물명이 있고, 공동주택일 경우 추가한다.
-                if(data.buildingName !== '' && data.apartment === 'Y'){
-                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                }
-                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                if(extraRoadAddr !== ''){
-                    extraRoadAddr = ' (' + extraRoadAddr + ')';
-                }
+			       
+			    } else {                                            // 일치하지 않을 경우
+			        checkResult.html("인증번호를 다시 확인해주세요.");
+			        checkResult.attr("class", "incorrect");
+			    }   
+			    
+			    
+			}); 
+			
+			
+			$(".mail_check_button").click(function(event){
+				
+				event.preventDefault
+			    
+			    var email = $(".mail_input").val();        // 입력한 이메일
+			    var cehckBox = $(".mail_check_input");        // 인증번호 입력란
+			    var boxWrap = $(".mail_check_input_box");    // 인증번호 입력란 박스
+			    
+			   
+			    
+			    
+			    $.ajax({
+			        
+			        type:"GET",
+			        url:"mailCheck?email=" + email,
+			        async: false,
+			        success:function(num){
+			        	alert("인증 번호가 전송되었습니다.")
+			        	
+			        	cehckBox.attr("disabled",false); //입력불가창 해제
+			        	boxWrap.attr("id", "mail_check_input_box_true");
+			        	$('#email_check_result').attr('class','btn btn-info'); //입력불가창 해제
+			       
 
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                
-                //우편주소 값을 공백 칸에 삽입
-                document.getElementById('sample4_postcode').value = data.zonecode;
-                //도로명 주소 값을 공백 칸에 삽입
-                document.getElementById("sample4_roadAddress").value = roadAddr;
-               /*  //지번 주소 값을 공백 칸에 삽입
-                document.getElementById("sample4_jibunAddress").value = data.jibunAddress; */
-                
-            
-                
-                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-                if(roadAddr !== ''){
-                    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
-                } else {
-                    document.getElementById("sample4_extraAddress").value = '';
-                }
-                
-                /*  */
-            
-                /*  */
 
-                var guideTextBox = document.getElementById("guide");
-                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-                if(data.autoRoadAddress) {
-                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-                    guideTextBox.style.display = 'block';
+			        	
+			        	
+			            code = num;
+			        }
+			        		
+			        
+			                
+			    });
+			    
+			});
+			
 
-                } else if(data.autoJibunAddress) {
-                    var expJibunAddr = data.autoJibunAddress;
-                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-                    guideTextBox.style.display = 'block';
-                } else {
-                    guideTextBox.innerHTML = '';
-                    guideTextBox.style.display = 'none';
-                }
-            }
-        }).open();
-    }
-</script>
+			// 이름 bytes 구하기 (한/영 혼용 시 글자 수 바이트 초과 방지)
+			$('#userName').keyup(function(){
+				var textByte = $("#userName").val();
+				var len = 0;	// 글자 바이트
+
+				for (var i = 0; i < textByte.length; i++) {
+					if (escape(textByte.charAt(i)).length == 6) {
+						len+=2;	// 오라클 UTF-8 한글 1글자당 3byte
+					}
+					len++;	// 영문 1byte
+				}		
+				$('span.userName_bytes').text(len);
+			});
+
+			// 회원가입 버튼 클릭 이벤트
+			$(".member_insert_btn").click(function() {
+				event.preventDefault();
+				
+				var msg = confirm("회원 가입 하시겠습니까?");
+				
+				if (msg) {
+					checkInfo();
+				} else {
+					event.preventDefault();
+				}
+			});
+			
+			// 실시간 아이디 입력 중복 체크
+			$("#userId").change(function(){
+				userIdCheck();
+			});
+			
+		}); // (document).ready 종료 구간
+		
+		// 아이디 중복여부 체크 (0 = 중복, 1 = 가능)
+		var checkUserId = 0;
+		
+		// 아이디, 비밀번호, 이름 정규표현식 유효성 검사 변수
+		var idRegExp = /^[a-zA-Z0-9]{4,30}$/;
+		
+		var pwRegExp = /^[a-zA-z0-9$`~!@$!%*#^?&\\(\\)\-_=+]{4,50}$/;
+		
+		// 한글, 영어 띄어쓰기 가능(\s)
+		var nameRegExp = /^[가-힣a-zA-Z\s]{1,25}$/;
+		
+		// 이메일 정규표현식 유효성 검사
+		var emailRegExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+
+		
+		// 유효성 검사 함수
+		var checkInfo = function() {
+			if (userId == '' || !idRegExp.test($("#userId").val())) {
+				alert('아이디는 최소 4자 이상의 영문 대소문자/숫자로 입력하세요.');
+				event.preventDefault();
+
+			} else if (checkUserId == 0) {
+				alert('아이디 중복 여부를 확인해주세요.');
+				event.preventDefault();
+
+			} else if ($("#userPw").val() == '' || !pwRegExp.test($("#userPw").val())) {
+				alert('비밀번호는 최소 4자 이상 입력하세요.');
+				event.preventDefault();
+
+			} else if ($("#userPw").val() != $("#userPw2").val()) {
+				alert('비밀번호 혹은 재확인 부분이 서로 같지 않습니다');
+				event.preventDefault();
+
+			} else if ($("#userName").val() == '' || !nameRegExp.test($("#userName").val())) {
+				alert('이름은 띄어쓰기 포함하여 \n한글 또는 영문으로 입력하세요.');
+				event.preventDefault();
+				
+			} else if ($(".span.userName_bytes").text() > 25) {
+				alert('이름은 총 25Byte 이내로 입력해야 합니다. \n(글자당 영문 1Byte, 한글 3Bytes)');
+				// 오라클 utf-8 한글 글자당 3byte
+				event.preventDefault();
+				
+			} else if ($("#userEmail").val() == '' || !emailRegExp.test($("#userEmail").val())) {
+				alert('올바른 이메일 형식으로 입력하세요.');
+				event.preventDefault();
+				
+			} else if ($("#userEmail_check_msg").hasClass("userEmail_check_fail") == true) {
+				alert('이메일 인증을 다시 확인해주세요');
+				event.preventDefault();
+				
+			} else if ($("#userBirthday").val() == '') {
+				alert('생일을 입력하세요.');
+				event.preventDefault();
+				
+			} else if ($("#sample4_detailAddress").val() == '') {
+				alert('상세주소를 입력하세요.');
+				event.preventDefault();
+				
+			} else {
+				$("#form_insert").submit();
+				alert('회원 가입을 완료하였습니다.');
+			}
+			
+		}; // checkInfo() 종료
+
+		
+		// ajax 실시간 아이디 중복 체크 함수
+		function userIdCheck() {
+			$.ajax({
+				type : "post",
+				url : "/member/idcheck",
+				data : {
+					userId : $("#userId").val()
+				},
+				dataType : "text",
+				success : function(result) {
+					if (result == "1") {
+						$('span.userId_check').attr("style", "color: red;");
+						$('span.userId_check').text("이미 사용중인 아이디입니다.");
+						checkUserId = 0;
+						
+					} else if (userId == '' || !idRegExp.test($("#userId").val())){
+						$('span.userId_check').attr("style", "color: red;");
+						$('span.userId_check').text("아이디는 최소 4자의 영문 대소문자/숫자로만 입력하세요.");
+						checkUserId = 0;
+						
+					} else {
+						$('span.userId_check').attr("style", "color: blue;");
+						$('span.userId_check').text("사용가능한 아이디입니다.");
+						checkUserId = 1;
+					}
+				}
+				
+			}); // ajax 종료
+			
+		} // idcheck() 종료
 		
 		
+
+	</script>
+	
 		
-		
-		
-		
-		
-		
+
+<!-- 프로젝트용 수정판 api -->
+</body>
+<script
+		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script>
+		//본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+
+		//주소 adress값은 DB에 varckar 200의 문자 값으로 해당
+		//주소값은 도로명 +상패주소 str()임시
+
+		function sample4_execDaumPostcode() {
+
+			new daum.Postcode(
+					{
+						oncomplete : function(data) {
+							// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+							// 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+							// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+							var roadAddr = data.roadAddress; // 도로명 주소 변수
+							var extraRoadAddr = ''; // 참고 항목 변수
+
+							// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+							// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+							if (data.bname !== ''
+									&& /[동|로|가]$/g.test(data.bname)) {
+								extraRoadAddr += data.bname;
+							}
+							// 건물명이 있고, 공동주택일 경우 추가한다.
+							if (data.buildingName !== ''
+									&& data.apartment === 'Y') {
+								extraRoadAddr += (extraRoadAddr !== '' ? ', '
+										+ data.buildingName : data.buildingName);
+							}
+							// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+							if (extraRoadAddr !== '') {
+								extraRoadAddr = ' (' + extraRoadAddr + ')';
+							}
+
+							// 우편번호와 주소 정보를 해당 필드에 넣는다.
+							document.getElementById('sample4_postcode').value = "";
+							//도로명 주소 값을 공백 칸에 삽입
+							document.getElementById("sample4_roadAddress").value = "";
+
+							var sample4_roadAddress = document
+									.getElementById("sample4_roadAddress").value;
+							if (sample4_roadAddress == "") {
+
+								document.getElementById("sample4_roadAddress").value = data.jibunAddress;
+							}
+							
+							if (sample4_roadAddress == "") {
+
+								document.getElementById("sample4_roadAddress").value = roadAddr;
+							}
+							//우편주소 값을 공백 칸에 삽입
+							document.getElementById('sample4_postcode').value = data.zonecode;
+							//도로명 주소 값을 공백 칸에 삽입
+						
+							//지번 주소 값을 공백 칸에 삽입
+
+
+						}
+					}).open();
+		}
+	</script>
 </body>
 </html>
-
-
-
-

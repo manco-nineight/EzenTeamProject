@@ -44,7 +44,12 @@ public class MemberController {
 //	@Autowired
 //	private BCryptPasswordEncoder userPwEncoder;
 	
-	
+	@ResponseBody
+	@RequestMapping(value = "/idcheck", method = RequestMethod.POST)
+	public int idCheck(String userId) {
+		int checkResult = mService.idcheck(userId);
+		return checkResult;
+	}
 	
 	
 	@RequestMapping(value = "/cartlist/{userId}", method = RequestMethod.GET)
