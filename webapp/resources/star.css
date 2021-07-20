@@ -1,0 +1,49 @@
+@charset "UTF-8";
+.star{
+
+font-size: 30px !important;
+
+color: #E4E4E4;     
+
+cursor: pointer;
+
+}
+
+
+.starList{
+	
+color: rgb(192, 192, 192) ;  
+
+cursor: pointer;
+
+margin: 0px 10px;
+
+}
+
+.bright{
+
+color: yellow;
+
+}
+
+
+.pagination a.active:hover{
+	background-color: red;
+	color: white;
+	}
+	.pagination a:hover:not(.active) {
+   background-color: silver;
+   color: white;
+	}
+	.pagination a{
+	   border-radius:20%;
+	}
+	
+	.pagination a.active{
+	   background-color: RoyalBlue;
+	   color: white;
+	}
+	
+
+	
+	
