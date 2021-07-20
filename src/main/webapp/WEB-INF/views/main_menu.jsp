@@ -55,7 +55,7 @@
 					</c:otherwise>
 				</c:choose>
 
-				<li><a href="#">CART</a></li>
+				<li><a href="/member/cartlist/${login.userId}">CART</a></li>
 			</ul></li>
 
 		<c:choose>

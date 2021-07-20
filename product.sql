@@ -11,14 +11,15 @@ prodPrice NUMBER NOT NULL,
 prodSalesCount NUMBER DEFAULT 0,
 prodThumbnail VARCHAR2(500) UNIQUE
 )
-
-
+select * from product 
+drop table product
 CREATE OR REPLACE VIEW v_product_s
 AS
 SELECT * FROM product prod, prodStock prodS
 WHERE prod.prodName = prodS.prodStockName
 WITH READ ONLY
 
+ALTER TABLE product ADD prodThumbnail VARCHAR2(500) UNIQUE
 
 INSERT INTO product (prodName, prodBno, prodCategory, prodTitle, prodContent, prodPrice, prodThumbnail) 
 VALUES ('test1', 1, 'food', 'asd', 'asd', '24500', 'abc.png')

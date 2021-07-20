@@ -10,8 +10,8 @@ CREATE TABLE cart(
 )
 
 ALTER TABLE cart ADD Column prodSize
-drop table cart
-drop table product
+drop table prod_attach
+drop table prod_stock
 
 
 INSERT INTO product (prodName, prodBno, prodCategory, prodTitle, prodContent, prodPrice, prodThumbnail) 

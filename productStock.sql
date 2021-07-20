@@ -3,7 +3,7 @@ prodName VARCHAR2(500),
 prodStockSSize NUMBER DEFAULT 0,
 prodStockMSize NUMBER DEFAULT 0,
 prodStockLSize NUMBER DEFAULT 0,
-CONSTRAINT fk_prodStock_prodStockName FOREIGN KEY(prodName) REFERENCES product(prodName)
+CONSTRAINT fk_prodStock_StockName FOREIGN KEY(prodName) REFERENCES product(prodName)
 ON DELETE CASCADE
 )
 

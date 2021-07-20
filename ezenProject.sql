@@ -82,7 +82,7 @@ ON DELETE CASCADE
 
 ALTER TABLE prod_attach DROP COLUMN prodAttProdThumb
 
-SELECT * FROM prod_attach
+SELECT * FROM prod_stock
 
 DROP TABLE prod_attach
 
