@@ -35,11 +35,7 @@ height: 12px;
 
 
 .checkbox{
-position: relative;
-left: 180px;
 
-bottom: 45px;
-float:left;
  font-size: 12px;
  color: black;
 
