@@ -37,9 +37,7 @@
 	<br><br><br><br>
 	
 	<div class="container">
-		<div class="row">
-			<h1 class="jumbotron text-center">${userId}님의 장바구니</h1>
-		</div>
+		
 		
 		<div class="row">
 			<table class="table table-striped">

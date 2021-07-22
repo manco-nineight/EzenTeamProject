@@ -23,6 +23,17 @@
 <body style="text-align: center;margin: auto;">
 	<jsp:include page="../main_menu.jsp"/>
 	
+	<!-- 잘못된 get 방식 접근 차단 코드 -->
+							<c:choose>
+								<c:when test="${login.userGrade ne 1}">
+									<jsp:forward page="warning.jsp" />
+								</c:when>
+								<c:otherwise>
+								</c:otherwise>
+							</c:choose>
+							<!-- 잘못된 get 방식 접근 차단 코드 -->
+	
+	
 	<!-- 회원정보 영역 시작 -->
 	<span class="glyphicon glyphicon-user" aria-hidden="true" style="font-weight: bold; font-size: 20px;"></span>
 	<span style="font-weight: bold; font-size: 30px;">회원 관리 모드</span><br>

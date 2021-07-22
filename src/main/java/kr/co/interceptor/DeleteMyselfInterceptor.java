@@ -31,11 +31,16 @@ public class DeleteMyselfInterceptor extends HandlerInterceptorAdapter{
 		HttpSession session =  request.getSession();
 		MemberDTO login = (MemberDTO) session.getAttribute("login");
 		
-		if (login != null) {
-			session.invalidate(); 
-			
-			
-		}
+		/*
+		 * if (login != null) { session.invalidate();
+		 * 
+		 * 
+		 * }
+		 */
+		if (login != null && login.getUserGrade() == 0) {
+	         session.invalidate(); 
+
+	      }
 
 	}
 
