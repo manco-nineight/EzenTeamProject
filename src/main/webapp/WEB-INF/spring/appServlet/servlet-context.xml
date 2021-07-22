@@ -18,6 +18,7 @@
 		up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
 
+
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
 		
@@ -54,8 +55,8 @@
 		class="kr.co.interceptor.DeleteMyselfInterceptor"></beans:bean>
 
 
-	<beans:bean id="memberListInterceptor"
-		class="kr.co.interceptor.memberListInterceptor"></beans:bean>
+	<beans:bean id="adminInterceptor"
+		class="kr.co.interceptor.AdminInterceptor"></beans:bean>
 		
 
 
@@ -64,13 +65,18 @@
 
 
 		<interceptor>
-			<mapping path="/member/list" />
-			<beans:ref bean="memberListInterceptor" />
+			<mapping path="/member/list/**" />
+			<beans:ref bean="adminInterceptor" />
 		</interceptor>
-
+		
+		<interceptor>
+			<mapping path="/member/managementlist/**" />
+			<beans:ref bean="adminInterceptor" />
+		</interceptor>
+	
 
 		<interceptor>
-			<mapping path="/member/deleteMyself" />
+			<mapping path="/member/delete" />
 			<beans:ref bean="DeleteMyselfInterceptor" />
 		</interceptor>
 
@@ -80,7 +86,6 @@
 			<beans:ref bean="LogoutInterceptor" />
 		</interceptor>
 
-	
 
 		<interceptor>
 			<mapping path="/member/loginPost" />
@@ -88,10 +93,11 @@
 		</interceptor>
 
 
-		<!-- 입력 수정 삭제 작업,댓글 전에 인터셉터 작업을 함 -->
+
+		<!-- 입력 수정 삭제 작업, 댓글 전에 인터셉터 작업을 함 -->
 		<interceptor>
-			<mapping path="/board/delete/*" />
-			<mapping path="/board/update/*" />
+			<mapping path="/board/delete/**" />
+			<mapping path="/board/update/**" />
 			<mapping path="/board/insert" />
 
 			<beans:ref bean="authInterceptor" />

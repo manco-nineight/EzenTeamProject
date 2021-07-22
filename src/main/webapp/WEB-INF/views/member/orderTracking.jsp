@@ -121,8 +121,9 @@ td {
 
 		</table>
 
-
-		<jsp:include page="order_paging_part.jsp" />
+		<jsp:include page="paging_part.jsp">
+			<jsp:param value="order" name="list"/>
+		</jsp:include>
 	</div>
 </body>
 </html>

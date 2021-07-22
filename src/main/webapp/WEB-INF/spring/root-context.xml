@@ -13,7 +13,7 @@
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 
-	<bean id="dataSource"
+<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName"
 			value="oracle.jdbc.OracleDriver"></property>
@@ -84,6 +84,5 @@
 		base-package="kr.co.persistence" />
 	<context:component-scan
 		base-package="kr.co.service" />
-	<context:component-scan base-package="kr.co.aop" />
 
 </beans>

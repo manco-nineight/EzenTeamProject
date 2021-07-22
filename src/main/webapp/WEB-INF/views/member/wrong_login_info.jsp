@@ -5,6 +5,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <script type="text/javascript">
-	alert("잘못된 접근입니다.");
-	location.href="/";
+	alert("잘못된 아이디 또는 비밀번호입니다.");
+	location.href="/member/loginGet";
 </script>

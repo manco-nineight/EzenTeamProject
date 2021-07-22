@@ -36,13 +36,7 @@ public class DeleteMyselfInterceptor extends HandlerInterceptorAdapter{
 			
 			
 		}
-		
 
-		
-		
-
-		
-		 
 	}
 
 	

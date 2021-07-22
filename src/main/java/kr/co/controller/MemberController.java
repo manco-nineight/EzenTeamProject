@@ -30,6 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Controller
 @RequestMapping("/member")
@@ -41,8 +42,9 @@ public class MemberController {
 	@Autowired
 	private JavaMailSender mailSender;
 	
-//	@Autowired
-//	private BCryptPasswordEncoder userPwEncoder;
+	@Autowired
+	private BCryptPasswordEncoder userPwEncoder;
+	
 	
 	@ResponseBody
 	@RequestMapping(value = "/idcheck", method = RequestMethod.POST)
@@ -51,16 +53,25 @@ public class MemberController {
 		return checkResult;
 	}
 	
+	@RequestMapping(value = "/wrong_login_info", method = RequestMethod.GET)
+	public void wrong_login_info() {
+	
+	}
 	
 	@RequestMapping(value = "/cartlist/{userId}", method = RequestMethod.GET)
 	public String cartlist(Model model, @PathVariable("userId") String userId, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		MemberDTO loginSession = (MemberDTO) session.getAttribute("login");
 		
-		if (!loginSession.getUserId().equals(userId)) {
+		if (loginSession == null) {
 			System.out.println("로그인이 필요한 작업입니다.");
 
-			return "/member/errMsg";
+			return "/member/wrong_login_info";
+			
+		} else if (!loginSession.getUserId().equals(userId)) {
+			System.out.println("잘못된 접근입니다.");
+
+			return "/member/warning";
 			
 		} else {
 			List<CartDTO> list = mService.cartlist(userId);
@@ -84,7 +95,6 @@ public class MemberController {
 		
 		return "/member/testread";
 	}
-	
 	
 	
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
@@ -146,18 +156,12 @@ public class MemberController {
 			}
 			
 			//---------
-	        
 
-
-
-	        
 	        String userPw = sb.toString();
 	        
-//	        String secureUserPw = userPwEncoder.encode(userPw);
-	        //패스워드 빈 문제가 해결되면 수정 요망
-//	        String secureUserPw = userPw.toString();
+	        String secureUserPw = userPwEncoder.encode(userPw);
 
-	        map.put("userPw", userPw);
+	        map.put("userPw", secureUserPw);
 	        
 	        mService.updateFindPw(map);
 	        
@@ -174,7 +178,6 @@ public class MemberController {
 		
 	}
 	
-	
 
 	@ResponseBody
 	@RequestMapping(value = "/findIdResult", method = RequestMethod.POST)
@@ -182,22 +185,16 @@ public class MemberController {
 		MemberDTO vo = mService.findId(userEmail);
 
 		model.addAttribute("vo", vo);
-		
-		String userId = vo.getUserId();
-		
-	
-		
-	
+
 		if (vo != null) {
+			String userId = vo.getUserId();
 			String findUserId = userId.substring(0, userId.length()-2) + "**";
 			return findUserId;
-
-		}else {
-			return "X";
-		}
 			
+		} else {
+			return "X";
+		}	
 	}
-	
 	
 	
 	@RequestMapping(value = "/findId", method = RequestMethod.GET)
@@ -206,7 +203,55 @@ public class MemberController {
 	}
 	
 	
-	
+	// 회원 목록 검색
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public void search(String selector, String keyword, int curPage, Model model) {
+			
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("selector", selector);
+		map.put("keyword", keyword);
+		
+		int getSearchAmount = mService.getSearchAmount(map);
+		
+		PageTO<MemberDTO> to = new PageTO<MemberDTO>(curPage);
+		to.setAmount(getSearchAmount);
+		List<MemberDTO> list = mService.search(map, to.getStartNum());
+		to.setList(list);
+		
+		model.addAttribute("to", to);
+	}
+		
+		
+	// 회원 목록 페이징
+	@RequestMapping(value = "/list/{curPage}", method = RequestMethod.GET)
+	public String list(@PathVariable("curPage") int curPage, Model model) {
+		int getAmount = mService.getAmount();
+
+		PageTO<MemberDTO> to = new PageTO<MemberDTO>(curPage);
+		to.setAmount(getAmount);
+		
+		List<MemberDTO> list = mService.list(to.getStartNum());
+		to.setList(list);
+		model.addAttribute("to", to);
+			
+		return "/member/list";
+	}
+		
+		
+	// 회원 목록
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public void list(Model model) {
+		int curPage = 1;
+		int getAmount = mService.getAmount();
+
+		PageTO<MemberDTO> to = new PageTO<MemberDTO>(curPage);
+		to.setAmount(getAmount);
+			
+		List<MemberDTO> list = mService.list(to.getStartNum());
+		to.setList(list);
+			
+		model.addAttribute("to", to);
+	}	
 	
 	
 	
@@ -220,10 +265,7 @@ public class MemberController {
 //---------------------------------------------------------------
 	@RequestMapping(value = "/managementlist/{curPage}", method = RequestMethod.GET)
 	public String managementlist(@PathVariable("curPage") int curPage,Model model) {
-		
-       
-		
-		
+
 		int managementlistAmount = mService.managementlistAmount();
 		PageTO<OrderVO> to = new PageTO<OrderVO>(curPage);
 		to.setAmount(managementlistAmount);
@@ -235,18 +277,12 @@ public class MemberController {
 		model.addAttribute("list", list);
 		model.addAttribute("to", to);
 		
-		
 		return "/member/managementlist";
-
-		
 	}
+	
 	
 	@RequestMapping(value = "/managementlist", method = RequestMethod.GET)
 	public void managementlist(Model model) {
-		
-       
-		
-		
 		int curPage = 1;
 		int managementlistAmount = mService.managementlistAmount();
 		PageTO<OrderVO> to = new PageTO<OrderVO>(curPage);
@@ -258,31 +294,22 @@ public class MemberController {
 		to.setList(list);
 		model.addAttribute("list", list);
 		model.addAttribute("to", to);
-		
-		
-		
 	}
+	
 	
 	@RequestMapping(value = "/orderManagement/{orderNum}", method = RequestMethod.GET)
 	public String orderManagement(@PathVariable ("orderNum") int orderNum, Model model) {
-		
 		OrderVO vo = mService.readOrder(orderNum);
 		
 		model.addAttribute("vo", vo);
 		return "/member/orderManagement";
-		
-		
-		
-		
 	}
+	
+	
 	
 	@RequestMapping(value = "/orderManagement", method = RequestMethod.POST)
 	@ResponseBody
 	public String orderManagement(int orderNum, int orderProdStatus, long orderTrackingNum, String orderUserId) {
-		
-	    
-		
-		
 		if (orderProdStatus == 2) {
 			System.out.println(orderTrackingNum);
 			
@@ -313,7 +340,8 @@ public class MemberController {
 			}
 			
 			return "1";
-		}else {
+			
+		} else {
 			System.out.println(orderTrackingNum);
 			
 			mService.updateOrderProdStatus(new OrderVO(orderNum, null, 0, 0, 0, null, null, orderProdStatus, orderTrackingNum));
@@ -324,23 +352,15 @@ public class MemberController {
 			
 			return "1";
 		}
-		
-		
-		
-		
 	}
 	
 	
 	@RequestMapping(value = "/deleteOrder", method = RequestMethod.POST)
 	@ResponseBody
 	public String deleteOrder(int orderNum) {
-		
-		
 		mService.deleteOrder(orderNum);
-		
-		
+
 		return "/member/orderTracking";
-		
 	}
 	
 	
@@ -348,12 +368,8 @@ public class MemberController {
 	@RequestMapping(value = "/updateOrderAddress", method = RequestMethod.POST)
 	@ResponseBody
 	public String updateOrderAddress(int orderNum,String sample4_postcode, String sample4_roadAddress, String sample4_detailAddress) {
-		
-		String orderUserAddress  = "(" + sample4_postcode + ")" + sample4_roadAddress + "/" + sample4_detailAddress;
-		
-	
-		
-		
+		String orderUserAddress  = "(" + sample4_postcode + ") " + sample4_roadAddress + " " + sample4_detailAddress;
+
 		mService.updateOrderAddress(new OrderVO(orderNum, null, 0, 0, 0, null, orderUserAddress, 0,0));
 		
 		return "1";
@@ -363,31 +379,34 @@ public class MemberController {
 	
 	@RequestMapping(value = "/readOrder/{orderNum}", method = RequestMethod.GET)
 	public String readOrder(@PathVariable("orderNum") int orderNum, Model model) {
-		
 		OrderVO vo = mService.readOrder(orderNum);
 		
 		model.addAttribute("vo", vo);
 		return "/member/readOrder";
 	}
 
+	
 	@RequestMapping(value = "/orderTracking/{curPage}/{userId}", method = RequestMethod.GET)
-	public String orderTracking(@PathVariable("curPage") int curPage,@PathVariable("userId") String userId, Model model) {
+	public String orderTracking(@PathVariable("curPage") int curPage, @PathVariable("userId") String userId, Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		MemberDTO loginSession = (MemberDTO) session.getAttribute("login");
 		
-	 
-		
+		if (!loginSession.getUserId().equals(userId)) {
+			System.out.println("잘못된 접근입니다.");
+
+			return "/member/warning";
+		} 
 		
 		int orderAmount = mService.orderAmount(userId);
 		PageTO<OrderVO> to = new PageTO<OrderVO>(curPage);
 		to.setAmount(orderAmount);
-		
-		
-		List<OrderVO> list = mService.orderList(userId,to.getStartNum());
+
+		List<OrderVO> list = mService.orderList(userId, to.getStartNum());
 		
 		to.setList(list);
 		model.addAttribute("list", list);
 		model.addAttribute("to", to);
-		
-	
+
 		return "/member/orderTracking";
 	}
 	
@@ -395,18 +414,23 @@ public class MemberController {
 	
 	
 	@RequestMapping(value = "/orderTracking/{orderUserId}", method = RequestMethod.GET)
-	public String orderTracking(@PathVariable("orderUserId") String orderUserId,Model model) {
+	public String orderTracking(@PathVariable("orderUserId") String orderUserId, Model model, HttpServletRequest request) {
 		
+		String userId = orderUserId;
 		
+		HttpSession session = request.getSession();
+		MemberDTO loginSession = (MemberDTO) session.getAttribute("login");
 		
-		
-		String userId =  orderUserId;
+		if (!loginSession.getUserId().equals(userId)) {
+			System.out.println("잘못된 접근입니다.");
+
+			return "/member/warning";
+		} 
 		
 		int curPage = 1;
 		int orderAmount = mService.orderAmount(userId);
 		PageTO<OrderVO> to = new PageTO<OrderVO>(curPage);
 		to.setAmount(orderAmount);
-		
 		
 		List<OrderVO> list = mService.orderList(userId,to.getStartNum());
 		
@@ -415,19 +439,17 @@ public class MemberController {
 		model.addAttribute("to", to);
 		
 		return "/member/orderTracking";
-		
-	
-
 	}
 	
 
 	
 	
 	@RequestMapping(value = "/updateGrade", method = RequestMethod.POST)
-	public String updateGrade(String userId, Integer userGrade) {
-
-		mService.updateGrade(
-				new MemberDTO(userId, null, null, null, null, null, null, null, userGrade));
+	public String updateGrade(MemberDTO dto, String userId, int userGrade) {
+		dto.setUserId(userId);
+		dto.setUserGrade(userGrade);
+		
+		mService.updateGrade(dto);
 
 		return "redirect:/member/list";
 
@@ -446,119 +468,110 @@ public class MemberController {
 
 	}
 
+	
 	@RequestMapping(value = "/noadmin", method = RequestMethod.GET)
 	public void noadmin() {
 
 	}
 
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(Model model) {
-
-		List<MemberDTO> to = mService.memberList();
-
-		model.addAttribute("to", to);
-
-		return "/member/list";
-	}
 	
 	@RequestMapping(value = "/updateMyself", method = RequestMethod.POST, produces = "application/text; charset=utf8")
 	@ResponseBody
 	public String updateMyself(String userId, String userPw, String userName, String userEmail, String userBirthday,
 			String userAddress, String sample4_postcode,String sample4_roadAddress, String sample4_detailAddress) {
 		
+		String secureUserPw = userPwEncoder.encode(userPw);
+		
 		if (sample4_postcode == "") {
 			String userAddressTrue = userAddress;
 			
 			mService.updateMyself(
-					new MemberDTO(userId, userPw, userName, userEmail, userBirthday, userAddressTrue, null, null, 0));
+					new MemberDTO(userId, secureUserPw, userName, userEmail, userBirthday, userAddressTrue, null, null, 0));
 
 			return userAddressTrue;
+			
 		}else {
-			String userAddressTrue = "(" + sample4_postcode + ")" + sample4_roadAddress + "/" + sample4_detailAddress;
+			String userAddressTrue = "(" + sample4_postcode + ") " + sample4_roadAddress + " " + sample4_detailAddress;
 			mService.updateMyself(
-					new MemberDTO(userId, userPw, userName, userEmail, userBirthday, userAddressTrue, null, null, 0));
+					new MemberDTO(userId, secureUserPw, userName, userEmail, userBirthday, userAddressTrue, null, null, 0));
 
 			return userAddressTrue;
 		}
-		
- 
-		
-
-	}
-	
-	@RequestMapping(value = "/deleteMember", method = RequestMethod.POST)
-	public String deleteMember(String userId) {
-
-		mService.deleteMyself(userId);
-
-		return "/member/list";
 
 	}
 
 	
-	@RequestMapping(value = "/deleteMyself", method = RequestMethod.POST)
-	public String deleteMyself(String userId) {
-
-		mService.deleteMyself(userId);
-
-		return "redirect:/member/loginGet";
-
+	// 관리자용 회원 삭제
+	@ResponseBody
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public String delete(String userId) {
+		
+		mService.deleteMember(userId);
+		
+		// userGrade가 관리자일 때 이동, 일반 사용자는 loginGet.jsp로 이동
+		return "/member/list";	
 	}
 	
 
 	@RequestMapping(value = "/readSelf", method = RequestMethod.POST)
 	public void read(String readuserId, Model model) {
-		
-		
-		String userId =readuserId;
+		String userId = readuserId;
 
 		MemberDTO dto = mService.readInfo(userId);
 
 		model.addAttribute("dto", dto);
-		
+
+	}
 	
-
-		
-	}
-
-	@RequestMapping(value = "/userIdCheck", method = RequestMethod.GET)
+	
 	@ResponseBody
-	public String userIdCheck(String userId) {
+	@RequestMapping(value = "/readInfoCheck", method = RequestMethod.GET)
+	public int readInfoCheck(String userId, String userPw) {
 
-		String ckrs = mService.userIdCheck(userId);
+		MemberDTO dto = mService.readInfo(userId);
+		boolean isUserPw = userPwEncoder.matches(userPw, dto.getUserPw());
 
-		return ckrs;
-
+		if (isUserPw) {
+			return 1;
+			
+		} else {
+			return 0;
+		}
 	}
+
+
 
 	@RequestMapping(value = "/sign", method = RequestMethod.POST)
-	public String name(String userId, String userPw, String userName, String userEmail, String userBirthday,
-			String sample4_postcode, String sample4_roadAddress, String sample4_detailAddress, int userGrade) {
+	public String sign(MemberDTO dto, int userGrade, String sample4_postcode, String sample4_roadAddress, String sample4_detailAddress) {
+		
+		String secureUserPw = userPwEncoder.encode(dto.getUserPw());
+		String userAddress = "(" + sample4_postcode + ") " + sample4_roadAddress + " " + sample4_detailAddress;
+		
+		dto.setUserPw(secureUserPw);
+		dto.setUserAddress(userAddress);
+		dto.setUserGrade(userGrade);
 
-		String userAddress = "(" + sample4_postcode + ")" + sample4_roadAddress + "/" + sample4_detailAddress;
-
-		mService.sign(
-				new MemberDTO(userId, userPw, userName, userEmail, userBirthday, userAddress, null, null, userGrade));
-
+		mService.insert(dto);
+		
 		return "redirect:/member/loginGet";
 	}
 
-	
-	@RequestMapping(value = "/mailCheck", method = RequestMethod.GET)
 	@ResponseBody
-	public String mailCheckGET(String email) throws Exception {
+	@RequestMapping(value = "/mailCheck", method = RequestMethod.GET)
+	public String mailCheckGET(String userEmail){
 
-	
-		System.out.println("이메일 전송 완료");
-		System.out.println("이메일 주소 : " + email);
+		System.out.println("이메일 데이터 전송 확인");
+		System.out.println("이메일 주소 : " + userEmail);
+		
 		Random random = new Random();
+		random.setSeed(new Date().getTime()); // 현재 시간을 기반으로 매번 변경되는 시드값을 사용
+		
 		int checkNum = random.nextInt(888888) + 111111;
-
-		System.out.println("인증번호" + checkNum);
+		System.out.println("인증번호 : " + checkNum);
 
 	
 		String setFrom = "msn6903@naver.com";
-		String toMail = email;
+		String toMail = userEmail;
 		String title = "Ezen TestSHOP 회원가입 인증메일입니다..";
 		String content = "회원가입을 위한 인증번호." + "<br><br>" + "6자리 숫자 " + checkNum + "입니다." + "<br>"
 				+ "인증번호를 입력해 회원가입을 완료해주세요.";
@@ -575,6 +588,7 @@ public class MemberController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		String num = Integer.toString(checkNum);
 
 		return num;
@@ -598,20 +612,27 @@ public class MemberController {
 
 	}
 
-	// 占쎌뵥占쎄숲占쎈�롳옙苑ｇ몴占� �뤃�뗭겱占쎈막 占쎈르 ui占쏙옙 疫꿸퀡�뮟占쎌벥 筌띾벏釉� 雅뚯눘�꺖�몴占� 占쎈뼄�몴�떯苡� 占쎄퐬占쎌젟占쎈퉸占쎈튊占쎈립占쎈뼄.
+
 	@RequestMapping(value = "/loginGet", method = RequestMethod.GET)
 	public void login() {
 	
  
 	}
-	
-
 
 	@RequestMapping(value = "/loginPost", method = RequestMethod.POST)
 	public void login(LoginDTO login, Model model) {
 		MemberDTO dto = mService.login(login);
+		
+		if (dto != null) {
+			boolean isUserPw = userPwEncoder.matches(login.getUserPw(), dto.getUserPw());
 
-		model.addAttribute("login", dto);
+			if (isUserPw) {
+				model.addAttribute("login", dto);
+			}
+			
+		} else {
+			System.out.println("아이디 혹은 비밀번호를 잘못 입력하셨거나 등록되지 않은 아이디입니다.");
+		}
 	}
 
 }

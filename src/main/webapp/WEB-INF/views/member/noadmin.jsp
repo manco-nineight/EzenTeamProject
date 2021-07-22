@@ -12,8 +12,8 @@ function back(){
 
    /*   history.back(); //방법 2 */
 
-     location.href  ="/board/list" ; // 방법3
-
+     // location.href  ="/board/list" ; // 방법3
+     location.href  ="/" ;
 }
 
 </script>

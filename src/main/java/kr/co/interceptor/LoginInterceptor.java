@@ -37,22 +37,18 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
 
-		
 		HttpSession session = request.getSession();
 		Map<String, Object> map = modelAndView.getModel();
-		 Object dto =map.get("login");
-		 
-		 
-		 
+		Object dto = map.get("login");
+
 		 if (dto != null) {
 			session.setAttribute("login", dto);
 			
-			
-			
-			
 			response.sendRedirect("/");
-		}else {
-			response.sendRedirect("/member/logunGet");
+			
+		} else {
+			session.setAttribute("errMsg", "아이디 혹은 비밀번호를 잘못 입력하셨거나 등록되지 않은 아이디입니다.");
+			response.sendRedirect("/member/loginGet");
 		}
 		 
 	}

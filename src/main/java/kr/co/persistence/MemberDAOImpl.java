@@ -60,32 +60,10 @@ public class MemberDAOImpl implements MemberDAO {
 		return session.selectList(NAMESPACE + ".search", map, rb);
 	}
 
-
 	@Override
-	public MemberDTO read(String userId) {
-		return session.selectOne(NAMESPACE + ".read", userId);
+	public void deleteMember(String userId) {
+		session.delete(NAMESPACE + ".deleteMember", userId);
 	}
-
-
-	@Override
-	public MemberDTO update(String userId) {
-		return read(userId);
-	}
-
-
-	@Override
-	public void update(MemberDTO vo) {
-		session.update(NAMESPACE + ".update", vo);
-	}
-
-
-	@Override
-	public void delete(String userId) {
-		session.delete(NAMESPACE + ".delete", userId);
-	}
-
-
-	
 
 	@Override
 	public MemberDTO findId(String userEmail) {
@@ -131,6 +109,8 @@ public class MemberDAOImpl implements MemberDAO {
 	
 	
 	//-------------------
+	
+	
 	
 	@Override
 	public void updateOrderProdStatus(OrderVO orderVO) {
@@ -184,16 +164,12 @@ public class MemberDAOImpl implements MemberDAO {
 	
 	
 	@Override
-	public void updateGrade(MemberDTO memberDTO) {
+	public void updateGrade(MemberDTO dto) {
 		// TODO Auto-generated method stub
-	session.update(NAMESPACE+".updateGrade", memberDTO)	;
+	session.update(NAMESPACE + ".updateGrade", dto)	;
 	}
+
 	
-	@Override
-	public List<MemberDTO> list() {
-		// TODO Auto-generated method stub
-		return session.selectList(NAMESPACE+".list");
-	}
 	@Override
 	public void updateMyself(MemberDTO memberDTO) {
 		// TODO Auto-generated method stub
@@ -201,37 +177,15 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 	
 	@Override
-	public void deleteMyself(String userId) {
-		// TODO Auto-generated method stub
-		session.delete(NAMESPACE+".deleteMyself", userId);
-	}
-	
-	
-	@Override
 	public MemberDTO readInfo(String userId) {
 		// TODO Auto-generated method stub
 		return session.selectOne(NAMESPACE+".readInfo", userId);
 	}
 	
-	
-	@Override
-	public String userIdCheck(String userId) {
-		// TODO Auto-generated method stub
-		return session.selectOne(NAMESPACE+".userIdCheck", userId);
-	}
-	
-	
 	@Override
 	public MemberDTO login(LoginDTO login) {
 		// TODO Auto-generated method stub
 		return session.selectOne(NAMESPACE+".login", login);
-	}
-	
-	
-	@Override
-	public void sign(MemberDTO memberDTO) {
-		session.insert(NAMESPACE+".sign", memberDTO);
-		
 	}
 
 	@Override

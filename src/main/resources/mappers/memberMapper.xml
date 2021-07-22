@@ -4,18 +4,15 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.member">
 
-
-<!--test  -->
-
-
-
-<select id="stock" resultType="ProductStockVO">
+	<select id="stock" resultType="ProductStockVO">
 		SELECT * FROM prod_stock WHERE prodName = #{prodName}
 	</select>
+	
 	
 	<select id="testread" resultType="ProductVO">
 		SELECT * FROM product WHERE prodName = #{prodName}
 	</select>
+	
 	
 	<resultMap type="MemberDTO" id="MemberDTO">
 		<result column="userId" property="userId"/>
@@ -52,36 +49,36 @@
 		ORDER BY cartNo DESC 
 	</select>
 	
+	
 	<select id="test" resultType="ProductVO">
 		SELECT * FROM product
 	</select>
+	
 	
 	<update id="updateFindPw">
 		UPDATE member SET userPw = #{userPw} WHERE userId = #{userId} AND userEmail = #{userEmail}
 	</update>
 	
+	
 	<select id="findPw" resultType="MemberDTO">
 		SELECT * FROM member WHERE userId = #{userId} AND userEmail = #{userEmail}
 	</select>
+	
 	
 	<select id="findId" resultType="MemberDTO">
 		SELECT * FROM member WHERE userEmail = #{userEmail}
 	</select>
 
 	
-	<delete id="delete">
+	<delete id="deleteMember">
 		DELETE FROM member WHERE userId = #{userId}
 	</delete>
 	
-	<!-- <update id="update">
-		UPDATE member SET userPw = #{userPw}, userName = #{userName}, userEmail = #{userEmail}, 
-		userBirthday = #{userBirthday}, userAddress = #{userAddress}, userUpdatedate = SYSDATE 
-		WHERE userId = #{userId}
-	</update> -->
 	
-	<select id="read" resultType="MemberDTO">
+	<select id="readInfo" resultType="MemberDTO">
 		SELECT * FROM member WHERE userId = #{userId}
 	</select>
+	
 	
 	<sql id="search">
 		<if test="selector == 'userId'.toString()">
@@ -107,143 +104,98 @@
 		ORDER BY userRegdate DESC
 	</select>
 	
+	
 	<select id="getSearchAmount" resultType="int">
 		SELECT COUNT(userId) FROM member
 		<include refid="search"/>
 	</select>
 	
+	
 	<select id="list" resultType="MemberDTO">
 		SELECT * FROM member ORDER BY userRegdate DESC
 	</select>
+	
 	
 	<select id="getAmount" resultType="int">
 		SELECT COUNT(userId) from member
 	</select>
 	
+	
 	<select id="idcheck" resultType="int">
 		SELECT COUNT(*) FROM member WHERE userId = #{userId}
 	</select>
 	
+	
 	<insert id="insert">
-		INSERT INTO member (userId, userPw, userName, userEmail, userBirthday, userAddress) 
-		VALUES (#{userId}, #{userPw}, #{userName}, #{userEmail}, #{userBirthday}, #{userAddress})
+		INSERT INTO member (userId, userPw, userName, userEmail, userBirthday, userAddress, userGrade) 
+		VALUES (#{userId}, #{userPw}, #{userName}, #{userEmail}, #{userBirthday}, #{userAddress}, #{userGrade})
 	</insert>
-
-
-
 
 
 
 <!--test  -->
 
-<select id="selectEmail" resultType="String">
-
-SELECT userEmail FROM member WHERE userId = #{orderUserId}
-</select>
-
-<update id="updateOrderProdStatus">
-UPDATE prod_order SET orderProdStatus = #{orderProdStatus}, orderTrackingNum = #{orderTrackingNum} WHERE orderNum = #{orderNum}
-
-</update>
-
-<delete id="deleteOrder">
-DELETE FROM prod_order WHERE orderNum = #{orderNum}
-</delete>
+	<select id="selectEmail" resultType="String">
+		SELECT userEmail FROM member WHERE userId = #{orderUserId}
+	</select>
 
 
-<update id="updateOrderAddress">
-UPDATE prod_order SET orderUserAddress = #{orderUserAddress} WHERE orderNum = #{orderNum}
-
-</update>
-
-
+	<update id="updateOrderProdStatus">
+		UPDATE prod_order SET orderProdStatus = #{orderProdStatus}, orderTrackingNum = #{orderTrackingNum}
+		WHERE orderNum = #{orderNum}
+	</update>
 
 
-<select id="readOrder" resultType="kr.co.domain.OrderVO">
-
-SELECT *  FROM prod_order WHERE  orderNum = #{orderNum}
-</select>
-
-
-<select id="orderAmount" resultType="Integer">
-      SELECT COUNT(orderNum)  FROM prod_order WHERE  orderUserId = #{userId}
-   
-   </select>
-   <select id="managementlistAmount" resultType="Integer">
-      SELECT COUNT(orderNum)  FROM prod_order 
-   
-   </select>
+	<delete id="deleteOrder">
+		DELETE FROM prod_order WHERE orderNum = #{orderNum}
+	</delete>
 
 
-<select id="managementList" resultType="kr.co.domain.OrderVO">
-      SELECT *  FROM prod_order  ORDER BY orderNum DESC
-   
-   </select>
-<select id="orderList" resultType="kr.co.domain.OrderVO">
-      SELECT *  FROM prod_order WHERE  orderUserId = #{userId} ORDER BY orderNum DESC
-   
-   </select>
+	<update id="updateOrderAddress">
+		UPDATE prod_order SET orderUserAddress = #{orderUserAddress} WHERE orderNum = #{orderNum}
+	</update>
+	
+
+	<select id="readOrder" resultType="kr.co.domain.OrderVO">
+		SELECT * FROM prod_order WHERE orderNum = #{orderNum}
+	</select>
 
 
-
-
-
-
-
-
-<update id="updateGrade">
-      UPDATE member SET userGrade = #{userGrade}
-      WHERE userId=#{userId}
-   </update>
-
-
-
- <update id="updateMyself">
-      UPDATE member SET userPw = #{userPw}, userName = #{userName}, userUpdatedate = SYSDATE,
-       userEmail = #{userEmail} , userBirthday = #{userBirthday} , userAddress = #{userAddress} 
-      WHERE userId=#{userId}
-   </update>
-
-   
-   <delete id="deleteMyself">
-   
-   DELETE FROM member WHERE userId =#{userId}
-   </delete>
-
-
-   <select id="readInfo" resultType="kr.co.domain.MemberDTO">
-      SELECT * FROM member WHERE userId = #{userId}
-   
-   </select>
-
-   
-   <select id="userIdCheck" resultType="string">
-      SELECT userId FROM member WHERE userId = #{userId}
-   
-   </select>
-
-   <insert id="sign">
-      INSERT INTO member (userId, userPw, userName, userEmail, userBirthday, userAddress, userRegdate, userUpdatedate, userGrade) 
-      VALUES (#{userId}, #{userPw}, #{userName}, #{userEmail},#{userBirthday}, #{userAddress}, SYSDATE, SYSDATE, #{userGrade})
-   </insert>
-
-
-   
-     <select id="login" resultType="kr.co.domain.MemberDTO">
-      SELECT userId, userName, userGrade  FROM member WHERE userId = #{userId} AND userPw = #{userPw}
-   
-   </select>
-
-
-
-
-   
- <update id="update">
-      UPDATE member SET userName = #{userName}, email = #{email}, updateDate = SYSDATE 
-      WHERE userId=#{userId} AND userPw = #{userPw} 
-   </update>
+	<select id="orderAmount" resultType="Integer">
+		SELECT COUNT(orderNum) FROM prod_order WHERE orderUserId = #{userId}
+	</select>
    
    
-  
-  
+	<select id="managementlistAmount" resultType="Integer">
+		SELECT COUNT(orderNum) FROM prod_order 
+	</select>
+
+
+	<select id="managementList" resultType="kr.co.domain.OrderVO">
+		SELECT * FROM prod_order ORDER BY orderNum DESC
+	</select>
+   
+   
+	<select id="orderList" resultType="kr.co.domain.OrderVO">
+		SELECT * FROM prod_order WHERE orderUserId = #{userId} ORDER BY orderNum DESC
+	</select>
+
+
+	<update id="updateGrade">
+		UPDATE member SET userGrade = #{userGrade}
+		WHERE userId = #{userId}
+	</update>
+
+
+	<update id="updateMyself">
+		UPDATE member SET userPw = #{userPw}, userName = #{userName}, userUpdatedate = SYSDATE,
+		userEmail = #{userEmail}, userBirthday = #{userBirthday}, userAddress = #{userAddress} 
+		WHERE userId = #{userId}
+	</update>
+
+
+	<select id="login" resultType="kr.co.domain.MemberDTO">
+		SELECT * FROM member WHERE userId = #{userId}
+	</select>
+
 </mapper>

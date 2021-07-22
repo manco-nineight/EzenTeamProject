@@ -12,7 +12,7 @@ import kr.co.domain.ProductVO;
 
 public interface MemberService {
 	
-void insert(MemberDTO dto);
+	void insert(MemberDTO dto);
 	
 	int idcheck(String userId);
 
@@ -23,16 +23,8 @@ void insert(MemberDTO dto);
 	int getSearchAmount(Map<String, Object> map);
 
 	List<MemberDTO> search(Map<String, Object> map, int startNum);
-
-	MemberDTO read(String userId);
-
-	MemberDTO update(String userId);
-
-	void update(MemberDTO vo);
 	
-	void delete(String userId);
-
-
+	void deleteMember(String userId);
 
 	MemberDTO findId(String userEmail);
 
@@ -49,21 +41,14 @@ void insert(MemberDTO dto);
 	ProductStockVO stock(String prodName);
 	
 	//-------------------------------
-   MemberDTO login(LoginDTO login);
-
-void sign(MemberDTO memberDTO);
-
-String userIdCheck(String userId);
+	
+MemberDTO login(LoginDTO login);
 
 MemberDTO readInfo(String userId);
 
-void deleteMyself(String userId);
+void updateMyself(MemberDTO dto);
 
-void updateMyself(MemberDTO memberDTO);
-
-List<MemberDTO> memberList();
-
-void updateGrade(MemberDTO memberDTO);
+void updateGrade(MemberDTO dto);
 
 List<OrderVO> orderList(String userId, int startNum);
 
@@ -82,7 +67,6 @@ List<OrderVO> managementList(int startNum);
 void updateOrderProdStatus(OrderVO orderVO);
 
 String selectEmail(String orderUserId);
-
 
 
 }

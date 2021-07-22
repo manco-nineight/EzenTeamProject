@@ -113,7 +113,9 @@ td {
 		</table>
 
 
-		<jsp:include page="management_paging_part.jsp" />
+		<jsp:include page="paging_part.jsp">
+			<jsp:param value="management" name="list"/>
+		</jsp:include>
 	</div>
 </body>
 </html>

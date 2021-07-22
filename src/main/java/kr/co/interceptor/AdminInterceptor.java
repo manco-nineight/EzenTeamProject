@@ -10,7 +10,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import kr.co.domain.MemberDTO;
 
-public class memberListInterceptor extends HandlerInterceptorAdapter {
+public class AdminInterceptor extends HandlerInterceptorAdapter {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -20,13 +20,12 @@ public class memberListInterceptor extends HandlerInterceptorAdapter {
 		MemberDTO login = (MemberDTO) session.getAttribute("login");
 
 		if (login != null) {
-
 			Integer grade = login.getUserGrade();
 
 			if (grade.equals(1)) {
 				return true;
+				
 			} else {
-
 				response.sendRedirect("/member/noadmin");
 
 				return true;

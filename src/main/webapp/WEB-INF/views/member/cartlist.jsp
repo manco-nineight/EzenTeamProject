@@ -8,7 +8,7 @@
 <head>
 
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>CartList</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -32,11 +32,10 @@
 </head>
 <body style="text-align: center;margin: auto;">
 
-<!-- 주소창 안바꾸고 이동하기 -->
-<%-- <jsp:forward page="/board/list"/> --%>
 
-<jsp:include page="../main_menu.jsp"/>
-<br><br><br><br>
+	<jsp:include page="../main_menu.jsp"/>
+	<br><br><br><br>
+	
 	<div class="container">
 		<div class="row">
 			<h1 class="jumbotron text-center">${userId}님의 장바구니</h1>

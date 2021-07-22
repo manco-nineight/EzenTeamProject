@@ -12,46 +12,35 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link href="/resources/img/mycss.css" rel="stylesheet" type="text/css" />
 </head>
-<body>
+<body style="text-align: center;margin: auto;">
+
+	<jsp:include page="../main_menu.jsp"/>
 	
 	<div class="container">
-		
-		<%-- <div class="row">
-			<c:choose>
-				<c:when test="${empty login}">
-					<a href="/member/loginGet">로그인</a>
-				</c:when>
-				<c:otherwise>
-					(${login.userName})님 반갑습니다. <a href="/member/logout">로그아웃</a>
-				</c:otherwise>
-			</c:choose>
-		</div> --%>
-		
-		<div class="row">
-			<h1 class="jumbotron text-center">회원 목록</h1>
-			<a href="/member/insert">회원 가입</a>
-		</div>
-		
 		<div class="row">
 			<table class="table table-striped">
 				<thead>
 					<tr>
 						<th>userId</th>
+						<th>userGrade</th>
 						<th>userName</th>
 						<th>userBirthday</th>
 						<th>userEmail</th>
 						<th>userRegdate</th>
 					</tr>
 				</thead>
+				
 				<tbody>
 					<c:forEach items="${to.list}" var="vo">
 							<tr style="cursor:pointer;" 
 								onmouseOver="this.style.background='#50bcdf'" 
 								onMouseOut="this.style.backgroundColor=''"
-								onclick="location.href='/member/read/${vo.userId}?curPage=${to.curPage}'">
+								onclick="location.href='/member/readByAdmin/${vo.userId}'">
 								
 								<td>${vo.userId}</td>
+								<td>${vo.userGrade}</td>
 								<td>${vo.userName}</td>
 								<td>${vo.userBirthday}</td>
 								<td>${vo.userEmail}</td>

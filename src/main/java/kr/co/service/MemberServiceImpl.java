@@ -52,26 +52,9 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public MemberDTO read(String userId) {
-		return mDao.read(userId);
+	public void deleteMember(String userId) {
+		mDao.deleteMember(userId);
 	}
-
-	@Override
-	public MemberDTO update(String userId) {
-		return mDao.update(userId);
-	}
-
-	@Override
-	public void update(MemberDTO vo) {
-		mDao.update(vo);
-	}
-
-	@Override
-	public void delete(String userId) {
-		mDao.delete(userId);
-	}
-
-	
 
 	@Override
 	public MemberDTO findId(String userEmail) {
@@ -167,15 +150,9 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void updateGrade(MemberDTO memberDTO) {
+	public void updateGrade(MemberDTO dto) {
 		// TODO Auto-generated method stub
-		mDao.updateGrade(memberDTO);
-	}
-
-	@Override
-	public List<MemberDTO> memberList() {
-		// TODO Auto-generated method stub
-		return mDao.list();
+		mDao.updateGrade(dto);
 	}
 
 	@Override
@@ -185,27 +162,9 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void deleteMyself(String userId) {
-		// TODO Auto-generated method stub
-		mDao.deleteMyself(userId);
-	}
-
-	@Override
 	public MemberDTO readInfo(String userId) {
 		// TODO Auto-generated method stub
 		return mDao.readInfo(userId);
-	}
-
-	@Override
-	public String userIdCheck(String userId) {
-		// TODO Auto-generated method stub
-		return mDao.userIdCheck(userId);
-	}
-
-	@Override
-	public void sign(MemberDTO memberDTO) {
-		mDao.sign(memberDTO);
-
 	}
 
 	@Override

@@ -7,45 +7,40 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>FindId</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<link href="../resources/img/mycss.css" rel="stylesheet" type="text/css" />
-<style>
-#mail_check_input_box_false{
-    background-color:#ebebe4;
-} 
-#mail_check_input_box_true{
-    background-color:white;
-}
-.correct{
-    color : green;
-}
-.incorrect{
-    color : red;
-}
-
-input {
-	width: 410px;
-	height: 30px;
+<link href="/resources/img/mycss.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+	#mail_check_input_box_false{
+	    background-color:#ebebe4;
+	} 
+	#mail_check_input_box_true{
+	    background-color:white;
+	}
+	.correct{
+	    color : green;
+	}
+	.incorrect{
+	    color : red;
+	}
 	
-}
-
-.container a{
- font-size: 10px;
- color: black;
-}
+	input {
+		width: 410px;
+		height: 30px;
+		
+	}
+	
+	.container a{
+	 font-size: 10px;
+	 color: black;
+	}
 </style>
 </head>
 <body style="text-align: center;margin: auto;">
 
-<!-- 주소창 안바꾸고 이동하기 -->
-<%-- <jsp:forward page="/board/list"/> --%>
-
-<jsp:include page="../main_menu.jsp"/>
-<br><br><br>
 	<div class="container">
 		<div class="row">
 			<h1 class="jumbotron">아이디 찾기</h1>
