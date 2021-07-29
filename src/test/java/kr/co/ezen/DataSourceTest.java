@@ -3,6 +3,7 @@ package kr.co.ezen;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+
 import javax.sql.DataSource;
 
 import org.junit.Test;
@@ -31,7 +32,6 @@ public class DataSourceTest {
             try {
                conn.close();
             } catch (SQLException e) {
-               // TODO Auto-generated catch block
                e.printStackTrace();
             }
          }

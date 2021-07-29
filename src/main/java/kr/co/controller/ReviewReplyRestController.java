@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +30,7 @@ public class ReviewReplyRestController {
 		int reStar = Integer.parseInt(map.get("reStar").toString());
 		
 		ReviewReplyVO vo = new ReviewReplyVO(reRno, -1, reWriter, reContent, null, null,reStar);
-		
+		System.out.println(vo);
 		int result = rRService.update(vo);
 		
 		return result ;
@@ -81,18 +79,21 @@ public class ReviewReplyRestController {
 		return to;
 	}
 	
-	@RequestMapping(value = "/reply", method = RequestMethod.POST, 
-			produces = "application/text;charset=utf8")
-	public String insert(@RequestBody Map<String, Object> map) {
-		int reBno = Integer.parseInt(map.get("reBno").toString());
-		String reWriter = map.get("reWriter").toString();
-		String reContent = map.get("reContent").toString();
-		int reStar = Integer.parseInt(map.get("reStar").toString());
-		
-		ReviewReplyVO vo =new ReviewReplyVO(-1, reBno, reWriter, reContent, null, null,reStar);
-		
-		rRService.insert(vo);
-		
-		return "입력 완료되엇습니다.";
-	}
+	   @RequestMapping(value = "/reply", method = RequestMethod.POST, 
+		         produces = "application/text;charset=utf8")
+		   public String insert(@RequestBody Map<String, Object> map) {
+		      int reBno = Integer.parseInt(map.get("reBno").toString());
+		      String reWriter = map.get("reWriter").toString();
+		      String reContent = map.get("reContent").toString();
+		      int reStar = Integer.parseInt(map.get("reStar").toString());
+		      
+		      ReviewReplyVO vo =new ReviewReplyVO(-1, reBno, reWriter, reContent, null, null,reStar);
+		      
+		      for(int i=0;i < 12;i++) {
+		    	  vo.setReContent(reContent+i);
+		    	  rRService.insert(vo);
+		      }
+		      
+		      return "입력 완료되엇습니다.";
+		   }
 }
