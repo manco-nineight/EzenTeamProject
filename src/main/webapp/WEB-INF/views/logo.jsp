@@ -136,7 +136,7 @@ a {
 
 	<!-- 최신 시즌 페이지 적용 -->
 	<div class="row" style="text-align: center;">
-		<a href="/"><img  src="/resources/img/new_main.jpg" class="main" width="720px" style="margin-left: 30px"></a>
+		<a href="/"><img  src="/resources/img/new_main.jpg" class="main" width="720px" style="margin-left: 15px"></a>
 	</div>
 </div><!--container end  -->
 

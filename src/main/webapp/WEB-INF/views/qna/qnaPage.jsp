@@ -5,7 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@page import="java.util.List"%>
 <%@page import="kr.co.domain.QNABoardVO"%>
-<link rel="stylesheet" href="/resources/css/qna/qnaPage.css">
+<link rel="stylesheet" href="/resources/css/qna/qnaPage.css?v5">
 <body>
 	<br>
 	<div class="container qnaBoard" style="border: 2px solid grey; width: 750px; margin: auto">
@@ -93,7 +93,7 @@
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default cancelInsert" data-dismiss="modal">취소</button>
 						<button id="question_insert_btn" type="button"
-							class="btn btn-primary">작성 완료</button>
+							class="btn btn-primary qInsert">작성 완료</button>
 					</div>
 				</div>
 			</div>
@@ -134,7 +134,7 @@
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default answercancelInsert" data-dismiss="modal">취소</button>
 						<button id="answer_insert_btn" type="button"
-							class="btn btn-primary">작성 완료</button>
+							class="btn btn-primary aInsert">작성 완료</button>
 					</div>
 				</div>
 			</div>

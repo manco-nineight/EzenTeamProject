@@ -22,12 +22,9 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		HttpSession session =  request.getSession();
 		MemberDTO login = (MemberDTO) session.getAttribute("login");
 		
-		
 		if (login != null) {
 			session.invalidate(); 
 		}
-		
-		
 		
 		return true;
 	}
@@ -36,28 +33,17 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-
 		
 		HttpSession session = request.getSession();
 		Map<String, Object> map = modelAndView.getModel();
 		 Object dto =map.get("login");
 		 
-		 
-		 
 		 if (dto != null) {
 			session.setAttribute("login", dto);
 			
-			
-			
-			
 			response.sendRedirect("/");
 		}else {
-			response.sendRedirect("/member/logunGet");
+			response.sendRedirect("/member/loginGet");
 		}
-		 
 	}
-
-	
-	
-	
 }

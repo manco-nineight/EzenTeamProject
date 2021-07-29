@@ -20,5 +20,5 @@ public interface QNABoardDAO {
 	public ProductVO getBno(String prodName);
 	public int getMyListAmount(String id);
 	public List<QNABoardVO> myList(Integer startNum, String id);
-	
+	public String getProdName(Integer qBno);
 }

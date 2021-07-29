@@ -163,6 +163,8 @@
 			        $('#mail_check_input').attr("disabled", true);
 			        $('#mail_check_result').addClass("hide");
 			        $('#mail_reset_btn').removeClass("hide");
+			        $('.mail_check_button').addClass("hide");
+			        
 			        
 			    } else {                                            // 일치하지 않을 경우
 			        checkResult.html("인증번호를 다시 확인해주세요.");
@@ -184,9 +186,11 @@
 					$("#mail_check_input").val('');
 			        $('#mail_check_input').attr("disabled", true);
 			        $('#mail_check_result').removeClass("hide");
+			        $('#mail_check_result').attr('class','btn btn-default disabled');
 			        $('#mailCheckBox').prop("checked", false);
 			        $('#mail_reset_btn').addClass("hide");
 			        $(".mail_check_input_box").attr("id", "mail_check_input_box_false");
+			        $('.mail_check_button').removeClass("hide");
 			        
 				} else {
 					event.preventDefault();
@@ -196,6 +200,7 @@
 			
 			
 			$(".mail_check_button").click(function(event){
+				
 				event.preventDefault();
 
 				var emailRegExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
@@ -209,17 +214,27 @@
 					event.preventDefault();
 					
 				} else {
-					$.ajax({
-				        type : "get",
-				        url : "/member/mailCheck?userEmail=" + userEmail,
-				        success : function(result){
-				        	alert("인증 번호가 전송되었습니다. \n입력한 이메일을 확인하세요.")
-				        	code = result;
-				        	cehckBox.attr("disabled",false); //입력불가창 해제
-				        	boxWrap.attr("id", "mail_check_input_box_true");
-				        	$('#mail_check_result').attr('class','btn btn-info'); //입력불가창 해제
-				        }      
-				    });
+					userEmailCheck();
+					
+					if (checkUserEmail == 1) {
+						$.ajax({
+					        type : "get",
+					        url : "/member/mailCheck?userEmail=" + userEmail,
+					        success : function(result){
+					        	alert("인증 번호가 전송되었습니다. \n입력한 이메일을 확인하세요.")
+					        	code = result;
+					        	cehckBox.attr("disabled",false); //입력불가창 해제
+					        	boxWrap.attr("id", "mail_check_input_box_true");
+					        	$('#mail_check_result').attr('class','btn btn-info'); //입력불가창 해제
+					        }      
+					    });
+						
+					} else {
+						alert("이미 사용중인 이메일입니다.");
+						event.preventDefault();
+					}
+					
+
 				}
 			});
 			
@@ -262,6 +277,9 @@
 		
 		// 아이디 중복여부 체크 (0 = 중복, 1 = 가능)
 		var checkUserId = 0;
+		
+		// 이메일 중복여부 체크 (0 = 중복, 1 = 가능)
+		var checkUserEmail = 0;
 		
 		// 아이디, 비밀번호, 이름 정규표현식 유효성 검사 변수
 		var idRegExp = /^[a-zA-Z0-9]{4,30}$/;
@@ -356,6 +374,30 @@
 			}); // ajax 종료
 			
 		} // idcheck() 종료
+		
+		
+		// ajax 실시간 이메일 중복 체크 함수
+		function userEmailCheck() {
+			$.ajax({
+				type : "post",
+				url : "/member/emailcheck",
+				data : {
+					userEmail : $("#userEmail").val()
+				},
+				async: false,
+				dataType : "text",
+				success : function(result) {
+					if (result == "1") {
+						checkUserEmail = 0;
+						
+					} else {
+						checkUserEmail = 1;
+					}
+				}
+				
+			}); // ajax 종료
+			
+		} // emailcheck() 종료
 
 	</script>
 	

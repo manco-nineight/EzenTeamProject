@@ -3,7 +3,7 @@
 
 font-size: 30px !important;
 
-color: #E4E4E4;     
+color: rgb(192,192,192);     
 
 cursor: pointer;
 
@@ -22,13 +22,14 @@ margin: 0px 10px;
 
 .bright{
 
-color: yellow;
+color: rgb(33,33,33);
 
 }
 
 
+
 .pagination a.active:hover{
-	background-color: red;
+	background-color: rgb(140,140,140);
 	color: white;
 	}
 	.pagination a:hover:not(.active) {
@@ -40,10 +41,21 @@ color: yellow;
 	}
 	
 	.pagination a.active{
-	   background-color: RoyalBlue;
-	   color: white;
+	   background-color: black;
+	   color: white !important;
 	}
 	
-
+.pageNum ,
+.rePrev ,
+.reNext{
+	color: black !important; 
+}
+.review ,
+.review_insert_btn ,
+.review_btn_update_form{
 	
+	background-color: black;
+	color: white;
+	
+}
 	

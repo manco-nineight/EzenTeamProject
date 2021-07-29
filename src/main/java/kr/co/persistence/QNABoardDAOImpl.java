@@ -50,7 +50,7 @@ public class QNABoardDAOImpl implements QNABoardDAO {
 	@Override
 	public List<QNABoardVO> list(Integer startNum, Integer qBno) {
 
-		RowBounds rb = new RowBounds(startNum-1, 5);
+		RowBounds rb = new RowBounds(startNum-1, 6);
 		List<QNABoardVO> list = session.selectList(NAMESPACE+".list", qBno, rb); 
 		
 		return list;
@@ -95,9 +95,15 @@ public class QNABoardDAOImpl implements QNABoardDAO {
 	@Override
 	public List<QNABoardVO> myList(Integer startNum, String id) {
 		// TODO Auto-generated method stub
-		RowBounds rb = new RowBounds(startNum-1, 5);
+		RowBounds rb = new RowBounds(startNum-1, 6);
 		List<QNABoardVO> list = session.selectList(NAMESPACE+".myList", id, rb); 
 		
 		return list;
+	}
+
+	@Override
+	public String getProdName(Integer qBno) {
+		// TODO Auto-generated method stub
+		return session.selectOne(NAMESPACE + ".getProdName", qBno);
 	}
 }

@@ -121,7 +121,7 @@ a {
 <body>
 <div class="container">
 <div class="logo">
-<a href="/product/prodList"><img src="/resources/img/3.jpg" height="16px;"/></a>
+<a href="/"><img src="/resources/img/3.jpg" height="16px;"/></a>
 </div>
 
 <div style="text-align: center;">
@@ -189,25 +189,24 @@ a {
 					</c:choose>
 					<li><a href="#" id="moveReadSelf">mypage</a></li>
 				</ul>
-			</li>
-			<li>
+				</li>
 			
 			<c:choose>
-					<c:when test="${login.userGrade ==1}">
-				<a href="#">admin</a>
-				<ul class="dep2">
-					
+				<c:when test="${login.userGrade ==1}">
+				<li>
+					<a href="#">admin</a>
+						<ul class="dep2">
 						<li><a href="/member/list">member list</a></li>
 						<li><a href="/member/managementlist">order list</a></li>
 						<li><a href="/product/prodInsert">register product</a></li>
-				</ul>
+					</ul>
+					</li>
 				</c:when>
 			<c:otherwise>
 
 			</c:otherwise>
 
 			</c:choose>
-			</li>
 		</ul>  
 	</div><!--menu wrap end  -->
 	
@@ -244,3 +243,4 @@ a {
 
 </script>
 </body>
+

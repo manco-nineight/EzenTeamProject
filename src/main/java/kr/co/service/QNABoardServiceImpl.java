@@ -96,4 +96,10 @@ public class QNABoardServiceImpl implements QNABoardService {
 		// TODO Auto-generated method stub
 		return qDao.myList(startNum, id);
 	}
+
+	@Override
+	public String getProdName(Integer qBno) {
+		// TODO Auto-generated method stub
+		return qDao.getProdName(qBno);
+	}
 }

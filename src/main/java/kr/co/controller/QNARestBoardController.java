@@ -1,5 +1,6 @@
 package kr.co.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -67,9 +68,9 @@ public class QNARestBoardController {
 		List<QNABoardVO> list = bService.mylist(to.getStartNum(), id);
 		to.setList(list);
 		
-		model.addAttribute("to", to);
+		model.addAttribute("prodNameList", getProdName(list));
 		
-		System.out.println(to.getList().toString());
+		model.addAttribute("to", to);
 	}
 	
 	@RequestMapping(value = "/myList/{id}/{curPage}", method = RequestMethod.GET)
@@ -81,9 +82,24 @@ public class QNARestBoardController {
 		to.setAmount(amount);
 
 		List<QNABoardVO> list = bService.mylist(to.getStartNum(), id);
+		
 		to.setList(list);
+		to.setProdNameList(getProdName(list));
 		
 		return to;
+	}
+	
+	public List<String> getProdName(List<QNABoardVO> list) {
+		
+		List<String> nameList = new ArrayList<String>();
+		
+		for(int i = 0; i < list.size(); i++)
+		{
+			String prodName = bService.getProdName(list.get(i).getqBno());
+			nameList.add(prodName);
+		}
+				
+		return nameList;
 	}
 	
 	@RequestMapping(value = "/list/{qBno}/{curPage}", method = RequestMethod.GET)
@@ -111,8 +127,6 @@ public class QNARestBoardController {
 		List<QNABoardVO> list = bService.list(to.getStartNum(), qBno);
 		to.setList(list);
 		
-		System.out.println("list 진입");
-		
 		return to;
 	}
 	
@@ -123,8 +137,6 @@ public class QNARestBoardController {
 		
 		String password = bService.getPw(qQno);
 		
-		System.out.println("Password : " + password);
-
 		return password.trim();
 	}
 	

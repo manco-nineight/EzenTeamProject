@@ -116,7 +116,7 @@
 							} else {
 								alert("임시 비밀번호를 등록된 이메일 주소로 전송하였습니다.");
 								$("#send_findPw_msg").removeClass("hide");
-								$("#send_findPw_msg").text("임시 비밀번호를 등록된 이메일 주소로 전송하였습니다.");
+								$("#send_findPw_msg").text("임시 비밀번호를 등록된 이메일 주소로 전송하였습니다. 로그인 후 비밀번호를 수정해 주세요 ");
 							}
 						}
 					});

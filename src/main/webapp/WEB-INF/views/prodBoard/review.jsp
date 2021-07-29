@@ -24,7 +24,7 @@
          <h1 class="jumbotron text-center">REVIEW</h1>      
       </div>
       
-      <a class="btn btn-info review" >작성</a>   
+      <a class="btn btn-default review" >작성<span class="glyphicon glyphicon-pencil"></a>   
    
    <div class="row">
       <div class="collapse" id="review_reply">
@@ -48,7 +48,7 @@
                 <label for="reContent">내용</label> <br>
                 <textarea  style="resize:horizontal; width:710px; height:200px; " rows="10" name="reContent" id="reContent" class="form-control reContent" placeholder="500자 이내로 입력해주세요."></textarea>
                 <p style="text-align: right;">
-                <span  class="badge reContentLength">0</span><span>/500</span>
+                <span class="badge reContentLength">0</span><span>/500</span>
                 </p>
              </div>
              
@@ -58,7 +58,7 @@
                           
              <div class="form-group" style="text-align: right;">
              
-                <button  class="btn btn-info review_insert_btn ">등록</button>
+                <button  class="btn btn-default review_insert_btn ">등록<span class="glyphicon glyphicon-ok"></button>
              </div>
            </div>
       </div>
@@ -98,7 +98,8 @@
                   </div>
               <div class="form-group">
                      <label for="reContent_update">글내용</label>
-                     <textarea id="reContent_update" name="reContent" class="form-cotrol"></textarea><br>
+                     <textarea   style="resize:vertical; width:570px; height:120px; " 
+                     id="reContent_update" name="reContent" class="form-cotrol"></textarea><br>
             <div>
                <input id="reStar_update" name="reStar" value="1">
             </div>
@@ -106,8 +107,8 @@
             
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary" data-dismiss="modal" id="review_update_btn">수정</button>
-              <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal" id="review_update_btn"><span class="glyphicon glyphicon-ok"></button>
+              <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></button>
             </div>
           </div>
         </div>
@@ -270,6 +271,7 @@
                alert(result);
                $("#reContent").val("");
                $("#reviewList").html("");
+               $(".reContentLength").text(" ");
                getReviewList(reBno,page);
                }
             });
@@ -352,6 +354,8 @@
             
             var dummyData = data.list;
             reviewList(dummyData);      
+            
+            $(".reRnoHide").hide();
             
             //비화원 및 일반 회원은 다른이의 글의 삭제 및 수정 제한
             $(".review_btn_update_form").hide();

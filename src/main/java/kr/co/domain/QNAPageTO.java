@@ -24,6 +24,9 @@ public class QNAPageTO<T>
 
 	// < 게시글 리스트
 	private List<T> list;
+	
+	// < 게시글 제목 리스트
+	private List<String> prodNameList;
 
 	// < 현재 페이지 기준 왼쪽 시작지점
 	private int beginPageNum;
@@ -81,6 +84,9 @@ public class QNAPageTO<T>
 
 	public List<T> getList() { return list; }
 	public void setList(List<T> list) { this.list = list; }
+	
+	public List<String> getProdNameList() { return prodNameList; }
+	public void setProdNameList(List<String> prodNameList) { this.prodNameList = prodNameList; }
 
 	public int getBeginPageNum() { return beginPageNum; }
 	public void setBeginPageNum(int beginPageNum) { this.beginPageNum = beginPageNum; }

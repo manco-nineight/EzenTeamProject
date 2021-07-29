@@ -156,4 +156,9 @@ public class MemberServiceImpl implements MemberService {
 		return mDao.login(login);
 	}
 
+	@Override
+	public int emailcheck(String userEmail) {
+		return mDao.emailcheck(userEmail);
+	}
+
 }

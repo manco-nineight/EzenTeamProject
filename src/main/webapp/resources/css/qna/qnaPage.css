@@ -8,8 +8,26 @@ div.questionContent {
 	min-height: 120px;
 }
 
-.answerContent {
+div.answerContent {
 	min-height: 120px;
+}
+
+button.goFirst {
+	background-color: black;
+	border-color: black;
+	color: white;
+}
+
+button.qInsert {
+	background-color: black;
+	border-color: black;
+	color: white;
+}
+
+button.aInsert {
+	background-color: black;
+	border-color: black;
+	color: white;
 }
 
 ul.qPagination {
@@ -17,22 +35,37 @@ ul.qPagination {
 	justify-content: center;
 }
 
-.qPagination a.active:hover {
-	background-color: CornflowerBlue;
+ul.qPagination a.qPageNum  {
+	background-color: white;
+	color: black;
+}
+
+ul.qPagination a.qPrev  {
+	background-color: white;
+	color: black;
+}
+
+ul.qPagination a.qNext  {
+	background-color: white;
+	color: black;
+}
+
+ul.qPagination a.active:hover {
+	background-color: rgb(100, 100, 100);
 	color: white;
 }
 
-.qPagination a:hover:not(.active) {
+ul.qPagination a:hover:not(.active) {
 	background-color: silver;
 	color: white;
 }
 
-.qPagination a.active {
-	background-color: RoyalBlue;
+ul.qPagination a.active {
+	background-color: black;
 	color: white;
 }
 
-.qPagination a{
+ul.qPagination a{
 	   border-radius:10%;
 }
 
@@ -57,8 +90,14 @@ a.toggleText:hover {
 }
 
 a.toggleText:active {
-	color: CornflowerBlue;
+	color: rgb(0, 0, 0);
 	text-decoration: none;
+}
+
+a.insertBtn {
+	background-color: black;
+	border-color: black;
+	color: white;
 }
 
 hr.subHorizental {

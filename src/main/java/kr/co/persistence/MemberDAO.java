@@ -60,4 +60,6 @@ public interface MemberDAO {
 
 	List<CartDTO> cartlist(String userId);
 
+	int emailcheck(String userEmail);
+
 }

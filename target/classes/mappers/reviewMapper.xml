@@ -18,7 +18,7 @@
 	</delete>
 
 	<select id="list" resultType="kr.co.domain.ReviewReplyVO">
-		SELECT * FROM review WHERE reBno = #{reBno} ORDER By reRno ASC 
+		SELECT * FROM review WHERE reBno = #{reBno} ORDER By reRno DESC 
 	</select>
 
     <insert id="insert">

@@ -45,6 +45,15 @@ public class MemberController {
 	private BCryptPasswordEncoder userPwEncoder;
 	
 	
+	
+	@ResponseBody
+	@RequestMapping(value = "/emailcheck", method = RequestMethod.POST)
+	public int emailCheck(String userEmail) {
+		int checkResult = mService.emailcheck(userEmail);
+		return checkResult;
+	}
+	
+	
 	@ResponseBody
 	@RequestMapping(value = "/idcheck", method = RequestMethod.POST)
 	public int idCheck(String userId) {
@@ -112,7 +121,8 @@ public class MemberController {
 			String setFrom = "msn6903@naver.com";
 			String toMail = userEmail;
 			String title = "Ezen TestSHOP 임시비밀번호.";
-			String content = userId+"님을 위한 임시비밀번호." + "<br><br>"  + sb + "입니다." + "<br>";
+			String content = userId+"님을 위한 임시비밀번호." + "<br><br>"  + sb + "입니다." + "<br><br>" + "접속 후 비밀번호를 변경해주세요";
+
 			try {
 				
 				MimeMessage message = mailSender.createMimeMessage();
@@ -127,19 +137,11 @@ public class MemberController {
 				e.printStackTrace();
 			}
 			
-			//---------
-	        
-
-
-
-	        
 	        String userPw = sb.toString();
 	        
-//	        String secureUserPw = userPwEncoder.encode(userPw);
-	        //패스워드 빈 문제가 해결되면 수정 요망
-//	        String secureUserPw = userPw.toString();
+	        String secureUserPw = userPwEncoder.encode(userPw);
 
-	        map.put("userPw", userPw);
+	        map.put("userPw", secureUserPw);
 	        
 	        mService.updateFindPw(map);
 	        
@@ -289,87 +291,86 @@ public class MemberController {
 	
 	
 	
-	   @RequestMapping(value = "/orderManagement", method = RequestMethod.POST)
-	   @ResponseBody
-	   public String orderManagement(int orderNum, int orderProdStatus, long orderTrackingNum, String orderUserId) {
-	      if (orderProdStatus == 2) {
-	         System.out.println(orderTrackingNum);
+	@RequestMapping(value = "/orderManagement", method = RequestMethod.POST)
+	@ResponseBody
+	public String orderManagement(int orderNum, int orderProdStatus, long orderTrackingNum, String orderUserId) {
+		if (orderProdStatus == 2) {
+			System.out.println(orderTrackingNum);
 
-	         mService.updateOrderProdStatus(
-	               new OrderVO(orderNum, null, 0, 0, null, null, null, orderProdStatus, orderTrackingNum));
-	      
+			mService.updateOrderProdStatus(
+					new OrderVO(orderNum, null, 0, 0, null, null, null, orderProdStatus, orderTrackingNum));
 
-	         String userEmail = mService.selectEmail(orderUserId);
+			String userEmail = mService.selectEmail(orderUserId);
 
-	         System.out.println(userEmail);
-	         System.out.println("메일 전송 완료");
-	         System.out.println("운송장번호 : " + orderTrackingNum);
+			System.out.println(userEmail);
+			System.out.println("메일 전송 완료");
+			System.out.println("운송장번호 : " + orderTrackingNum);
 
-	         String setFrom = "msn6903@naver.com";
-	         String toMail = userEmail;
-	         String title = "Ezen TestSHOP에서 고객님이 주문하신 상품의 배송이 시작되었습니다.";
-	         String content = "고객님께서 주문하신 상품의 운송장번호는 " + orderTrackingNum + "입니다.";
-	         try {
+			String setFrom = "msn6903@naver.com";
+			String toMail = userEmail;
+			String title = "Ezen TestSHOP에서 고객님이 주문하신 상품의 배송이 시작되었습니다.";
+			String content = "고객님께서 주문하신 상품의 운송장번호는 " + orderTrackingNum + "입니다.";
+			try {
 
-	            MimeMessage message = mailSender.createMimeMessage();
-	            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
-	            helper.setFrom(setFrom);
-	            helper.setTo(toMail);
-	            helper.setSubject(title);
-	            helper.setText(content, true);
-	            mailSender.send(message);
+				MimeMessage message = mailSender.createMimeMessage();
+				MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+				helper.setFrom(setFrom);
+				helper.setTo(toMail);
+				helper.setSubject(title);
+				helper.setText(content, true);
+				mailSender.send(message);
 
-	         } catch (Exception e) {
-	            e.printStackTrace();
-	         }
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
-	         return "1";
+			return "1";
 
-	      } else if (orderProdStatus == 3) {
-	         System.out.println(orderTrackingNum);
+		} else if (orderProdStatus == 3) {
+			System.out.println(orderTrackingNum);
 
-	         mService.updateOrderProdStatus(
-	               new OrderVO(orderNum, null, 0, 0, null, null, null, orderProdStatus, orderTrackingNum));
+			mService.updateOrderProdStatus(
+					new OrderVO(orderNum, null, 0, 0, null, null, null, orderProdStatus, orderTrackingNum));
 
-	         String userEmail = mService.selectEmail(orderUserId);
+			String userEmail = mService.selectEmail(orderUserId);
 
-	         System.out.println(userEmail);
-	         System.out.println("메일 전송 완료");
-	         System.out.println("운송장번호 : " + orderTrackingNum);
+			System.out.println(userEmail);
+			System.out.println("메일 전송 완료");
+			System.out.println("운송장번호 : " + orderTrackingNum);
 
-	         String setFrom = "msn6903@naver.com";
-	         String toMail = userEmail;
-	         String title = "Ezen TestSHOP 상품 도착 알림.";
-	         String content = "고객님께서 주분하신 상품의 배송이 완료되었습니다. 운송장번호 " + orderTrackingNum + "상품에 대한 추가 문의는 홈페이지를 통해 남겨주세요.";
-	         try {
+			String setFrom = "msn6903@naver.com";
+			String toMail = userEmail;
+			String title = "Ezen TestSHOP 상품 도착 알림.";
+			String content = "고객님께서 주분하신 상품의 배송이 완료되었습니다. 운송장번호 " + orderTrackingNum + "상품에 대한 추가 문의는 홈페이지를 통해 남겨주세요.";
+			try {
 
-	            MimeMessage message = mailSender.createMimeMessage();
-	            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
-	            helper.setFrom(setFrom);
-	            helper.setTo(toMail);
-	            helper.setSubject(title);
-	            helper.setText(content, true);
-	            mailSender.send(message);
+				MimeMessage message = mailSender.createMimeMessage();
+				MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+				helper.setFrom(setFrom);
+				helper.setTo(toMail);
+				helper.setSubject(title);
+				helper.setText(content, true);
+				mailSender.send(message);
 
-	         } catch (Exception e) {
-	            e.printStackTrace();
-	         }
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
-	         return "1";
-	      }
+			return "1";
+		}
 
-	      else {
-	         System.out.println(orderTrackingNum);
+		else {
+			System.out.println(orderTrackingNum);
 
-	         mService.updateOrderProdStatus(new OrderVO(orderNum, null, 0, 0, null, null, null, orderProdStatus, 0));
+			mService.updateOrderProdStatus(new OrderVO(orderNum, null, 0, 0, null, null, null, orderProdStatus, 0));
 
-	         String userEmail = mService.selectEmail(orderUserId);
+			String userEmail = mService.selectEmail(orderUserId);
 
-	         System.out.println(userEmail);
+			System.out.println(userEmail);
 
-	         return "1";
-	      }
-	   }
+			return "1";
+		}
+	}
 	
 	
 	@RequestMapping(value = "/deleteOrder", method = RequestMethod.POST)

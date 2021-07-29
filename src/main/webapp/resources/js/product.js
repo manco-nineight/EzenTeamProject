@@ -105,7 +105,7 @@ function review(obj, parentTag){
    var msg = `
    <div class="panel panel-default">
          <div class="panel-heading">
-         <span>reRno: ${reRno}</span>
+         <span class="reRnoHide">reRno: ${reRno}</span>
            <span class="glyphicon glyphicon-user" aria-hidden="true"></span><span>${reWriter}</span>
            <span class="pull-right"><span class="glyphicon glyphicon-time" aria-hidden="true"></span>${reUpdatedate}</span> 
           
@@ -120,9 +120,9 @@ function review(obj, parentTag){
          </div>
          <div class="panel-body">
             <p>${reContent}</p>
-            <div data-reRno='${reRno}' data-reWriter ='${reWriter}'>
-               <a class="btn btn-warning btn-xs review_btn_update_form" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-pencil"></span></a>
-               <a class="btn btn-danger btn-xs review_btn_delete"><span class="glyphicon glyphicon-trash"></span></a>
+            <div data-reRno='${reRno}' data-reWriter ='${reWriter}' style="text-align: right;">
+               <a class="btn btn-default btn-xs review_btn_update_form" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-pencil"></span></a>
+               <a class="btn btn-default btn-xs review_btn_delete"><span class="glyphicon glyphicon-trash"></span></a>
               
             </div>
          </div>

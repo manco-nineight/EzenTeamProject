@@ -255,17 +255,25 @@
 					event.preventDefault();
 					
 				} else {
-					$.ajax({
-				        type : "get",
-				        url : "/member/mailCheck?userEmail=" + userEmail,
-				        success : function(result){
-				        	alert("인증 번호가 전송되었습니다. \n입력한 이메일을 확인하세요.")
-				        	code = result;
-				        	cehckBox.attr("disabled",false); //입력불가창 해제
-				        	boxWrap.attr("id", "mail_check_input_box_true");
-				        	$('#mail_check_result').attr('class','btn btn-info'); //입력불가창 해제
-				        }      
-				    });
+					userEmailCheck();
+					
+					if (checkUserEmail == 1) {
+						$.ajax({
+					        type : "get",
+					        url : "/member/mailCheck?userEmail=" + userEmail,
+					        success : function(result){
+					        	alert("인증 번호가 전송되었습니다. \n입력한 이메일을 확인하세요.")
+					        	code = result;
+					        	cehckBox.attr("disabled",false); //입력불가창 해제
+					        	boxWrap.attr("id", "mail_check_input_box_true");
+					        	$('#mail_check_result').attr('class','btn btn-info'); //입력불가창 해제
+					        }      
+					    });
+						
+					} else {
+						alert("다른 이메일로 인증해주세요.");
+						event.preventDefault();
+					}
 				}
 			});
 			
@@ -358,6 +366,7 @@
 						success : function(userAddressTrue) {
 							alert("회원 업데이트 완료");
 							document.getElementById('userPw').value = "";
+							document.getElementById('userPw2').value = "";
 							document.getElementById('userName').value = userName;
 							document.getElementById('userEmail').value = userEmail;
 							document.getElementById('userBirthday').value = userBirthday;
@@ -424,6 +433,32 @@
 				});
 			});
 		});
+		
+		// 이메일 중복여부 체크 (0 = 중복, 1 = 가능)
+		var checkUserEmail = 0;
+		
+		// ajax 실시간 이메일 중복 체크 함수
+		function userEmailCheck() {
+			$.ajax({
+				type : "post",
+				url : "/member/emailcheck",
+				data : {
+					userEmail : $("#userEmail").val()
+				},
+				async: false,
+				dataType : "text",
+				success : function(result) {
+					if (result == "1") {
+						checkUserEmail = 0;
+						
+					} else {
+						checkUserEmail = 1;
+					}
+				}
+				
+			}); // ajax 종료
+			
+		} // emailcheck() 종료
 		
 	</script>
 

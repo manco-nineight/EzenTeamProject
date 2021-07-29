@@ -143,11 +143,18 @@
   top: 10px;
 }
 
+
 .scrollToTop > img{
-	margin: 100px;
+	
+	
 	width:40px;
 	float: right;
+	position: fixed; /* 포지션 고정 */ 
+	right: 2%; /* 오른쪽에서 2% - %도 할수 있음*/ 
+	bottom: 50px; /* 밑에서 5px */ 
+
 }
+
 
 body{
 font-family: 'Noto Sans KR', sans-serif;

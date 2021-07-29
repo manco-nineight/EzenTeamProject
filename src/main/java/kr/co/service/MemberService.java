@@ -61,5 +61,7 @@ public interface MemberService {
 	
 	String selectEmail(String orderUserId);
 
+	int emailcheck(String userEmail);
+
 
 }

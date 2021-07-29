@@ -257,42 +257,49 @@ td {
 			qFinishPageNum = data.finishPageNum;
 			qTotalPage = data.totalPage;
 			
-			
 			var page =   makePage(qBeginPageNum, qFinishPageNum, qCurPage);
 			$("#qnaPage").html(page);
 			
 			if(qCurPage == 1){
 				$("#qPrev").hide();
-			} 
-			else if(qCurPage == qTotalPage){
+			}
+			else
+			{
+				$("#qPrev").show();
+			}
+			
+			if(qCurPage == qTotalPage){
 				$("#qNext").hide();
 			}
-			else {
-				$("#qPrev").show();
-				
+			else
+			{
 				$("#qNext").show();
 			}
 
+
 			var qnaList = data.list;
+			var prodNameList = data.prodNameList;
+			
 			for(var i = 0; i < qnaList.length; i++)
 			{
 				var obj = qnaList[i];
+				var prodName = prodNameList[i];
 				
 				//< 답글일 경우
 				if(obj['qRepindent'] != 0)
 				{
-					var list = getAnswerList(obj['qTitle'], obj['qWriter'], obj['qUpdatedate'], obj['qContent'], obj['qQno'], obj['qRepindent'], obj['qUserId'], obj['qBno']);
+					var list = getAnswerList(obj['qTitle'], obj['qWriter'], obj['qUpdatedate'], obj['qContent'], obj['qQno'], obj['qRepindent'], obj['qUserId'], prodName);
 				}
 				//< 본문일 경우
 				else
 				{
-					var list = getList(obj['qTitle'], obj['qWriter'], obj['qUpdatedate'], obj['qContent'], obj['qQno'], obj['qRepindent'], obj['qUserId'], obj['qBno']);
+					var list = getList(obj['qTitle'], obj['qWriter'], obj['qUpdatedate'], obj['qContent'], obj['qQno'], obj['qRepindent'], obj['qUserId'], prodName);
 				}
 				
 				list.replace(/\n/gi, "<br>");
 				
 				$("#qnaList").append(list);
-			}
+			 }
 		});
 	}
 	

@@ -47,6 +47,13 @@
 		SELECT prodBno FROM product WHERE prodName = '제품이름'
 	</select>
 	
+	<select id="getProdName" resultType="String">
+		SELECT
+		prodName
+		FROM product
+		WHERE prodBno = #{qBno}
+	</select>
+	
 	<select id="getNowLogin" resultType="kr.co.domain.LoginDTO">
 		SELECT userId, userName, userPw, userGrade FROM member WHERE userId = #{userId}
 	</select>

@@ -43,7 +43,16 @@
 	text-align: left;
 	padding-top: 30px;
 	}
+	.scrollToTop > img{
 	
+	
+	width:40px;
+	float: right;
+	position: fixed; /* 포지션 고정 */ 
+	right: 2%; /* 오른쪽에서 2% - %도 할수 있음*/ 
+	bottom: 50px; /* 밑에서 5px */ 
+
+}
 </style>
 
 </head>
@@ -69,7 +78,7 @@
 			<input type="hidden" value="${vo.prodName}" name="prodName">
 			<input type="hidden" value="${vo.prodPrice}" name="prodPrice">
 			<span style="font-size: 15px;">SIZE &nbsp;:&nbsp;&nbsp;&nbsp;</span>
-				<select class="form-select" name="prodSize" id="prodSize">
+				<select class="form-select" name="prodSize" id="prodSizeForm">
 					<option value="prodStockSSize">S</option>
 					<option value="prodStockMSize">M</option>
 					<option value="prodStockLSize">L</option>
@@ -114,10 +123,39 @@
 			</div>
 		</div>
 		
+		
 	<jsp:include page="/WEB-INF/views/qna/qnaPage.jsp" />
+	<a class="scrollToTop"><img id="scrollToTopbtn" src="/resources/img/images.png"></a>
 	<jsp:include page="/WEB-INF/views/prodBoard/review.jsp"/>
+	
+	
 <script type="text/javascript">
 	$(document).ready(function() {
+		
+		$(window).scroll(function() { 
+			
+			if ($(this).scrollTop() > 250) { //250 넘으면 버튼이 보여짐니다.
+			
+				$('.scrollToTopbtn').fadeIn(); 
+			
+			} else { 
+				
+				$('.scrollToTopbtn').fadeOut(); 
+			
+			} 
+			});
+
+			
+
+			
+		
+		
+		
+		$(".scrollToTop").click(function() {
+			$("html , body").animate({scrollTop : 0} , 500);
+
+			return false;
+		});
 		
 		$(".order").click(function() {
 			$("#orderForm").submit();
@@ -152,7 +190,7 @@
 					data : JSON.stringify({
 						userId : '${login.userId}',
 						prodName : '${vo.prodName}',
-						prodSize : $("#prodSize option:selected").text(),
+						prodSize : $("#prodSizeForm option:selected").text(),
 						amount : $("#amount").val()
 					}),
 					dataType : 'text',
@@ -164,8 +202,12 @@
 						}
 					}
 				});
+			
+	    	  
 	      });
 	      
+	  
+		
 		$(".list").click(function() {
 			location.assign("/product/prodList");
 		});

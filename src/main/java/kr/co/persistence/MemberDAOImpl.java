@@ -173,5 +173,11 @@ public class MemberDAOImpl implements MemberDAO {
 		// TODO Auto-generated method stub
 		return session.selectOne(NAMESPACE+".selectEmail", orderUserId);
 	}
+
+
+	@Override
+	public int emailcheck(String userEmail) {
+		return session.selectOne(NAMESPACE + ".emailcheck", userEmail);
+	}
 	
 }

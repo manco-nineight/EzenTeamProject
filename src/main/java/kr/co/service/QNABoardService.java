@@ -20,4 +20,5 @@ public interface QNABoardService {
 	public ProductVO getBno(String prodName);
 	public int getMyListAmount(String id);
 	public List<QNABoardVO> mylist(Integer startNum, String id);
+	public String getProdName(Integer qBno);
 }

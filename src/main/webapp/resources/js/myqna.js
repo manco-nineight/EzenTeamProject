@@ -30,11 +30,11 @@
    return msg;
 }
 
-  function getList(qTitle, qWriter, qUpdatedate, qContent, qQno, qRepindent, qUserId, qBno)
+  function getList(qTitle, qWriter, qUpdatedate, qContent, qQno, qRepindent, qUserId, prodName)
  {
  	var msg = `
  				<div class="row" style="margin-top: 0px;">
- 					<div class="qBno" id="qBno" style="float: left; margin-left: 30px;">${qBno}</div>&nbsp;&nbsp;&nbsp;&nbsp; 
+ 					<div class="qProdName" id="qProdName" style="width: 100px; white-space:nowrap; text-overflow: ellipsis; overflow: hidden; float: left; margin-left: 30px;">${prodName}</div>&nbsp;&nbsp;&nbsp;&nbsp; 
  					<div class="qUserId" style="display: none;" id="qUserId">${qUserId}</div>
 					<a style="float: left; margin-left: 100px; margin-bottom: 0px; margin-left: 30px;" class="toggleText">
 					${qTitle}
@@ -60,11 +60,11 @@
 	return msg;
  }
  
-   function getAnswerList(qTitle, qWriter, qUpdatedate, qContent, qQno, qRepindent, qUserId, qBno)
+   function getAnswerList(qTitle, qWriter, qUpdatedate, qContent, qQno, qRepindent, qUserId, prodName)
  {
  	var msg = `
  				<div class="row" style="margin-top: 0px;">
- 					<div class="qBno" id="qBno" style="float: left; margin-left: 30px;">${qBno}</div>&nbsp;&nbsp;&nbsp;&nbsp; 
+ 					<div class="qProdName" id="qProdName" style="width: 100px; white-space:nowrap; text-overflow: ellipsis; overflow: hidden; float: left; margin-left: 30px;">${prodName}</div>&nbsp;&nbsp;&nbsp;&nbsp; 
  					<div class="userId" style="display: none;" id="qUserId">${qUserId}</div>
 					<a style="float: left; margin-left: 70px; margin-bottom: 0px; margin-left: 30px;" class="toggleText">
 					&nbsp;&nbsp;&nbsp;↪&nbsp;${qTitle}
